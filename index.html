@@ -105,45 +105,47 @@
     /* Glassmorphism Card Style */
     .liquid-glass-card {
       background: var(--glass-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-shadow);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .liquid-glass-card:hover {
-      border-color: rgba(56, 189, 248, 0.4);
-      transform: translateY(-4px);
+      border-color: rgba(56, 189, 248, 0.5);
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 30px 60px -12px rgba(37, 99, 235, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
 
     .liquid-glass-pill {
       background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
       border: 1px solid var(--glass-border);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     }
 
     .liquid-glass-button {
-      background: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #1d4ed8 100%);
-      box-shadow: 0 8px 25px -4px rgba(37, 99, 235, 0.5);
+      background: linear-gradient(135deg, #2563eb 0%, #38bdf8 50%, #7c3aed 100%);
+      box-shadow: 0 10px 30px -5px rgba(37, 99, 235, 0.6);
       transition: all 0.3s ease;
     }
 
     .liquid-glass-button:hover {
-      box-shadow: 0 12px 30px -2px rgba(56, 189, 248, 0.6);
-      transform: translateY(-2px);
+      box-shadow: 0 15px 40px -2px rgba(56, 189, 248, 0.8);
+      transform: translateY(-2px) scale(1.02);
     }
 
     .liquid-glass-button-secondary {
       background: rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
       border: 1px solid var(--glass-border);
       transition: all 0.3s ease;
     }
 
     .liquid-glass-button-secondary:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(56, 189, 248, 0.4);
+      background: rgba(255, 255, 255, 0.14);
+      border-color: rgba(56, 189, 248, 0.5);
       transform: translateY(-2px);
     }
 
@@ -157,8 +159,8 @@
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(3, 7, 18, 0.8);
-      backdrop-filter: blur(12px);
+      background: rgba(3, 7, 18, 0.82);
+      backdrop-filter: blur(16px);
       z-index: 100;
       display: flex;
       align-items: center;
@@ -183,7 +185,12 @@
 
     /* Multi-page Section Animation */
     .page-section {
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -296,6 +303,14 @@
     <!-- PAGE 1: HOME PAGE -->
     <section id="page-home" class="page-section">
       <div class="pt-12 pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col items-center text-center">
+        
+        <!-- Floating Innovation Badge -->
+        <div class="liquid-glass-pill inline-flex items-center gap-2.5 px-5 py-2 rounded-full text-xs font-medium mb-6 shadow-xl">
+          <span class="w-2 h-2 rounded-full bg-sky-400 animate-ping"></span>
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-sky-400"></i>
+          <span>Digital Product Studio • <span class="text-sky-400 font-semibold">Available for New Projects</span></span>
+        </div>
+
         <h1 class="text-4xl sm:text-6xl lg:text-7xl font-semibold font-heading tracking-tight max-w-4xl leading-[1.12]">
           Crafting intelligent digital experiences for <span class="gradient-text-accent font-bold">ambitious brands</span>.
         </h1>
@@ -365,8 +380,8 @@
           </div>
         </div>
 
-        <!-- Featured Teasers -->
-        <div class="mt-16 w-full max-w-5xl flex flex-col sm:flex-row items-center justify-between gap-4 p-6 rounded-3xl liquid-glass-card">
+        <!-- Featured Teasers Banner -->
+        <div class="mt-16 w-full max-w-5xl flex flex-col sm:flex-row items-center justify-between gap-4 p-6 rounded-3xl liquid-glass-card border border-sky-500/20">
           <div class="text-left">
             <h3 class="text-lg font-semibold font-heading">Explore Our 7 Live Client Showcase Projects</h3>
             <p class="text-xs opacity-70">From DI Coin Reward Engine to IVL Sports Auction & Portfolios.</p>
