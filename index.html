@@ -180,6 +180,11 @@
       pointer-events: none;
       z-index: 1;
     }
+
+    /* Multi-page Section Animation */
+    .page-section {
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
   </style>
 </head>
 <body class="dark">
@@ -187,17 +192,15 @@
   <div class="aurora-bg"></div>
   <canvas id="cyberCanvas"></canvas>
 
-  <!-- NAVBAR HEADER -->
+  <!-- NAVBAR HEADER WITH LOGO IMAGE -->
   <header id="mainHeader" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-6">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div id="navContainer" class="flex items-center justify-between rounded-full px-6 py-3 bg-slate-950/40 backdrop-blur-md border border-slate-800/40 transition-all duration-300">
         
-        <!-- Logo -->
-        <a href="#home" class="flex items-center gap-3 group">
-          <div class="relative w-10 h-10 flex items-center justify-center rounded-xl bg-gradient-to-tr from-blue-600 via-sky-400 to-violet-600 p-[1px] shadow-lg shadow-blue-600/30">
-            <div class="w-full h-full bg-[#030712] rounded-[11px] flex items-center justify-center">
-              <span class="font-heading font-bold text-xl text-sky-400">C</span>
-            </div>
+        <!-- Craftiq Logo Image -->
+        <a href="#home" onclick="showPage('home')" class="flex items-center gap-3 group">
+          <div class="relative w-10 h-10 rounded-xl overflow-hidden shadow-lg shadow-blue-600/30 border border-sky-400/40 shrink-0 group-hover:scale-105 transition-transform bg-slate-900 flex items-center justify-center">
+            <img src="./assets/craftiq-logo.png" alt="Craftiq Logo" class="w-full h-full object-cover" />
           </div>
           <div class="flex flex-col">
             <span class="font-heading font-bold text-xl tracking-tight dark:text-white text-slate-900">
@@ -207,29 +210,29 @@
           </div>
         </a>
 
-        <!-- Desktop Navigation Items -->
+        <!-- Desktop Navigation Multi-Page Tabs -->
         <nav class="hidden lg:flex items-center gap-1.5 p-1 rounded-full liquid-glass-pill">
-          <a href="#home" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
+          <button onclick="showPage('home')" data-page="home" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
             <i data-lucide="home" class="w-3.5 h-3.5"></i><span>Home</span>
-          </a>
-          <a href="#services" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
+          </button>
+          <button onclick="showPage('services')" data-page="services" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
             <i data-lucide="layers" class="w-3.5 h-3.5"></i><span>Services</span>
-          </a>
-          <a href="#projects" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
+          </button>
+          <button onclick="showPage('projects')" data-page="projects" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
             <i data-lucide="folder-git-2" class="w-3.5 h-3.5"></i><span>Projects</span>
-          </a>
-          <a href="#team" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
+          </button>
+          <button onclick="showPage('team')" data-page="team" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
             <i data-lucide="users" class="w-3.5 h-3.5"></i><span>About & Team</span>
-          </a>
-          <a href="#estimator" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
+          </button>
+          <button onclick="showPage('estimator')" data-page="estimator" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
             <i data-lucide="calculator" class="w-3.5 h-3.5"></i><span>Estimator</span>
-          </a>
-          <a href="#careers" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
+          </button>
+          <button onclick="showPage('careers')" data-page="careers" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
             <i data-lucide="briefcase" class="w-3.5 h-3.5"></i><span>Careers</span>
-          </a>
-          <a href="#contact" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
+          </button>
+          <button onclick="showPage('contact')" data-page="contact" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
             <i data-lucide="mail" class="w-3.5 h-3.5"></i><span>Contact</span>
-          </a>
+          </button>
         </nav>
 
         <!-- Right Action Controls -->
@@ -259,27 +262,27 @@
 
     <!-- Mobile Drawer -->
     <div id="mobileDrawer" class="hidden lg:hidden fixed inset-x-4 top-20 p-6 liquid-glass-card rounded-3xl z-50 border space-y-2">
-      <a href="#home" onclick="closeMobileDrawer()" class="flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
+      <button onclick="showPage('home'); closeMobileDrawer();" class="w-full flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
         <span class="flex items-center gap-2.5"><i data-lucide="home" class="w-4 h-4 text-sky-400"></i><span>Home</span></span>
-      </a>
-      <a href="#services" onclick="closeMobileDrawer()" class="flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
+      </button>
+      <button onclick="showPage('services'); closeMobileDrawer();" class="w-full flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
         <span class="flex items-center gap-2.5"><i data-lucide="layers" class="w-4 h-4 text-sky-400"></i><span>Services</span></span>
-      </a>
-      <a href="#projects" onclick="closeMobileDrawer()" class="flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
+      </button>
+      <button onclick="showPage('projects'); closeMobileDrawer();" class="w-full flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
         <span class="flex items-center gap-2.5"><i data-lucide="folder-git-2" class="w-4 h-4 text-sky-400"></i><span>Projects</span></span>
-      </a>
-      <a href="#team" onclick="closeMobileDrawer()" class="flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
+      </button>
+      <button onclick="showPage('team'); closeMobileDrawer();" class="w-full flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
         <span class="flex items-center gap-2.5"><i data-lucide="users" class="w-4 h-4 text-sky-400"></i><span>About & Team</span></span>
-      </a>
-      <a href="#estimator" onclick="closeMobileDrawer()" class="flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
+      </button>
+      <button onclick="showPage('estimator'); closeMobileDrawer();" class="w-full flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
         <span class="flex items-center gap-2.5"><i data-lucide="calculator" class="w-4 h-4 text-sky-400"></i><span>Estimator</span></span>
-      </a>
-      <a href="#careers" onclick="closeMobileDrawer()" class="flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
+      </button>
+      <button onclick="showPage('careers'); closeMobileDrawer();" class="w-full flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
         <span class="flex items-center gap-2.5"><i data-lucide="briefcase" class="w-4 h-4 text-sky-400"></i><span>Careers</span></span>
-      </a>
-      <a href="#contact" onclick="closeMobileDrawer()" class="flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
+      </button>
+      <button onclick="showPage('contact'); closeMobileDrawer();" class="w-full flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
         <span class="flex items-center gap-2.5"><i data-lucide="mail" class="w-4 h-4 text-sky-400"></i><span>Contact</span></span>
-      </a>
+      </button>
       <button onclick="closeMobileDrawer(); openHireModal();" class="liquid-glass-button w-full mt-4 py-3 rounded-2xl text-white font-semibold text-xs shadow-lg flex items-center justify-center gap-2">
         <i data-lucide="sparkles" class="w-4 h-4"></i>
         <span>Start Your Project</span>
@@ -287,83 +290,96 @@
     </div>
   </header>
 
-  <!-- MAIN SCROLLING CONTENT CONTAINER -->
-  <main class="relative z-10 pt-28 pb-16 space-y-24">
+  <!-- MULTI-PAGE VIEW CONTAINER -->
+  <main class="relative z-10 pt-28 pb-16 min-h-[75vh]">
 
-    <!-- 1. HERO SECTION -->
-    <section id="home" class="pt-12 pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col items-center text-center">
-      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-semibold font-heading tracking-tight max-w-4xl leading-[1.12]">
-        Crafting intelligent digital experiences for <span class="gradient-text-accent font-bold">ambitious brands</span>.
-      </h1>
+    <!-- PAGE 1: HOME PAGE -->
+    <section id="page-home" class="page-section">
+      <div class="pt-12 pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col items-center text-center">
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-semibold font-heading tracking-tight max-w-4xl leading-[1.12]">
+          Crafting intelligent digital experiences for <span class="gradient-text-accent font-bold">ambitious brands</span>.
+        </h1>
 
-      <p class="mt-6 opacity-80 text-base sm:text-lg max-w-2xl font-normal leading-relaxed">
-        We design and build modern websites, mobile apps, custom AI agents, and brand systems that help your business scale effortlessly.
-      </p>
+        <p class="mt-6 opacity-80 text-base sm:text-lg max-w-2xl font-normal leading-relaxed">
+          We design and build modern websites, mobile apps, custom AI agents, and brand systems that help your business scale effortlessly.
+        </p>
 
-      {/* 4 Feature Pill Badges */}
-      <div class="mt-6 flex flex-wrap items-center justify-center gap-2.5 max-w-3xl">
-        <span class="liquid-glass-pill px-4 py-1.5 rounded-full text-xs font-medium">Modern Web & Mobile Apps</span>
-        <span class="liquid-glass-pill px-4 py-1.5 rounded-full text-xs font-medium">Autonomous AI Workflows</span>
-        <span class="liquid-glass-pill px-4 py-1.5 rounded-full text-xs font-medium">Fluid 60fps UI/UX</span>
-        <span class="liquid-glass-pill px-4 py-1.5 rounded-full text-xs font-medium">Scalable Cloud Systems</span>
-      </div>
-
-      {/* 3 Hero Action Buttons */}
-      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
-        <button onclick="openHireModal()" class="liquid-glass-button px-8 py-3.5 rounded-full text-white font-semibold text-sm shadow-xl flex items-center gap-2.5">
-          <span>Start Your Project</span>
-          <i data-lucide="arrow-right" class="w-4 h-4"></i>
-        </button>
-
-        <a href="#services" class="liquid-glass-button-secondary px-8 py-3.5 rounded-full text-sm font-medium flex items-center gap-2">
-          <i data-lucide="layers" class="w-4 h-4 text-sky-400"></i>
-          <span>Explore Services</span>
-        </a>
-
-        <a href="#contact" class="liquid-glass-button-secondary px-8 py-3.5 rounded-full text-sm font-medium flex items-center gap-2">
-          <i data-lucide="compass" class="w-4 h-4 text-violet-400"></i>
-          <span>Book Free Consultation</span>
-        </a>
-      </div>
-
-      {/* 4 Stat Metric Cards */}
-      <div class="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-5xl">
-        <div class="liquid-glass-card p-5 rounded-2xl text-left relative overflow-hidden group">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-[9px] font-mono uppercase px-2 py-0.5 rounded-md liquid-glass-pill tracking-wider opacity-80">GUARANTEED</span>
-          </div>
-          <div class="text-2xl sm:text-3xl font-semibold font-heading tracking-tight">100%</div>
-          <div class="text-xs opacity-70 mt-1 font-medium">Client Satisfaction</div>
+        <!-- 4 Feature Pill Badges -->
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-2.5 max-w-3xl">
+          <span class="liquid-glass-pill px-4 py-1.5 rounded-full text-xs font-medium">Modern Web & Mobile Apps</span>
+          <span class="liquid-glass-pill px-4 py-1.5 rounded-full text-xs font-medium">Autonomous AI Workflows</span>
+          <span class="liquid-glass-pill px-4 py-1.5 rounded-full text-xs font-medium">Fluid 60fps UI/UX</span>
+          <span class="liquid-glass-pill px-4 py-1.5 rounded-full text-xs font-medium">Scalable Cloud Systems</span>
         </div>
 
-        <div class="liquid-glass-card p-5 rounded-2xl text-left relative overflow-hidden group">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-[9px] font-mono uppercase px-2 py-0.5 rounded-md liquid-glass-pill tracking-wider opacity-80">NEXT-GEN</span>
-          </div>
-          <div class="text-2xl sm:text-3xl font-semibold font-heading tracking-tight">20+</div>
-          <div class="text-xs opacity-70 mt-1 font-medium">Tech Stack Capabilities</div>
+        <!-- 3 Hero Action Buttons -->
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+          <button onclick="openHireModal()" class="liquid-glass-button px-8 py-3.5 rounded-full text-white font-semibold text-sm shadow-xl flex items-center gap-2.5">
+            <span>Start Your Project</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+
+          <button onclick="showPage('services')" class="liquid-glass-button-secondary px-8 py-3.5 rounded-full text-sm font-medium flex items-center gap-2">
+            <i data-lucide="layers" class="w-4 h-4 text-sky-400"></i>
+            <span>Explore Services</span>
+          </button>
+
+          <button onclick="showPage('contact')" class="liquid-glass-button-secondary px-8 py-3.5 rounded-full text-sm font-medium flex items-center gap-2">
+            <i data-lucide="compass" class="w-4 h-4 text-violet-400"></i>
+            <span>Book Free Consultation</span>
+          </button>
         </div>
 
-        <div class="liquid-glass-card p-5 rounded-2xl text-left relative overflow-hidden group">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-[9px] font-mono uppercase px-2 py-0.5 rounded-md liquid-glass-pill tracking-wider opacity-80">ENTERPRISE</span>
+        <!-- 4 Stat Metric Cards -->
+        <div class="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-5xl">
+          <div class="liquid-glass-card p-5 rounded-2xl text-left relative overflow-hidden group">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[9px] font-mono uppercase px-2 py-0.5 rounded-md liquid-glass-pill tracking-wider opacity-80">GUARANTEED</span>
+            </div>
+            <div class="text-2xl sm:text-3xl font-semibold font-heading tracking-tight">100%</div>
+            <div class="text-xs opacity-70 mt-1 font-medium">Client Satisfaction</div>
           </div>
-          <div class="text-2xl sm:text-3xl font-semibold font-heading tracking-tight">99.9%</div>
-          <div class="text-xs opacity-70 mt-1 font-medium">System Performance</div>
+
+          <div class="liquid-glass-card p-5 rounded-2xl text-left relative overflow-hidden group">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[9px] font-mono uppercase px-2 py-0.5 rounded-md liquid-glass-pill tracking-wider opacity-80">NEXT-GEN</span>
+            </div>
+            <div class="text-2xl sm:text-3xl font-semibold font-heading tracking-tight">20+</div>
+            <div class="text-xs opacity-70 mt-1 font-medium">Tech Stack Capabilities</div>
+          </div>
+
+          <div class="liquid-glass-card p-5 rounded-2xl text-left relative overflow-hidden group">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[9px] font-mono uppercase px-2 py-0.5 rounded-md liquid-glass-pill tracking-wider opacity-80">ENTERPRISE</span>
+            </div>
+            <div class="text-2xl sm:text-3xl font-semibold font-heading tracking-tight">99.9%</div>
+            <div class="text-xs opacity-70 mt-1 font-medium">System Performance</div>
+          </div>
+
+          <div class="liquid-glass-card p-5 rounded-2xl text-left relative overflow-hidden group">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[9px] font-mono uppercase px-2 py-0.5 rounded-md liquid-glass-pill tracking-wider opacity-80">GLOBAL</span>
+            </div>
+            <div class="text-2xl sm:text-3xl font-semibold font-heading tracking-tight">24/7</div>
+            <div class="text-xs opacity-70 mt-1 font-medium">Dedicated Support</div>
+          </div>
         </div>
 
-        <div class="liquid-glass-card p-5 rounded-2xl text-left relative overflow-hidden group">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-[9px] font-mono uppercase px-2 py-0.5 rounded-md liquid-glass-pill tracking-wider opacity-80">GLOBAL</span>
+        <!-- Featured Teasers -->
+        <div class="mt-16 w-full max-w-5xl flex flex-col sm:flex-row items-center justify-between gap-4 p-6 rounded-3xl liquid-glass-card">
+          <div class="text-left">
+            <h3 class="text-lg font-semibold font-heading">Explore Our 7 Live Client Showcase Projects</h3>
+            <p class="text-xs opacity-70">From DI Coin Reward Engine to IVL Sports Auction & Portfolios.</p>
           </div>
-          <div class="text-2xl sm:text-3xl font-semibold font-heading tracking-tight">24/7</div>
-          <div class="text-xs opacity-70 mt-1 font-medium">Dedicated Support</div>
+          <button onclick="showPage('projects')" class="liquid-glass-button px-6 py-2.5 rounded-full text-xs font-semibold text-white shrink-0 flex items-center gap-2">
+            <span>View All Projects</span><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
         </div>
       </div>
     </section>
 
-    <!-- 2. SERVICES SECTION -->
-    <section id="services" class="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pt-8">
+    <!-- PAGE 2: SERVICES PAGE -->
+    <section id="page-services" class="page-section hidden px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pt-8">
       <div class="text-center max-w-3xl mx-auto mb-12">
         <div class="liquid-glass-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium mb-3">
           <i data-lucide="layers" class="w-3.5 h-3.5 text-sky-400"></i>
@@ -374,7 +390,6 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        
         <div class="liquid-glass-card p-8 rounded-3xl flex flex-col justify-between group">
           <div>
             <div class="w-12 h-12 rounded-2xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 mb-6 group-hover:scale-110 transition-transform">
@@ -481,12 +496,11 @@
             <span>Request Cloud Infrastructure</span><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
           </button>
         </div>
-
       </div>
     </section>
 
-    <!-- 3. FEATURED SHOWCASE PROJECTS SECTION -->
-    <section id="projects" class="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pt-8">
+    <!-- PAGE 3: PROJECTS PAGE -->
+    <section id="page-projects" class="page-section hidden px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pt-8">
       <div class="text-center max-w-3xl mx-auto mb-12">
         <div class="liquid-glass-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium mb-3">
           <i data-lucide="folder-git-2" class="w-3.5 h-3.5 text-sky-400"></i>
@@ -497,7 +511,6 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
         <!-- Project 1: DI Coin Platform -->
         <div class="liquid-glass-card rounded-3xl overflow-hidden group flex flex-col justify-between">
           <div>
@@ -679,12 +692,11 @@
             </a>
           </div>
         </div>
-
       </div>
     </section>
 
-    <!-- 4. TEAM SECTION -->
-    <section id="team" class="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pt-8">
+    <!-- PAGE 4: TEAM PAGE -->
+    <section id="page-team" class="page-section hidden px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pt-8">
       <div class="text-center max-w-3xl mx-auto mb-12">
         <div class="liquid-glass-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium mb-3">
           <i data-lucide="users" class="w-3.5 h-3.5 text-sky-400"></i>
@@ -778,8 +790,8 @@
       </div>
     </section>
 
-    <!-- 5. ESTIMATOR SECTION -->
-    <section id="estimator" class="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto pt-8">
+    <!-- PAGE 5: ESTIMATOR PAGE -->
+    <section id="page-estimator" class="page-section hidden px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto pt-8">
       <div class="liquid-glass-card p-8 sm:p-12 rounded-3xl border border-violet-500/30 text-center">
         <div class="liquid-glass-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium mb-4">
           <i data-lucide="calculator" class="w-3.5 h-3.5 text-violet-400"></i>
@@ -812,8 +824,8 @@
       </div>
     </section>
 
-    <!-- 6. CAREERS SECTION -->
-    <section id="careers" class="px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto pt-8">
+    <!-- PAGE 6: CAREERS PAGE -->
+    <section id="page-careers" class="page-section hidden px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto pt-8">
       <div class="liquid-glass-card p-8 sm:p-12 rounded-3xl text-center">
         <div class="liquid-glass-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium mb-4">
           <i data-lucide="briefcase" class="w-3.5 h-3.5 text-sky-400"></i>
@@ -856,8 +868,8 @@
       </div>
     </section>
 
-    <!-- 7. CONTACT SECTION -->
-    <section id="contact" class="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto pt-8">
+    <!-- PAGE 7: CONTACT PAGE -->
+    <section id="page-contact" class="page-section hidden px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto pt-8">
       <div class="text-center max-w-3xl mx-auto mb-12">
         <div class="liquid-glass-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium mb-3">
           <i data-lucide="mail" class="w-3.5 h-3.5 text-sky-400"></i>
@@ -890,10 +902,12 @@
 
   </main>
 
-  <!-- FOOTER -->
+  <!-- FOOTER WITH CRAFTIQ LOGO -->
   <footer class="relative z-10 border-t border-slate-800/80 py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-xs opacity-75">
     <div class="flex items-center gap-3">
-      <div class="w-7 h-7 flex items-center justify-center rounded-lg bg-sky-500/20 text-sky-400 font-bold text-sm">C</div>
+      <div class="w-7 h-7 rounded-lg overflow-hidden border border-sky-400/40 shrink-0">
+        <img src="./assets/craftiq-logo.png" alt="Craftiq Logo" class="w-full h-full object-cover" />
+      </div>
       <span class="font-heading font-semibold text-sm">Craftiq Digital Product Studio</span>
     </div>
     <div>© 2026 Craftiq. All rights reserved. Built in Kerala, India.</div>
@@ -967,6 +981,39 @@
     if (typeof lucide !== 'undefined' && lucide.createIcons) {
       lucide.createIcons();
     }
+
+    // MULTI-PAGE TAB ROUTER
+    function showPage(pageId) {
+      document.querySelectorAll('.page-section').forEach(el => el.classList.add('hidden'));
+      const target = document.getElementById('page-' + pageId);
+      if (target) {
+        target.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      document.querySelectorAll('.nav-link').forEach(el => {
+        if (el.getAttribute('data-page') === pageId) {
+          el.classList.add('liquid-glass-button', 'text-white', 'shadow-lg');
+          el.classList.remove('opacity-70');
+        } else {
+          el.classList.remove('liquid-glass-button', 'text-white', 'shadow-lg');
+          el.classList.add('opacity-70');
+        }
+      });
+      try {
+        window.location.hash = pageId;
+      } catch(e) {}
+    }
+
+    function handleInitialPage() {
+      let hash = window.location.hash.replace('#', '');
+      if (!hash || !document.getElementById('page-' + hash)) {
+        hash = 'home';
+      }
+      showPage(hash);
+    }
+    window.addEventListener('hashchange', handleInitialPage);
+    handleInitialPage();
 
     // Canvas Particles
     function initCanvas() {
