@@ -937,14 +937,16 @@
                 scrolled ? 'liquid-glass-card shadow-2xl' : 'bg-slate-950/20 dark:bg-slate-950/40 backdrop-blur-md border border-slate-800/40'
               }`}>
                 <a href="#home" onClick={(e)=>{ e.preventDefault(); navigateTo('home'); }} className="flex items-center gap-3 group">
-                  <div className="relative w-10 h-10 rounded-xl overflow-hidden shadow-lg shadow-blue-600/30 border border-sky-400/40 shrink-0 group-hover:scale-105 transition-transform">
-                    <img src="./assets/craftiq-logo.png" alt="Craftiq Logo" className="w-full h-full object-cover" />
+                  <div className="relative w-10 h-10 flex items-center justify-center rounded-xl bg-gradient-to-tr from-blue-600 via-sky-400 to-violet-600 p-[1px] shadow-lg shadow-blue-600/30">
+                    <div className="w-full h-full bg-[#030712] rounded-[11px] flex items-center justify-center">
+                      <span className="font-heading font-bold text-xl text-sky-400">C</span>
+                    </div>
                   </div>
                   <div className="flex flex-col">
                     <span className="font-heading font-bold text-xl tracking-tight dark:text-white text-slate-900">
                       Craft<span className="text-sky-500">iq</span>
                     </span>
-                    <span className="text-[9px] font-sans tracking-wider opacity-60 capitalize -mt-1 hidden sm:block">Digital Studio</span>
+                    <span className="text-[9px] font-sans tracking-wider opacity-60 capitalize -mt-1 hidden sm:block">Digital Product Studio</span>
                   </div>
                 </a>
 
@@ -1035,12 +1037,6 @@
             
             {/* HERO SECTION */}
             <section id="home" className="pt-12 pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col items-center text-center">
-                  <div className="liquid-glass-pill inline-flex items-center gap-2.5 px-5 py-2 rounded-full text-xs font-medium mb-6 shadow-xl animate-float-slow">
-                    <span className="w-2 h-2 rounded-full bg-sky-400 animate-ping"></span>
-                    <i data-lucide="sparkles" className="w-3.5 h-3.5 text-sky-400"></i>
-                    <span>Digital Innovation Studio • <DynamicBadge /></span>
-                  </div>
-
                   <h1 className="text-4xl sm:text-6xl lg:text-7xl font-semibold font-heading tracking-tight max-w-4xl leading-[1.12]">
                     Crafting intelligent digital experiences for <span className="gradient-text-accent font-bold">ambitious brands</span>.
                   </h1>
@@ -1049,6 +1045,15 @@
                     We design and build modern websites, mobile apps, custom AI agents, and brand systems that help your business scale effortlessly.
                   </p>
 
+                  {/* 4 Feature Pill Badges */}
+                  <div className="mt-6 flex flex-wrap items-center justify-center gap-2.5 max-w-3xl">
+                    <span className="liquid-glass-pill px-4 py-1.5 rounded-full text-xs font-medium">Modern Web & Mobile Apps</span>
+                    <span className="liquid-glass-pill px-4 py-1.5 rounded-full text-xs font-medium">Autonomous AI Workflows</span>
+                    <span className="liquid-glass-pill px-4 py-1.5 rounded-full text-xs font-medium">Fluid 60fps UI/UX</span>
+                    <span className="liquid-glass-pill px-4 py-1.5 rounded-full text-xs font-medium">Scalable Cloud Systems</span>
+                  </div>
+
+                  {/* 3 Hero Action Buttons */}
                   <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
                     <button
                       onClick={() => setIsHireModalOpen(true)}
@@ -1063,27 +1068,30 @@
                       className="liquid-glass-button-secondary px-8 py-3.5 rounded-full text-sm font-medium flex items-center gap-2"
                     >
                       <i data-lucide="layers" className="w-4 h-4 text-sky-400"></i>
-                      <span>Explore All Services</span>
+                      <span>Explore Services</span>
                     </button>
 
                     <button
-                      onClick={() => navigateTo('estimator')}
+                      onClick={() => navigateTo('contact')}
                       className="liquid-glass-button-secondary px-8 py-3.5 rounded-full text-sm font-medium flex items-center gap-2"
                     >
-                      <i data-lucide="calculator" className="w-4 h-4 text-violet-400"></i>
-                      <span>AI Cost Estimator</span>
+                      <i data-lucide="compass" className="w-4 h-4 text-violet-400"></i>
+                      <span>Book Free Consultation</span>
                     </button>
                   </div>
 
-                  {/* 4 Stat Metric Cards */}
+                  {/* 4 Stat Metric Cards with Badges */}
                   <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-5xl">
                     {[
-                      { val: '100%', label: 'Client Satisfaction', badge: 'Guaranteed' },
-                      { val: '20+', label: 'Tech Stack Capabilities', badge: 'Next-Gen' },
-                      { val: '99.9%', label: 'System Performance', badge: 'Enterprise' },
-                      { val: '24/7', label: 'Dedicated Support', badge: 'Global' }
+                      { val: '100%', label: 'Client Satisfaction', badge: 'GUARANTEED' },
+                      { val: '20+', label: 'Tech Stack Capabilities', badge: 'NEXT-GEN' },
+                      { val: '99.9%', label: 'System Performance', badge: 'ENTERPRISE' },
+                      { val: '24/7', label: 'Dedicated Support', badge: 'GLOBAL' }
                     ].map((stat, idx) => (
                       <div key={idx} className="liquid-glass-card p-5 rounded-2xl text-left relative overflow-hidden group">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-[9px] font-mono uppercase px-2 py-0.5 rounded-md liquid-glass-pill tracking-wider opacity-80">{stat.badge}</span>
+                        </div>
                         <div className="text-2xl sm:text-3xl font-semibold font-heading tracking-tight">{stat.val}</div>
                         <div className="text-xs opacity-70 mt-1 font-medium">{stat.label}</div>
                       </div>
