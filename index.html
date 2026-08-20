@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CRAFTIQ — Crafting Intelligent Digital Experiences</title>
-  <meta name="description" content="Craftiq designs and develops premium websites, mobile applications, AI chatbots, AI agents, branding, automation systems, and modern digital experiences." />
+  <title>CRAFTIQ — Digital Product Studio</title>
+  <meta name="description" content="Craftiq designs and develops minimal, high-precision websites, mobile applications, AI agents, and brand systems." />
   <link rel="icon" type="image/png" href="./assets/craftiq-logo.png" />
   <link rel="apple-touch-icon" href="./assets/craftiq-logo.png" />
 
   <!-- Google Fonts: Plus Jakarta Sans & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -21,11 +21,11 @@
       theme: {
         extend: {
           colors: {
-            bgMain: '#030712',
-            surfaceCard: '#0F172A',
-            primaryGlow: '#2563EB',
-            secondaryGlow: '#38BDF8',
-            accentGlow: '#7C3AED',
+            bgMain: '#07090E',
+            surfaceCard: '#0F1420',
+            surfaceHover: '#161D2E',
+            primarySky: '#38BDF8',
+            accentBlue: '#2563EB',
             textPrimary: '#F8FAFC',
             textMuted: '#94A3B8',
           },
@@ -42,125 +42,77 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
-    /* Dark Theme Variables */
-    html.dark {
-      --bg-main: #030712;
-      --surface-card: #0f172a;
-      --text-primary: #f8fafc;
-      --text-secondary: #cbd5e1;
-      --text-muted: #94a3b8;
-      --glass-bg: rgba(15, 23, 42, 0.75);
-      --glass-border: rgba(255, 255, 255, 0.14);
-      --glass-shadow: 0 14px 45px -12px rgba(3, 7, 18, 0.85);
-      --aurora-1: rgba(124, 58, 237, 0.25);
-      --aurora-2: rgba(37, 99, 235, 0.3);
-      --aurora-3: rgba(56, 189, 248, 0.25);
-      --grid-color: rgba(255, 255, 255, 0.03);
-    }
-
-    /* Light Theme Variables */
-    html.light {
-      --bg-main: #f8fafc;
-      --surface-card: #ffffff;
-      --text-primary: #0f172a;
-      --text-secondary: #334155;
-      --text-muted: #64748b;
-      --glass-bg: rgba(255, 255, 255, 0.85);
-      --glass-border: rgba(15, 23, 42, 0.09);
-      --glass-shadow: 0 14px 40px -10px rgba(15, 23, 42, 0.08);
-      --aurora-1: rgba(124, 58, 237, 0.1);
-      --aurora-2: rgba(37, 99, 235, 0.14);
-      --aurora-3: rgba(56, 189, 248, 0.12);
-      --grid-color: rgba(15, 23, 42, 0.03);
-    }
-
     body {
-      background-color: var(--bg-main);
-      color: var(--text-primary);
+      background-color: #07090E;
+      color: #F8FAFC;
       font-family: 'Inter', sans-serif;
       overflow-x: hidden;
-      transition: background-color 0.4s ease, color 0.4s ease;
     }
 
     h1, h2, h3, h4, .font-heading {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.025em;
     }
 
-    /* Background Grid & Aurora Glows */
-    .aurora-bg {
+    /* Minimalist Subdued Grid */
+    .bg-grid {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 0;
       background-image: 
-        radial-gradient(circle at 15% 15%, var(--aurora-1) 0%, transparent 45%),
-        radial-gradient(circle at 85% 30%, var(--aurora-2) 0%, transparent 50%),
-        radial-gradient(circle at 50% 80%, var(--aurora-3) 0%, transparent 55%),
-        linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
-      background-size: 100% 100%, 100% 100%, 100% 100%, 48px 48px, 48px 48px;
+        radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.08) 0%, transparent 60%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 40px 40px, 40px 40px;
     }
 
-    /* Glassmorphism Card Style */
-    .liquid-glass-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Sleek Minimal Surface Cards */
+    .minimal-card {
+      background: #0F1420;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .liquid-glass-card:hover {
-      border-color: rgba(56, 189, 248, 0.5);
-      transform: translateY(-6px) scale(1.01);
-      box-shadow: 0 30px 60px -12px rgba(37, 99, 235, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
-
-    .liquid-glass-pill {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(14px);
-      border: 1px solid var(--glass-border);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .liquid-glass-button {
-      background: linear-gradient(135deg, #2563eb 0%, #38bdf8 50%, #7c3aed 100%);
-      box-shadow: 0 10px 30px -5px rgba(37, 99, 235, 0.6);
-      transition: all 0.3s ease;
-    }
-
-    .liquid-glass-button:hover {
-      box-shadow: 0 15px 40px -2px rgba(56, 189, 248, 0.8);
-      transform: translateY(-2px) scale(1.02);
-    }
-
-    .liquid-glass-button-secondary {
-      background: rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(14px);
-      border: 1px solid var(--glass-border);
-      transition: all 0.3s ease;
-    }
-
-    .liquid-glass-button-secondary:hover {
-      background: rgba(255, 255, 255, 0.14);
-      border-color: rgba(56, 189, 248, 0.5);
+    .minimal-card:hover {
+      background: #141B2B;
+      border-color: rgba(56, 189, 248, 0.35);
       transform: translateY(-2px);
     }
 
-    .gradient-text-accent {
-      background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .minimal-pill {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    /* Modal Backdrop */
+    .btn-primary {
+      background: #2563EB;
+      color: #ffffff;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      background: #3B82F6;
+      box-shadow: 0 4px 20px rgba(37, 99, 235, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(3, 7, 18, 0.82);
-      backdrop-filter: blur(16px);
+      background: rgba(7, 9, 14, 0.85);
+      backdrop-filter: blur(8px);
       z-index: 100;
       display: flex;
       align-items: center;
@@ -168,7 +120,7 @@
       padding: 1rem;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.25s ease;
     }
 
     .modal-overlay.active {
@@ -176,694 +128,510 @@
       pointer-events: auto;
     }
 
-    #cyberCanvas {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    /* Multi-page Section Animation */
     .page-section {
-      animation: fadeIn 0.4s ease-out forwards;
+      animation: fadeIn 0.3s ease-out forwards;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(12px); }
+      from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body class="dark">
 
-  <div class="aurora-bg"></div>
-  <canvas id="cyberCanvas"></canvas>
+  <div class="bg-grid"></div>
 
-  <!-- NAVBAR HEADER WITH LOGO IMAGE -->
-  <header id="mainHeader" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-6">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div id="navContainer" class="flex items-center justify-between rounded-full px-6 py-3 bg-slate-950/40 backdrop-blur-md border border-slate-800/40 transition-all duration-300">
-        
-        <!-- Craftiq Logo Image -->
-        <a href="#home" onclick="showPage('home')" class="flex items-center gap-3 group">
-          <div class="relative w-10 h-10 rounded-xl overflow-hidden shadow-lg shadow-blue-600/30 border border-sky-400/40 shrink-0 group-hover:scale-105 transition-transform bg-slate-900 flex items-center justify-center">
-            <img src="./assets/craftiq-logo.png" alt="Craftiq Logo" class="w-full h-full object-cover" />
-          </div>
-          <div class="flex flex-col">
-            <span class="font-heading font-bold text-xl tracking-tight dark:text-white text-slate-900">
-              Craft<span class="text-sky-500">iq</span>
-            </span>
-            <span class="text-[9px] font-sans tracking-wider opacity-60 capitalize -mt-1 hidden sm:block">Digital Product Studio</span>
-          </div>
-        </a>
-
-        <!-- Desktop Navigation Multi-Page Tabs -->
-        <nav class="hidden lg:flex items-center gap-1.5 p-1 rounded-full liquid-glass-pill">
-          <button onclick="showPage('home')" data-page="home" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
-            <i data-lucide="home" class="w-3.5 h-3.5"></i><span>Home</span>
-          </button>
-          <button onclick="showPage('services')" data-page="services" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
-            <i data-lucide="layers" class="w-3.5 h-3.5"></i><span>Services</span>
-          </button>
-          <button onclick="showPage('projects')" data-page="projects" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
-            <i data-lucide="folder-git-2" class="w-3.5 h-3.5"></i><span>Projects</span>
-          </button>
-          <button onclick="showPage('team')" data-page="team" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
-            <i data-lucide="users" class="w-3.5 h-3.5"></i><span>About & Team</span>
-          </button>
-          <button onclick="showPage('estimator')" data-page="estimator" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
-            <i data-lucide="calculator" class="w-3.5 h-3.5"></i><span>Estimator</span>
-          </button>
-          <button onclick="showPage('careers')" data-page="careers" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
-            <i data-lucide="briefcase" class="w-3.5 h-3.5"></i><span>Careers</span>
-          </button>
-          <button onclick="showPage('contact')" data-page="contact" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
-            <i data-lucide="mail" class="w-3.5 h-3.5"></i><span>Contact</span>
-          </button>
-        </nav>
-
-        <!-- Right Action Controls -->
-        <div class="hidden sm:flex items-center gap-3">
-          <button id="themeToggleBtn" class="p-2.5 rounded-full liquid-glass-pill text-slate-300 hover:text-white transition-transform active:scale-95" title="Toggle Theme">
-            <i data-lucide="sun" class="w-4 h-4 text-amber-400"></i>
-          </button>
-
-          <button onclick="openHireModal()" class="liquid-glass-button inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full text-xs font-semibold text-white shadow-xl">
-            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-sky-200"></i>
-            <span>Start Your Project</span>
-          </button>
+  <!-- MINIMAL HEADER NAVBAR -->
+  <header class="fixed top-0 left-0 right-0 z-50 py-5 bg-[#07090E]/80 backdrop-blur-xl border-b border-slate-800/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#home" onclick="showPage('home')" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 rounded-xl overflow-hidden border border-slate-700/60 bg-slate-900 shrink-0 flex items-center justify-center">
+          <img src="./assets/craftiq-logo.png" alt="Craftiq Logo" class="w-full h-full object-cover" />
         </div>
-
-        <!-- Mobile Controls -->
-        <div class="lg:hidden flex items-center gap-2">
-          <button id="themeToggleBtnMobile" class="p-2 rounded-lg liquid-glass-pill text-slate-300">
-            <i data-lucide="sun" class="w-5 h-5 text-amber-400"></i>
-          </button>
-          <button id="mobileMenuBtn" class="p-2 rounded-lg liquid-glass-pill">
-            <i data-lucide="menu" class="w-6 h-6"></i>
-          </button>
+        <div class="flex flex-col">
+          <span class="font-heading font-bold text-lg text-white tracking-tight">Craft<span class="text-sky-400">iq</span></span>
+          <span class="text-[9px] font-mono uppercase tracking-widest text-slate-400 -mt-1 hidden sm:block">Digital Product Studio</span>
         </div>
+      </a>
 
+      <!-- Desktop Navigation Tabs -->
+      <nav class="hidden lg:flex items-center gap-1 bg-slate-900/60 p-1 rounded-full border border-slate-800">
+        <button onclick="showPage('home')" data-page="home" class="nav-link px-4 py-1.5 rounded-full text-xs font-medium transition-all text-slate-400 hover:text-white">Home</button>
+        <button onclick="showPage('services')" data-page="services" class="nav-link px-4 py-1.5 rounded-full text-xs font-medium transition-all text-slate-400 hover:text-white">Services</button>
+        <button onclick="showPage('projects')" data-page="projects" class="nav-link px-4 py-1.5 rounded-full text-xs font-medium transition-all text-slate-400 hover:text-white">Projects</button>
+        <button onclick="showPage('team')" data-page="team" class="nav-link px-4 py-1.5 rounded-full text-xs font-medium transition-all text-slate-400 hover:text-white">Team</button>
+        <button onclick="showPage('estimator')" data-page="estimator" class="nav-link px-4 py-1.5 rounded-full text-xs font-medium transition-all text-slate-400 hover:text-white">Estimator</button>
+        <button onclick="showPage('careers')" data-page="careers" class="nav-link px-4 py-1.5 rounded-full text-xs font-medium transition-all text-slate-400 hover:text-white">Careers</button>
+        <button onclick="showPage('contact')" data-page="contact" class="nav-link px-4 py-1.5 rounded-full text-xs font-medium transition-all text-slate-400 hover:text-white">Contact</button>
+      </nav>
+
+      <!-- Right Action -->
+      <div class="flex items-center gap-3">
+        <button onclick="openHireModal()" class="btn-primary px-5 py-2 rounded-full text-xs font-semibold flex items-center gap-2">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+          <span>Start Project</span>
+        </button>
+
+        <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
       </div>
+
     </div>
 
     <!-- Mobile Drawer -->
-    <div id="mobileDrawer" class="hidden lg:hidden fixed inset-x-4 top-20 p-6 liquid-glass-card rounded-3xl z-50 border space-y-2">
-      <button onclick="showPage('home'); closeMobileDrawer();" class="w-full flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
-        <span class="flex items-center gap-2.5"><i data-lucide="home" class="w-4 h-4 text-sky-400"></i><span>Home</span></span>
-      </button>
-      <button onclick="showPage('services'); closeMobileDrawer();" class="w-full flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
-        <span class="flex items-center gap-2.5"><i data-lucide="layers" class="w-4 h-4 text-sky-400"></i><span>Services</span></span>
-      </button>
-      <button onclick="showPage('projects'); closeMobileDrawer();" class="w-full flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
-        <span class="flex items-center gap-2.5"><i data-lucide="folder-git-2" class="w-4 h-4 text-sky-400"></i><span>Projects</span></span>
-      </button>
-      <button onclick="showPage('team'); closeMobileDrawer();" class="w-full flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
-        <span class="flex items-center gap-2.5"><i data-lucide="users" class="w-4 h-4 text-sky-400"></i><span>About & Team</span></span>
-      </button>
-      <button onclick="showPage('estimator'); closeMobileDrawer();" class="w-full flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
-        <span class="flex items-center gap-2.5"><i data-lucide="calculator" class="w-4 h-4 text-sky-400"></i><span>Estimator</span></span>
-      </button>
-      <button onclick="showPage('careers'); closeMobileDrawer();" class="w-full flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
-        <span class="flex items-center gap-2.5"><i data-lucide="briefcase" class="w-4 h-4 text-sky-400"></i><span>Careers</span></span>
-      </button>
-      <button onclick="showPage('contact'); closeMobileDrawer();" class="w-full flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
-        <span class="flex items-center gap-2.5"><i data-lucide="mail" class="w-4 h-4 text-sky-400"></i><span>Contact</span></span>
-      </button>
-      <button onclick="closeMobileDrawer(); openHireModal();" class="liquid-glass-button w-full mt-4 py-3 rounded-2xl text-white font-semibold text-xs shadow-lg flex items-center justify-center gap-2">
-        <i data-lucide="sparkles" class="w-4 h-4"></i>
-        <span>Start Your Project</span>
-      </button>
+    <div id="mobileDrawer" class="hidden lg:hidden fixed inset-x-4 top-20 p-5 bg-[#0F1420] rounded-2xl border border-slate-800 z-50 space-y-2">
+      <button onclick="showPage('home'); closeMobileDrawer();" class="w-full text-left py-2 px-3 text-sm rounded-lg hover:bg-slate-800/60">Home</button>
+      <button onclick="showPage('services'); closeMobileDrawer();" class="w-full text-left py-2 px-3 text-sm rounded-lg hover:bg-slate-800/60">Services</button>
+      <button onclick="showPage('projects'); closeMobileDrawer();" class="w-full text-left py-2 px-3 text-sm rounded-lg hover:bg-slate-800/60">Projects</button>
+      <button onclick="showPage('team'); closeMobileDrawer();" class="w-full text-left py-2 px-3 text-sm rounded-lg hover:bg-slate-800/60">Team</button>
+      <button onclick="showPage('estimator'); closeMobileDrawer();" class="w-full text-left py-2 px-3 text-sm rounded-lg hover:bg-slate-800/60">Estimator</button>
+      <button onclick="showPage('careers'); closeMobileDrawer();" class="w-full text-left py-2 px-3 text-sm rounded-lg hover:bg-slate-800/60">Careers</button>
+      <button onclick="showPage('contact'); closeMobileDrawer();" class="w-full text-left py-2 px-3 text-sm rounded-lg hover:bg-slate-800/60">Contact</button>
     </div>
   </header>
 
-  <!-- MULTI-PAGE VIEW CONTAINER -->
-  <main class="relative z-10 pt-28 pb-16 min-h-[75vh]">
+  <!-- MAIN MULTI-PAGE CONTAINER -->
+  <main class="relative z-10 pt-28 pb-16 min-h-[80vh]">
 
-    <!-- PAGE 1: HOME PAGE -->
+    <!-- PAGE 1: HOME -->
     <section id="page-home" class="page-section">
-      <div class="pt-12 pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col items-center text-center">
+      <div class="pt-10 pb-6 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto flex flex-col items-center text-center">
         
-        <!-- Floating Innovation Badge -->
-        <div class="liquid-glass-pill inline-flex items-center gap-2.5 px-5 py-2 rounded-full text-xs font-medium mb-6 shadow-xl">
-          <span class="w-2 h-2 rounded-full bg-sky-400 animate-ping"></span>
-          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-sky-400"></i>
-          <span>Digital Product Studio • <span class="text-sky-400 font-semibold">Available for New Projects</span></span>
+        <!-- Status Indicator -->
+        <div class="minimal-pill px-4 py-1.5 rounded-full text-[11px] font-mono uppercase tracking-wider text-sky-400 mb-6 flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+          <span>AVAILABLE FOR NEW PROJECTS • 2026</span>
         </div>
 
-        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-semibold font-heading tracking-tight max-w-4xl leading-[1.12]">
-          Crafting intelligent digital experiences for <span class="gradient-text-accent font-bold">ambitious brands</span>.
+        <h1 class="text-4xl sm:text-6xl font-bold font-heading tracking-tight text-white max-w-3xl leading-tight">
+          Crafting intelligent digital experiences for <span class="text-sky-400">ambitious brands</span>.
         </h1>
 
-        <p class="mt-6 opacity-80 text-base sm:text-lg max-w-2xl font-normal leading-relaxed">
+        <p class="mt-5 text-slate-400 text-base sm:text-lg max-w-2xl leading-relaxed">
           We design and build modern websites, mobile apps, custom AI agents, and brand systems that help your business scale effortlessly.
         </p>
 
-        <!-- 4 Feature Pill Badges -->
-        <div class="mt-6 flex flex-wrap items-center justify-center gap-2.5 max-w-3xl">
-          <span class="liquid-glass-pill px-4 py-1.5 rounded-full text-xs font-medium">Modern Web & Mobile Apps</span>
-          <span class="liquid-glass-pill px-4 py-1.5 rounded-full text-xs font-medium">Autonomous AI Workflows</span>
-          <span class="liquid-glass-pill px-4 py-1.5 rounded-full text-xs font-medium">Fluid 60fps UI/UX</span>
-          <span class="liquid-glass-pill px-4 py-1.5 rounded-full text-xs font-medium">Scalable Cloud Systems</span>
+        <!-- Feature Badges -->
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-2 max-w-2xl">
+          <span class="minimal-pill px-3 py-1 rounded-md text-xs text-slate-300">Web & Mobile Apps</span>
+          <span class="minimal-pill px-3 py-1 rounded-md text-xs text-slate-300">Autonomous AI</span>
+          <span class="minimal-pill px-3 py-1 rounded-md text-xs text-slate-300">Fluid UI/UX</span>
+          <span class="minimal-pill px-3 py-1 rounded-md text-xs text-slate-300">Cloud Infrastructure</span>
         </div>
 
-        <!-- 3 Hero Action Buttons -->
-        <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
-          <button onclick="openHireModal()" class="liquid-glass-button px-8 py-3.5 rounded-full text-white font-semibold text-sm shadow-xl flex items-center gap-2.5">
+        <!-- Action CTAs -->
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <button onclick="openHireModal()" class="btn-primary px-7 py-3 rounded-full text-xs font-semibold flex items-center gap-2">
             <span>Start Your Project</span>
             <i data-lucide="arrow-right" class="w-4 h-4"></i>
           </button>
 
-          <button onclick="showPage('services')" class="liquid-glass-button-secondary px-8 py-3.5 rounded-full text-sm font-medium flex items-center gap-2">
-            <i data-lucide="layers" class="w-4 h-4 text-sky-400"></i>
+          <button onclick="showPage('services')" class="btn-secondary px-7 py-3 rounded-full text-xs font-medium text-slate-200">
             <span>Explore Services</span>
           </button>
 
-          <button onclick="showPage('contact')" class="liquid-glass-button-secondary px-8 py-3.5 rounded-full text-sm font-medium flex items-center gap-2">
-            <i data-lucide="compass" class="w-4 h-4 text-violet-400"></i>
-            <span>Book Free Consultation</span>
+          <button onclick="showPage('contact')" class="btn-secondary px-7 py-3 rounded-full text-xs font-medium text-slate-200">
+            <span>Book Consultation</span>
           </button>
         </div>
 
-        <!-- 4 Stat Metric Cards -->
-        <div class="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-5xl">
-          <div class="liquid-glass-card p-5 rounded-2xl text-left relative overflow-hidden group">
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-[9px] font-mono uppercase px-2 py-0.5 rounded-md liquid-glass-pill tracking-wider opacity-80">GUARANTEED</span>
-            </div>
-            <div class="text-2xl sm:text-3xl font-semibold font-heading tracking-tight">100%</div>
-            <div class="text-xs opacity-70 mt-1 font-medium">Client Satisfaction</div>
+        <!-- Stat Grid -->
+        <div class="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-4 w-full">
+          <div class="minimal-card p-5 rounded-2xl text-left">
+            <div class="text-xs font-mono text-sky-400 uppercase tracking-wider mb-1">Guaranteed</div>
+            <div class="text-2xl sm:text-3xl font-bold font-heading text-white">100%</div>
+            <div class="text-xs text-slate-400 mt-1">Client Satisfaction</div>
           </div>
 
-          <div class="liquid-glass-card p-5 rounded-2xl text-left relative overflow-hidden group">
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-[9px] font-mono uppercase px-2 py-0.5 rounded-md liquid-glass-pill tracking-wider opacity-80">NEXT-GEN</span>
-            </div>
-            <div class="text-2xl sm:text-3xl font-semibold font-heading tracking-tight">20+</div>
-            <div class="text-xs opacity-70 mt-1 font-medium">Tech Stack Capabilities</div>
+          <div class="minimal-card p-5 rounded-2xl text-left">
+            <div class="text-xs font-mono text-sky-400 uppercase tracking-wider mb-1">Next-Gen</div>
+            <div class="text-2xl sm:text-3xl font-bold font-heading text-white">20+</div>
+            <div class="text-xs text-slate-400 mt-1">Tech Stack Skills</div>
           </div>
 
-          <div class="liquid-glass-card p-5 rounded-2xl text-left relative overflow-hidden group">
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-[9px] font-mono uppercase px-2 py-0.5 rounded-md liquid-glass-pill tracking-wider opacity-80">ENTERPRISE</span>
-            </div>
-            <div class="text-2xl sm:text-3xl font-semibold font-heading tracking-tight">99.9%</div>
-            <div class="text-xs opacity-70 mt-1 font-medium">System Performance</div>
+          <div class="minimal-card p-5 rounded-2xl text-left">
+            <div class="text-xs font-mono text-sky-400 uppercase tracking-wider mb-1">Enterprise</div>
+            <div class="text-2xl sm:text-3xl font-bold font-heading text-white">99.9%</div>
+            <div class="text-xs text-slate-400 mt-1">System Uptime</div>
           </div>
 
-          <div class="liquid-glass-card p-5 rounded-2xl text-left relative overflow-hidden group">
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-[9px] font-mono uppercase px-2 py-0.5 rounded-md liquid-glass-pill tracking-wider opacity-80">GLOBAL</span>
-            </div>
-            <div class="text-2xl sm:text-3xl font-semibold font-heading tracking-tight">24/7</div>
-            <div class="text-xs opacity-70 mt-1 font-medium">Dedicated Support</div>
+          <div class="minimal-card p-5 rounded-2xl text-left">
+            <div class="text-xs font-mono text-sky-400 uppercase tracking-wider mb-1">Dedicated</div>
+            <div class="text-2xl sm:text-3xl font-bold font-heading text-white">24/7</div>
+            <div class="text-xs text-slate-400 mt-1">Client Support</div>
           </div>
         </div>
 
-        <!-- Featured Teasers Banner -->
-        <div class="mt-16 w-full max-w-5xl flex flex-col sm:flex-row items-center justify-between gap-4 p-6 rounded-3xl liquid-glass-card border border-sky-500/20">
-          <div class="text-left">
-            <h3 class="text-lg font-semibold font-heading">Explore Our 7 Live Client Showcase Projects</h3>
-            <p class="text-xs opacity-70">From DI Coin Reward Engine to IVL Sports Auction & Portfolios.</p>
+        <!-- Showcase Banner -->
+        <div class="mt-12 w-full minimal-card p-6 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 text-left border-sky-500/20">
+          <div>
+            <div class="text-xs font-mono text-sky-400 uppercase mb-1">Featured Showcase</div>
+            <h3 class="text-base font-semibold text-white">7 Live Client Production Projects</h3>
+            <p class="text-xs text-slate-400">DI Coin Platform, IVL Sports Auction, MIC Portal, Fest Apps & Portfolios.</p>
           </div>
-          <button onclick="showPage('projects')" class="liquid-glass-button px-6 py-2.5 rounded-full text-xs font-semibold text-white shrink-0 flex items-center gap-2">
-            <span>View All Projects</span><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          <button onclick="showPage('projects')" class="btn-primary px-5 py-2.5 rounded-full text-xs font-semibold shrink-0">
+            View All Projects
           </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PAGE 2: SERVICES -->
+    <section id="page-services" class="page-section hidden px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto pt-6">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <div class="text-xs font-mono text-sky-400 uppercase tracking-wider mb-2">Capabilities</div>
+        <h2 class="text-3xl font-bold font-heading text-white">Services & Engineering</h2>
+        <p class="text-slate-400 text-sm mt-2">End-to-end product development, custom AI systems, and cloud infrastructure.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="minimal-card p-7 rounded-2xl flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center mb-5"><i data-lucide="globe" class="w-5 h-5"></i></div>
+            <h3 class="text-lg font-semibold text-white mb-2">Web Ecosystems & SaaS</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">Full-stack web applications, SaaS platforms, high-conversion web portals, and custom cloud CMS.</p>
+          </div>
+          <button onclick="openHireModal()" class="text-xs font-medium text-sky-400 hover:text-sky-300 flex items-center gap-1">Request Web Build <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></button>
+        </div>
+
+        <div class="minimal-card p-7 rounded-2xl flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mb-5"><i data-lucide="smartphone" class="w-5 h-5"></i></div>
+            <h3 class="text-lg font-semibold text-white mb-2">Mobile Applications</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">Native and cross-platform iOS & Android apps built for speed, offline capabilities, and high performance.</p>
+          </div>
+          <button onclick="openHireModal()" class="text-xs font-medium text-emerald-400 hover:text-emerald-300 flex items-center gap-1">Request Mobile Build <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></button>
+        </div>
+
+        <div class="minimal-card p-7 rounded-2xl flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-violet-500/10 border border-violet-500/20 text-violet-400 flex items-center justify-center mb-5"><i data-lucide="bot" class="w-5 h-5"></i></div>
+            <h3 class="text-lg font-semibold text-white mb-2">AI Workflows & Agents</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">Custom AI agents, LLM integrations, RAG knowledge bases, and automated workflow pipelines.</p>
+          </div>
+          <button onclick="openHireModal()" class="text-xs font-medium text-violet-400 hover:text-violet-300 flex items-center gap-1">Request AI Build <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></button>
+        </div>
+
+        <div class="minimal-card p-7 rounded-2xl flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center mb-5"><i data-lucide="video" class="w-5 h-5"></i></div>
+            <h3 class="text-lg font-semibold text-white mb-2">Media & AI Videos</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">AI video generation, brand promo reels, motion graphics, and high-impact visual media assets.</p>
+          </div>
+          <button onclick="openHireModal()" class="text-xs font-medium text-amber-400 hover:text-amber-300 flex items-center gap-1">Request Media Build <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></button>
+        </div>
+
+        <div class="minimal-card p-7 rounded-2xl flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/20 text-pink-400 flex items-center justify-center mb-5"><i data-lucide="palette" class="w-5 h-5"></i></div>
+            <h3 class="text-lg font-semibold text-white mb-2">Brand & UI/UX Systems</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">Visual brand identities, design systems, interactive prototypes, and micro-interaction choreography.</p>
+          </div>
+          <button onclick="openHireModal()" class="text-xs font-medium text-pink-400 hover:text-pink-300 flex items-center gap-1">Request UI/UX Design <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></button>
+        </div>
+
+        <div class="minimal-card p-7 rounded-2xl flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center mb-5"><i data-lucide="cpu" class="w-5 h-5"></i></div>
+            <h3 class="text-lg font-semibold text-white mb-2">Cloud Infrastructure</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">Scalable serverless backends, API gateways, PostgreSQL/Firebase databases, and cloud security.</p>
+          </div>
+          <button onclick="openHireModal()" class="text-xs font-medium text-cyan-400 hover:text-cyan-300 flex items-center gap-1">Request Cloud Build <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></button>
         </div>
       </div>
     </section>
 
-    <!-- PAGE 2: SERVICES PAGE -->
-    <section id="page-services" class="page-section hidden px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pt-8">
-      <div class="text-center max-w-3xl mx-auto mb-12">
-        <div class="liquid-glass-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium mb-3">
-          <i data-lucide="layers" class="w-3.5 h-3.5 text-sky-400"></i>
-          <span>Services & Capabilities</span>
-        </div>
-        <h2 class="text-3xl sm:text-5xl font-semibold font-heading tracking-tight">End-to-end product engineering.</h2>
-        <p class="mt-4 opacity-75 text-sm sm:text-base">From initial architecture to high-precision development and cloud deployment.</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="liquid-glass-card p-8 rounded-3xl flex flex-col justify-between group">
-          <div>
-            <div class="w-12 h-12 rounded-2xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 mb-6 group-hover:scale-110 transition-transform">
-              <i data-lucide="globe" class="w-6 h-6"></i>
-            </div>
-            <h3 class="text-xl font-semibold font-heading mb-3">Web Ecosystems & SaaS</h3>
-            <p class="text-sm opacity-70 leading-relaxed mb-6">Full-stack web applications, SaaS platforms, high-conversion web portals, and custom cloud CMS integrations.</p>
-            <div class="flex flex-wrap gap-2 mb-6">
-              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">React 18</span>
-              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">Next.js</span>
-              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">TypeScript</span>
-              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">TailwindCSS</span>
-            </div>
-          </div>
-          <button onclick="openHireModal()" class="text-xs font-semibold text-sky-400 inline-flex items-center gap-1.5 hover:gap-2.5 transition-all">
-            <span>Request Web Project</span><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-          </button>
-        </div>
-
-        <div class="liquid-glass-card p-8 rounded-3xl flex flex-col justify-between group">
-          <div>
-            <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-6 group-hover:scale-110 transition-transform">
-              <i data-lucide="smartphone" class="w-6 h-6"></i>
-            </div>
-            <h3 class="text-xl font-semibold font-heading mb-3">Mobile Applications</h3>
-            <p class="text-sm opacity-70 leading-relaxed mb-6">Native and cross-platform iOS & Android mobile applications built for high performance and offline capability.</p>
-            <div class="flex flex-wrap gap-2 mb-6">
-              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">Flutter</span>
-              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">React Native</span>
-              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">iOS / Android</span>
-            </div>
-          </div>
-          <button onclick="openHireModal()" class="text-xs font-semibold text-emerald-400 inline-flex items-center gap-1.5 hover:gap-2.5 transition-all">
-            <span>Request Mobile App</span><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-          </button>
-        </div>
-
-        <div class="liquid-glass-card p-8 rounded-3xl flex flex-col justify-between group">
-          <div>
-            <div class="w-12 h-12 rounded-2xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400 mb-6 group-hover:scale-110 transition-transform">
-              <i data-lucide="bot" class="w-6 h-6"></i>
-            </div>
-            <h3 class="text-xl font-semibold font-heading mb-3">AI Agents & Workflows</h3>
-            <p class="text-sm opacity-70 leading-relaxed mb-6">Autonomous AI chatbots, custom LLM integrations, retrieval-augmented generation (RAG), and business automation.</p>
-            <div class="flex flex-wrap gap-2 mb-6">
-              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">OpenAI API</span>
-              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">LangChain</span>
-              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">Python</span>
-            </div>
-          </div>
-          <button onclick="openHireModal()" class="text-xs font-semibold text-violet-400 inline-flex items-center gap-1.5 hover:gap-2.5 transition-all">
-            <span>Request AI Build</span><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-          </button>
-        </div>
-
-        <div class="liquid-glass-card p-8 rounded-3xl flex flex-col justify-between group">
-          <div>
-            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-6 group-hover:scale-110 transition-transform">
-              <i data-lucide="video" class="w-6 h-6"></i>
-            </div>
-            <h3 class="text-xl font-semibold font-heading mb-3">Media & AI Videos</h3>
-            <p class="text-sm opacity-70 leading-relaxed mb-6">AI video generation, brand promo videos, motion graphics, and high-impact visual media production.</p>
-            <div class="flex flex-wrap gap-2 mb-6">
-              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">Motion Visuals</span>
-              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">AI Video Generation</span>
-            </div>
-          </div>
-          <button onclick="openHireModal()" class="text-xs font-semibold text-amber-400 inline-flex items-center gap-1.5 hover:gap-2.5 transition-all">
-            <span>Request Media Build</span><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-          </button>
-        </div>
-
-        <div class="liquid-glass-card p-8 rounded-3xl flex flex-col justify-between group">
-          <div>
-            <div class="w-12 h-12 rounded-2xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400 mb-6 group-hover:scale-110 transition-transform">
-              <i data-lucide="palette" class="w-6 h-6"></i>
-            </div>
-            <h3 class="text-xl font-semibold font-heading mb-3">Brand Engineering & UI/UX</h3>
-            <p class="text-sm opacity-70 leading-relaxed mb-6">Visual brand identities, design systems, interactive prototypes, and micro-interaction design.</p>
-            <div class="flex flex-wrap gap-2 mb-6">
-              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">Figma</span>
-              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">Design Systems</span>
-            </div>
-          </div>
-          <button onclick="openHireModal()" class="text-xs font-semibold text-pink-400 inline-flex items-center gap-1.5 hover:gap-2.5 transition-all">
-            <span>Request UI/UX Design</span><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-          </button>
-        </div>
-
-        <div class="liquid-glass-card p-8 rounded-3xl flex flex-col justify-between group">
-          <div>
-            <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mb-6 group-hover:scale-110 transition-transform">
-              <i data-lucide="cpu" class="w-6 h-6"></i>
-            </div>
-            <h3 class="text-xl font-semibold font-heading mb-3">Cloud Infrastructure</h3>
-            <p class="text-sm opacity-70 leading-relaxed mb-6">Scalable serverless backends, API gateways, PostgreSQL/Firebase databases, and cloud security.</p>
-            <div class="flex flex-wrap gap-2 mb-6">
-              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">Firebase</span>
-              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">PostgreSQL</span>
-              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">Docker</span>
-            </div>
-          </div>
-          <button onclick="openHireModal()" class="text-xs font-semibold text-cyan-400 inline-flex items-center gap-1.5 hover:gap-2.5 transition-all">
-            <span>Request Cloud Infrastructure</span><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- PAGE 3: PROJECTS PAGE -->
-    <section id="page-projects" class="page-section hidden px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pt-8">
-      <div class="text-center max-w-3xl mx-auto mb-12">
-        <div class="liquid-glass-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium mb-3">
-          <i data-lucide="folder-git-2" class="w-3.5 h-3.5 text-sky-400"></i>
-          <span>Featured Projects & Live Platforms</span>
-        </div>
-        <h2 class="text-3xl sm:text-5xl font-semibold font-heading tracking-tight">Recent client releases & platforms.</h2>
-        <p class="mt-4 opacity-75 text-sm sm:text-base">Explore live production websites, reward portals, event platforms, and sports engines built by Craftiq.</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Project 1: DI Coin Platform -->
-        <div class="liquid-glass-card rounded-3xl overflow-hidden group flex flex-col justify-between">
-          <div>
-            <div class="relative h-52 overflow-hidden bg-slate-900">
-              <img src="./assets/di-coin-platform.png" alt="DI Coin Platform" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              <div class="absolute top-3 right-3 px-3 py-1 rounded-full liquid-glass-pill text-[10px] font-bold uppercase tracking-wider text-sky-300">Reward Engine</div>
-            </div>
-            <div class="p-6">
-              <div class="text-xs text-sky-400 font-semibold mb-1">Student Reward Platform</div>
-              <h3 class="text-xl font-semibold font-heading mb-2">DI Coin Platform</h3>
-              <p class="text-xs opacity-70 leading-relaxed mb-4">Digital economy and engagement ecosystem enabling gamified reward tracking for educational environments via virtual currency metrics and live dashboards.</p>
-              <div class="flex flex-wrap gap-1.5 mb-4">
-                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">React</span>
-                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">TypeScript</span>
-                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Firebase</span>
-              </div>
-            </div>
-          </div>
-          <div class="p-6 pt-0 border-t border-slate-800/50 mt-auto flex items-center justify-between">
-            <span class="text-[11px] font-semibold text-emerald-400">+450% Engagement</span>
-            <a href="https://di-coin-platform-web-tunj.bolt.host" target="_blank" rel="noopener noreferrer" class="liquid-glass-button-secondary px-4 py-2 rounded-xl text-xs font-semibold inline-flex items-center gap-1.5 text-sky-400 hover:text-white">
-              <span>Launch Platform</span><i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Project 2: Personal Portfolios -->
-        <div class="liquid-glass-card rounded-3xl overflow-hidden group flex flex-col justify-between">
-          <div>
-            <div class="relative h-52 overflow-hidden bg-slate-900">
-              <img src="./assets/noorul-aze-portfolio.png" alt="Personal Portfolios" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              <div class="absolute top-3 right-3 px-3 py-1 rounded-full liquid-glass-pill text-[10px] font-bold uppercase tracking-wider text-purple-300">Portfolio</div>
-            </div>
-            <div class="p-6">
-              <div class="text-xs text-purple-400 font-semibold mb-1">Interactive Portfolio Platform</div>
-              <h3 class="text-xl font-semibold font-heading mb-2">Personal Portfolios</h3>
-              <p class="text-xs opacity-70 leading-relaxed mb-4">Ultra-high performance creative developer portfolio featuring bespoke spatial graphics, fluid motion animations, and interactive project deep-dives.</p>
-              <div class="flex flex-wrap gap-1.5 mb-4">
-                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Framer Motion</span>
-                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">WebGL</span>
-                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">TypeScript</span>
-              </div>
-            </div>
-          </div>
-          <div class="p-6 pt-0 border-t border-slate-800/50 mt-auto flex items-center justify-between">
-            <span class="text-[11px] font-semibold text-purple-400">Award Nominated</span>
-            <a href="https://noorulazetirur.vercel.app" target="_blank" rel="noopener noreferrer" class="liquid-glass-button-secondary px-4 py-2 rounded-xl text-xs font-semibold inline-flex items-center gap-1.5 text-purple-400 hover:text-white">
-              <span>View Portfolio</span><i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Project 3: MIC Learning Resource Centre -->
-        <div class="liquid-glass-card rounded-3xl overflow-hidden group flex flex-col justify-between">
-          <div>
-            <div class="relative h-52 overflow-hidden bg-slate-900">
-              <img src="./assets/miclrc.png" alt="MIC Learning Resource Centre" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              <div class="absolute top-3 right-3 px-3 py-1 rounded-full liquid-glass-pill text-[10px] font-bold uppercase tracking-wider text-emerald-300">Academic</div>
-            </div>
-            <div class="p-6">
-              <div class="text-xs text-emerald-400 font-semibold mb-1">Educational Resource Portal</div>
-              <h3 class="text-xl font-semibold font-heading mb-2">MIC Resource Centre</h3>
-              <p class="text-xs opacity-70 leading-relaxed mb-4">Academic portal providing centralized access to learning materials, digital libraries, research papers, and student resources.</p>
-              <div class="flex flex-wrap gap-1.5 mb-4">
-                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Web Portal</span>
-                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Digital Library</span>
-                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Search Engine</span>
-              </div>
-            </div>
-          </div>
-          <div class="p-6 pt-0 border-t border-slate-800/50 mt-auto flex items-center justify-between">
-            <span class="text-[11px] font-semibold text-emerald-400">1000+ Students</span>
-            <a href="https://miclrc.netlify.app/" target="_blank" rel="noopener noreferrer" class="liquid-glass-button-secondary px-4 py-2 rounded-xl text-xs font-semibold inline-flex items-center gap-1.5 text-emerald-400 hover:text-white">
-              <span>Open Portal</span><i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Project 4: Irshad Volleyball League (IVL Auction) -->
-        <div class="liquid-glass-card rounded-3xl overflow-hidden group flex flex-col justify-between">
-          <div>
-            <div class="relative h-52 overflow-hidden bg-slate-900">
-              <img src="./assets/ivl-auction.png" alt="Irshad Volleyball League IVL Auction" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              <div class="absolute top-3 right-3 px-3 py-1 rounded-full liquid-glass-pill text-[10px] font-bold uppercase tracking-wider text-amber-300">Auction Engine</div>
-            </div>
-            <div class="p-6">
-              <div class="text-xs text-amber-400 font-semibold mb-1">Sports League & Bidding Engine</div>
-              <h3 class="text-xl font-semibold font-heading mb-2">IVL Auction Platform</h3>
-              <p class="text-xs opacity-70 leading-relaxed mb-4">Real-time player auction and tournament management platform with live bidding feeds, budget tracking, and team roster management.</p>
-              <div class="flex flex-wrap gap-1.5 mb-4">
-                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Real-time Bidding</span>
-                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Sports Stats</span>
-                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Team Rosters</span>
-              </div>
-            </div>
-          </div>
-          <div class="p-6 pt-0 border-t border-slate-800/50 mt-auto flex items-center justify-between">
-            <span class="text-[11px] font-semibold text-amber-400">Live Bidding</span>
-            <a href="https://ivlauction.onhercules.app/" target="_blank" rel="noopener noreferrer" class="liquid-glass-button-secondary px-4 py-2 rounded-xl text-xs font-semibold inline-flex items-center gap-1.5 text-amber-400 hover:text-white">
-              <span>Open Auction</span><i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Project 5: Thenishal 2K25 -->
-        <div class="liquid-glass-card rounded-3xl overflow-hidden group flex flex-col justify-between">
-          <div>
-            <div class="relative h-52 overflow-hidden bg-slate-900">
-              <img src="./assets/thenishal.png" alt="Thenishal 2K25" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              <div class="absolute top-3 right-3 px-3 py-1 rounded-full liquid-glass-pill text-[10px] font-bold uppercase tracking-wider text-rose-300">Cultural Fest</div>
-            </div>
-            <div class="p-6">
-              <div class="text-xs text-rose-400 font-semibold mb-1">Event & Cultural Fest Web App</div>
-              <h3 class="text-xl font-semibold font-heading mb-2">Thenishal 2K25</h3>
-              <p class="text-xs opacity-70 leading-relaxed mb-4">Official fest platform featuring live event schedules, online registration, competition guidelines, and real-time result scoreboards.</p>
-              <div class="flex flex-wrap gap-1.5 mb-4">
-                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Event Portal</span>
-                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Registrations</span>
-                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Live Scores</span>
-              </div>
-            </div>
-          </div>
-          <div class="p-6 pt-0 border-t border-slate-800/50 mt-auto flex items-center justify-between">
-            <span class="text-[11px] font-semibold text-rose-400">500+ Fest Entries</span>
-            <a href="https://thenishal.netlify.app/" target="_blank" rel="noopener noreferrer" class="liquid-glass-button-secondary px-4 py-2 rounded-xl text-xs font-semibold inline-flex items-center gap-1.5 text-rose-400 hover:text-white">
-              <span>View Fest Site</span><i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Project 6: Campus Chat & Vibe -->
-        <div class="liquid-glass-card rounded-3xl overflow-hidden group flex flex-col justify-between">
-          <div>
-            <div class="relative h-52 overflow-hidden bg-slate-900">
-              <img src="./assets/campus-vibe.png" alt="Campus Chat & Vibe" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              <div class="absolute top-3 right-3 px-3 py-1 rounded-full liquid-glass-pill text-[10px] font-bold uppercase tracking-wider text-cyan-300">Community</div>
-            </div>
-            <div class="p-6">
-              <div class="text-xs text-cyan-400 font-semibold mb-1">Real-time Campus Platform</div>
-              <h3 class="text-xl font-semibold font-heading mb-2">Campus Chat & Vibe</h3>
-              <p class="text-xs opacity-70 leading-relaxed mb-4">Social community hub for campus updates, student discussions, event announcements, and real-time interactive messaging.</p>
-              <div class="flex flex-wrap gap-1.5 mb-4">
-                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Real-time Chat</span>
-                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Student Feed</span>
-                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Campus Events</span>
-              </div>
-            </div>
-          </div>
-          <div class="p-6 pt-0 border-t border-slate-800/50 mt-auto flex items-center justify-between">
-            <span class="text-[11px] font-semibold text-cyan-400">Campus Community</span>
-            <a href="https://campusvibe.onhercules.app/" target="_blank" rel="noopener noreferrer" class="liquid-glass-button-secondary px-4 py-2 rounded-xl text-xs font-semibold inline-flex items-center gap-1.5 text-cyan-400 hover:text-white">
-              <span>Enter Community</span><i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Project 7: Joao Felix Profile Showcase -->
-        <div class="liquid-glass-card rounded-3xl overflow-hidden group flex flex-col justify-between">
-          <div>
-            <div class="relative h-52 overflow-hidden bg-slate-900">
-              <img src="./assets/joao-felix.png" alt="Joao Felix Profile Showcase" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              <div class="absolute top-3 right-3 px-3 py-1 rounded-full liquid-glass-pill text-[10px] font-bold uppercase tracking-wider text-sky-300">Athlete Showcase</div>
-            </div>
-            <div class="p-6">
-              <div class="text-xs text-sky-400 font-semibold mb-1">Athlete Profile & Stats Portfolio</div>
-              <h3 class="text-xl font-semibold font-heading mb-2">Joao Felix Showcase</h3>
-              <p class="text-xs opacity-70 leading-relaxed mb-4">High-impact sports portfolio showcasing career achievements, match statistics, highlight reels, and interactive biography timelines.</p>
-              <div class="flex flex-wrap gap-1.5 mb-4">
-                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Sports Analytics</span>
-                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Media Gallery</span>
-                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Interactive UI</span>
-              </div>
-            </div>
-          </div>
-          <div class="p-6 pt-0 border-t border-slate-800/50 mt-auto flex items-center justify-between">
-            <span class="text-[11px] font-semibold text-sky-400">Global Engagement</span>
-            <a href="https://joaofelix.netlify.app/" target="_blank" rel="noopener noreferrer" class="liquid-glass-button-secondary px-4 py-2 rounded-xl text-xs font-semibold inline-flex items-center gap-1.5 text-sky-400 hover:text-white">
-              <span>View Showcase</span><i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PAGE 4: TEAM PAGE -->
-    <section id="page-team" class="page-section hidden px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pt-8">
-      <div class="text-center max-w-3xl mx-auto mb-12">
-        <div class="liquid-glass-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium mb-3">
-          <i data-lucide="users" class="w-3.5 h-3.5 text-sky-400"></i>
-          <span>Studio Team & Leadership</span>
-        </div>
-        <h2 class="text-3xl sm:text-5xl font-semibold font-heading tracking-tight">Meet the minds behind Craftiq.</h2>
-        <p class="mt-4 opacity-75 text-sm sm:text-base">Engineers, designers, writers, and digital strategists based in Kerala, India.</p>
+    <!-- PAGE 3: PROJECTS -->
+    <section id="page-projects" class="page-section hidden px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto pt-6">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <div class="text-xs font-mono text-sky-400 uppercase tracking-wider mb-2">Portfolio</div>
+        <h2 class="text-3xl font-bold font-heading text-white">Live Client Projects</h2>
+        <p class="text-slate-400 text-sm mt-2">Explore production platforms, reward portals, sports auction engines, and web apps.</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-        <!-- Team Member 1: Noorul Aze -->
-        <div class="liquid-glass-card p-6 rounded-3xl relative overflow-hidden group border border-sky-500/30">
-          <div class="absolute top-4 right-4 px-3 py-1 rounded-full bg-sky-500/20 border border-sky-500/30 text-sky-300 text-[10px] font-bold uppercase tracking-wider">Founder</div>
-          <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-sky-500 to-blue-600 flex items-center justify-center font-heading text-2xl font-bold text-white shadow-lg mb-4">NA</div>
-          <h3 class="text-xl font-semibold font-heading">Noorul Aze</h3>
+        <!-- Project 1 -->
+        <div class="minimal-card rounded-2xl overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="h-48 bg-slate-900 overflow-hidden">
+              <img src="./assets/di-coin-platform.png" alt="DI Coin Platform" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            </div>
+            <div class="p-5">
+              <div class="text-[10px] font-mono uppercase text-sky-400 mb-1">Reward Engine</div>
+              <h3 class="text-base font-semibold text-white mb-1">DI Coin Platform</h3>
+              <p class="text-xs text-slate-400 leading-relaxed mb-3">Gamified reward tracking ecosystem for educational environments via virtual currency and live dashboards.</p>
+            </div>
+          </div>
+          <div class="p-5 pt-0 border-t border-slate-800/60 mt-auto flex items-center justify-between">
+            <span class="text-[10px] font-semibold text-emerald-400">+450% Engagement</span>
+            <a href="https://di-coin-platform-web-tunj.bolt.host" target="_blank" rel="noopener noreferrer" class="text-xs text-sky-400 hover:underline flex items-center gap-1">Launch <i data-lucide="external-link" class="w-3 h-3"></i></a>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="minimal-card rounded-2xl overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="h-48 bg-slate-900 overflow-hidden">
+              <img src="./assets/noorul-aze-portfolio.png" alt="Personal Portfolios" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            </div>
+            <div class="p-5">
+              <div class="text-[10px] font-mono uppercase text-purple-400 mb-1">Portfolio Platform</div>
+              <h3 class="text-base font-semibold text-white mb-1">Personal Portfolios</h3>
+              <p class="text-xs text-slate-400 leading-relaxed mb-3">Ultra-high performance creative portfolio featuring bespoke spatial graphics and motion animations.</p>
+            </div>
+          </div>
+          <div class="p-5 pt-0 border-t border-slate-800/60 mt-auto flex items-center justify-between">
+            <span class="text-[10px] font-semibold text-purple-400">Award Nominated</span>
+            <a href="https://noorulazetirur.vercel.app" target="_blank" rel="noopener noreferrer" class="text-xs text-purple-400 hover:underline flex items-center gap-1">Launch <i data-lucide="external-link" class="w-3 h-3"></i></a>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="minimal-card rounded-2xl overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="h-48 bg-slate-900 overflow-hidden">
+              <img src="./assets/miclrc.png" alt="MIC Learning Resource Centre" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            </div>
+            <div class="p-5">
+              <div class="text-[10px] font-mono uppercase text-emerald-400 mb-1">Academic Portal</div>
+              <h3 class="text-base font-semibold text-white mb-1">MIC Resource Centre</h3>
+              <p class="text-xs text-slate-400 leading-relaxed mb-3">Academic portal providing centralized access to learning materials, digital libraries, and student resources.</p>
+            </div>
+          </div>
+          <div class="p-5 pt-0 border-t border-slate-800/60 mt-auto flex items-center justify-between">
+            <span class="text-[10px] font-semibold text-emerald-400">1000+ Students</span>
+            <a href="https://miclrc.netlify.app/" target="_blank" rel="noopener noreferrer" class="text-xs text-emerald-400 hover:underline flex items-center gap-1">Launch <i data-lucide="external-link" class="w-3 h-3"></i></a>
+          </div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="minimal-card rounded-2xl overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="h-48 bg-slate-900 overflow-hidden">
+              <img src="./assets/ivl-auction.png" alt="Irshad Volleyball League" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            </div>
+            <div class="p-5">
+              <div class="text-[10px] font-mono uppercase text-amber-400 mb-1">Sports Bidding</div>
+              <h3 class="text-base font-semibold text-white mb-1">IVL Auction Platform</h3>
+              <p class="text-xs text-slate-400 leading-relaxed mb-3">Real-time player auction and tournament management platform with live bidding feeds and team rosters.</p>
+            </div>
+          </div>
+          <div class="p-5 pt-0 border-t border-slate-800/60 mt-auto flex items-center justify-between">
+            <span class="text-[10px] font-semibold text-amber-400">Live Bidding</span>
+            <a href="https://ivlauction.onhercules.app/" target="_blank" rel="noopener noreferrer" class="text-xs text-amber-400 hover:underline flex items-center gap-1">Launch <i data-lucide="external-link" class="w-3 h-3"></i></a>
+          </div>
+        </div>
+
+        <!-- Project 5 -->
+        <div class="minimal-card rounded-2xl overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="h-48 bg-slate-900 overflow-hidden">
+              <img src="./assets/thenishal.png" alt="Thenishal 2K25" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            </div>
+            <div class="p-5">
+              <div class="text-[10px] font-mono uppercase text-rose-400 mb-1">Cultural Fest</div>
+              <h3 class="text-base font-semibold text-white mb-1">Thenishal 2K25</h3>
+              <p class="text-xs text-slate-400 leading-relaxed mb-3">Fest platform featuring live event schedules, online registration, competition rules, and scoreboards.</p>
+            </div>
+          </div>
+          <div class="p-5 pt-0 border-t border-slate-800/60 mt-auto flex items-center justify-between">
+            <span class="text-[10px] font-semibold text-rose-400">500+ Entries</span>
+            <a href="https://thenishal.netlify.app/" target="_blank" rel="noopener noreferrer" class="text-xs text-rose-400 hover:underline flex items-center gap-1">Launch <i data-lucide="external-link" class="w-3 h-3"></i></a>
+          </div>
+        </div>
+
+        <!-- Project 6 -->
+        <div class="minimal-card rounded-2xl overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="h-48 bg-slate-900 overflow-hidden">
+              <img src="./assets/campus-vibe.png" alt="Campus Chat & Vibe" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            </div>
+            <div class="p-5">
+              <div class="text-[10px] font-mono uppercase text-cyan-400 mb-1">Campus Hub</div>
+              <h3 class="text-base font-semibold text-white mb-1">Campus Chat & Vibe</h3>
+              <p class="text-xs text-slate-400 leading-relaxed mb-3">Social community hub for campus updates, student discussions, announcements, and real-time chat.</p>
+            </div>
+          </div>
+          <div class="p-5 pt-0 border-t border-slate-800/60 mt-auto flex items-center justify-between">
+            <span class="text-[10px] font-semibold text-cyan-400">Community</span>
+            <a href="https://campusvibe.onhercules.app/" target="_blank" rel="noopener noreferrer" class="text-xs text-cyan-400 hover:underline flex items-center gap-1">Launch <i data-lucide="external-link" class="w-3 h-3"></i></a>
+          </div>
+        </div>
+
+        <!-- Project 7 -->
+        <div class="minimal-card rounded-2xl overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="h-48 bg-slate-900 overflow-hidden">
+              <img src="./assets/joao-felix.png" alt="Joao Felix Profile Showcase" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            </div>
+            <div class="p-5">
+              <div class="text-[10px] font-mono uppercase text-sky-400 mb-1">Athlete Showcase</div>
+              <h3 class="text-base font-semibold text-white mb-1">Joao Felix Showcase</h3>
+              <p class="text-xs text-slate-400 leading-relaxed mb-3">Sports portfolio showcasing career achievements, match statistics, highlight reels, and biography.</p>
+            </div>
+          </div>
+          <div class="p-5 pt-0 border-t border-slate-800/60 mt-auto flex items-center justify-between">
+            <span class="text-[10px] font-semibold text-sky-400">Sports Stats</span>
+            <a href="https://joaofelix.netlify.app/" target="_blank" rel="noopener noreferrer" class="text-xs text-sky-400 hover:underline flex items-center gap-1">Launch <i data-lucide="external-link" class="w-3 h-3"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PAGE 4: TEAM -->
+    <section id="page-team" class="page-section hidden px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto pt-6">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <div class="text-xs font-mono text-sky-400 uppercase tracking-wider mb-2">Leadership & Team</div>
+        <h2 class="text-3xl font-bold font-heading text-white">Meet Craftiq Engineers</h2>
+        <p class="text-slate-400 text-sm mt-2">Developers, designers, writers, and strategists crafting digital solutions.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+        <!-- Noorul Aze -->
+        <div class="minimal-card p-6 rounded-2xl">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl bg-sky-500/20 text-sky-400 font-bold text-lg flex items-center justify-center">NA</div>
+            <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-sky-500/20 text-sky-300">Founder</span>
+          </div>
+          <h3 class="text-lg font-semibold text-white">Noorul Aze</h3>
           <div class="text-xs text-sky-400 font-medium mb-2">Founder & Creative Developer</div>
-          <p class="text-xs opacity-70 leading-relaxed mb-4">Leading Craftiq with a vision to build intelligent digital experiences through cutting-edge web technology, modern UI/UX architecture, and AI-powered automation systems.</p>
-          <div class="space-y-1.5 text-xs opacity-80 pt-3 border-t border-slate-800/60">
-            <div class="flex items-center gap-2"><i data-lucide="mail" class="w-3.5 h-3.5 text-sky-400"></i><a href="mailto:noorulazetirur@gmail.com" class="hover:underline">noorulazetirur@gmail.com</a></div>
-            <div class="flex items-center gap-2"><i data-lucide="phone" class="w-3.5 h-3.5 text-emerald-400"></i><a href="tel:+919074300569" class="hover:underline">+91 90743 00569</a></div>
-            <div class="flex items-center gap-2"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i><span>Madampat, Kerala, India</span></div>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Leading Craftiq with a focus on web apps, AI automation, and modern product architecture.</p>
+          <div class="space-y-1 text-xs opacity-80 pt-3 border-t border-slate-800">
+            <div>✉️ <a href="mailto:noorulazetirur@gmail.com" class="hover:underline">noorulazetirur@gmail.com</a></div>
+            <div>📞 <a href="tel:+919074300569" class="hover:underline">+91 90743 00569</a></div>
+            <div>📍 Madampat, Kerala, India</div>
           </div>
         </div>
 
-        <!-- Team Member 2: Kasim Rahees -->
-        <div class="liquid-glass-card p-6 rounded-3xl relative overflow-hidden group border border-blue-500/30">
-          <div class="absolute top-4 right-4 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-300 text-[10px] font-bold uppercase tracking-wider">Co-Founder</div>
-          <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center font-heading text-2xl font-bold text-white shadow-lg mb-4">KR</div>
-          <h3 class="text-xl font-semibold font-heading">Kasim Rahees</h3>
+        <!-- Kasim Rahees -->
+        <div class="minimal-card p-6 rounded-2xl">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-400 font-bold text-lg flex items-center justify-center">KR</div>
+            <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-blue-500/20 text-blue-300">Co-Founder</span>
+          </div>
+          <h3 class="text-lg font-semibold text-white">Kasim Rahees</h3>
           <div class="text-xs text-blue-400 font-medium mb-2">Co-Founder & Developer</div>
-          <p class="text-xs opacity-70 leading-relaxed mb-4">Specializing in scalable backend infrastructure, robust API engineering, and high-availability database architectures for enterprise client solutions.</p>
-          <div class="space-y-1.5 text-xs opacity-80 pt-3 border-t border-slate-800/60">
-            <div class="flex items-center gap-2"><i data-lucide="mail" class="w-3.5 h-3.5 text-sky-400"></i><a href="mailto:kasimraheeskzr@gmail.com" class="hover:underline">kasimraheeskzr@gmail.com</a></div>
-            <div class="flex items-center gap-2"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i><span>Keezhur, Kerala, India</span></div>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Specializing in backend engineering, cloud database optimization, and API architecture.</p>
+          <div class="space-y-1 text-xs opacity-80 pt-3 border-t border-slate-800">
+            <div>✉️ <a href="mailto:kasimraheeskzr@gmail.com" class="hover:underline">kasimraheeskzr@gmail.com</a></div>
+            <div>📍 Keezhur, Kerala, India</div>
           </div>
         </div>
 
-        <!-- Team Member 3: Aboobacker -->
-        <div class="liquid-glass-card p-6 rounded-3xl relative overflow-hidden group">
-          <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-slate-700 to-slate-800 flex items-center justify-center font-heading text-2xl font-bold text-white shadow-lg mb-4">AB</div>
-          <h3 class="text-xl font-semibold font-heading">Aboobacker</h3>
+        <!-- Aboobacker -->
+        <div class="minimal-card p-6 rounded-2xl">
+          <div class="w-12 h-12 rounded-xl bg-slate-800 text-slate-300 font-bold text-lg flex items-center justify-center mb-4">AB</div>
+          <h3 class="text-lg font-semibold text-white">Aboobacker</h3>
           <div class="text-xs text-slate-300 font-medium mb-2">Developer</div>
-          <p class="text-xs opacity-70 leading-relaxed mb-4">Focused on building reliable web platforms, complex business logic engines, app integration, and clean code software paradigms.</p>
-          <div class="space-y-1.5 text-xs opacity-80 pt-3 border-t border-slate-800/60">
-            <div class="flex items-center gap-2"><i data-lucide="mail" class="w-3.5 h-3.5 text-sky-400"></i><a href="mailto:aboobackerbinabid86@gmail.com" class="hover:underline">aboobackerbinabid86@gmail.com</a></div>
-            <div class="flex items-center gap-2"><i data-lucide="phone" class="w-3.5 h-3.5 text-emerald-400"></i><a href="tel:+917510210559" class="hover:underline">+91 75102 10559</a></div>
-            <div class="flex items-center gap-2"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i><span>Beenichery, Kerala, India</span></div>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Building reliable web platforms, business logic engines, and software integrations.</p>
+          <div class="space-y-1 text-xs opacity-80 pt-3 border-t border-slate-800">
+            <div>✉️ <a href="mailto:aboobackerbinabid86@gmail.com" class="hover:underline">aboobackerbinabid86@gmail.com</a></div>
+            <div>📞 <a href="tel:+917510210559" class="hover:underline">+91 75102 10559</a></div>
+            <div>📍 Beenichery, Kerala, India</div>
           </div>
         </div>
 
-        <!-- Team Member 4: Alfas -->
-        <div class="liquid-glass-card p-6 rounded-3xl relative overflow-hidden group">
-          <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-cyan-600 to-teal-600 flex items-center justify-center font-heading text-2xl font-bold text-white shadow-lg mb-4">AL</div>
-          <h3 class="text-xl font-semibold font-heading">Alfas</h3>
+        <!-- Alfas -->
+        <div class="minimal-card p-6 rounded-2xl">
+          <div class="w-12 h-12 rounded-xl bg-cyan-500/20 text-cyan-400 font-bold text-lg flex items-center justify-center mb-4">AL</div>
+          <h3 class="text-lg font-semibold text-white">Alfas</h3>
           <div class="text-xs text-cyan-400 font-medium mb-2">Developer</div>
-          <p class="text-xs opacity-70 leading-relaxed mb-4">Crafting modern, fluid user interfaces with micro-interactions, responsive frameworks, and lightning-fast client-side page rendering.</p>
-          <div class="space-y-1.5 text-xs opacity-80 pt-3 border-t border-slate-800/60">
-            <div class="flex items-center gap-2"><i data-lucide="mail" class="w-3.5 h-3.5 text-sky-400"></i><a href="mailto:alfaskp543@gmail.com" class="hover:underline">alfaskp543@gmail.com</a></div>
-            <div class="flex items-center gap-2"><i data-lucide="phone" class="w-3.5 h-3.5 text-emerald-400"></i><a href="tel:+916235928551" class="hover:underline">+91 62359 28551</a></div>
-            <div class="flex items-center gap-2"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i><span>Naduvil, Kerala, India</span></div>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Crafting responsive user interfaces, frontend component architecture, and client rendering.</p>
+          <div class="space-y-1 text-xs opacity-80 pt-3 border-t border-slate-800">
+            <div>✉️ <a href="mailto:alfaskp543@gmail.com" class="hover:underline">alfaskp543@gmail.com</a></div>
+            <div>📞 <a href="tel:+916235928551" class="hover:underline">+91 62359 28551</a></div>
+            <div>📍 Naduvil, Kerala, India</div>
           </div>
         </div>
 
-        <!-- Team Member 5: Abdul Wahid -->
-        <div class="liquid-glass-card p-6 rounded-3xl relative overflow-hidden group">
-          <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-purple-600 to-pink-600 flex items-center justify-center font-heading text-2xl font-bold text-white shadow-lg mb-4">AW</div>
-          <h3 class="text-xl font-semibold font-heading">Abdul Wahid</h3>
+        <!-- Abdul Wahid -->
+        <div class="minimal-card p-6 rounded-2xl">
+          <div class="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-400 font-bold text-lg flex items-center justify-center mb-4">AW</div>
+          <h3 class="text-lg font-semibold text-white">Abdul Wahid</h3>
           <div class="text-xs text-purple-400 font-medium mb-2">Creative Designer</div>
-          <p class="text-xs opacity-70 leading-relaxed mb-4">Architecting visual identities, brand systems, high-fidelity UI design schemes, and promotional visual assets that elevate digital presence.</p>
-          <div class="space-y-1.5 text-xs opacity-80 pt-3 border-t border-slate-800/60">
-            <div class="flex items-center gap-2"><i data-lucide="mail" class="w-3.5 h-3.5 text-sky-400"></i><a href="mailto:vahidillikkal@gmail.com" class="hover:underline">vahidillikkal@gmail.com</a></div>
-            <div class="flex items-center gap-2"><i data-lucide="phone" class="w-3.5 h-3.5 text-emerald-400"></i><a href="tel:+918714154422" class="hover:underline">+91 87141 54422</a></div>
-            <div class="flex items-center gap-2"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i><span>Illikal, Kerala, India</span></div>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Designing visual identities, brand systems, UI/UX layouts, and visual media assets.</p>
+          <div class="space-y-1 text-xs opacity-80 pt-3 border-t border-slate-800">
+            <div>✉️ <a href="mailto:vahidillikkal@gmail.com" class="hover:underline">vahidillikkal@gmail.com</a></div>
+            <div>📞 <a href="tel:+918714154422" class="hover:underline">+91 87141 54422</a></div>
+            <div>📍 Illikal, Kerala, India</div>
           </div>
         </div>
 
-        <!-- Team Member 6: Rabeeue -->
-        <div class="liquid-glass-card p-6 rounded-3xl relative overflow-hidden group">
-          <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-600 to-orange-600 flex items-center justify-center font-heading text-2xl font-bold text-white shadow-lg mb-4">RB</div>
-          <h3 class="text-xl font-semibold font-heading">Rabeeue</h3>
+        <!-- Rabeeue -->
+        <div class="minimal-card p-6 rounded-2xl">
+          <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 font-bold text-lg flex items-center justify-center mb-4">RB</div>
+          <h3 class="text-lg font-semibold text-white">Rabeeue</h3>
           <div class="text-xs text-amber-400 font-medium mb-2">Writer & Thinker</div>
-          <p class="text-xs opacity-70 leading-relaxed mb-4">Formulating brand narratives, technical documentation, creative copywriting, and conceptual strategy for digital product launches.</p>
-          <div class="space-y-1.5 text-xs opacity-80 pt-3 border-t border-slate-800/60">
-            <div class="flex items-center gap-2"><i data-lucide="mail" class="w-3.5 h-3.5 text-sky-400"></i><a href="mailto:muhammedrabeeuek@gmail.com" class="hover:underline">muhammedrabeeuek@gmail.com</a></div>
-            <div class="flex items-center gap-2"><i data-lucide="phone" class="w-3.5 h-3.5 text-emerald-400"></i><a href="tel:+917034648251" class="hover:underline">+91 70346 48251</a></div>
-            <div class="flex items-center gap-2"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i><span>Kerala, India</span></div>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Formulating brand narratives, documentation, copy strategy, and product messaging.</p>
+          <div class="space-y-1 text-xs opacity-80 pt-3 border-t border-slate-800">
+            <div>✉️ <a href="mailto:muhammedrabeeuek@gmail.com" class="hover:underline">muhammedrabeeuek@gmail.com</a></div>
+            <div>📞 <a href="tel:+917034648251" class="hover:underline">+91 70346 48251</a></div>
+            <div>📍 Kerala, India</div>
           </div>
         </div>
 
       </div>
     </section>
 
-    <!-- PAGE 5: ESTIMATOR PAGE -->
-    <section id="page-estimator" class="page-section hidden px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto pt-8">
-      <div class="liquid-glass-card p-8 sm:p-12 rounded-3xl border border-violet-500/30 text-center">
-        <div class="liquid-glass-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium mb-4">
-          <i data-lucide="calculator" class="w-3.5 h-3.5 text-violet-400"></i>
-          <span>AI Cost Estimator</span>
-        </div>
-        <h2 class="text-3xl sm:text-4xl font-semibold font-heading mb-4">Instant Project Cost Calculator</h2>
-        <p class="text-sm opacity-75 max-w-xl mx-auto mb-8">Calculate an estimated budget starting at <strong>₹1,000 & Above</strong> tailored to your project requirements.</p>
+    <!-- PAGE 5: ESTIMATOR -->
+    <section id="page-estimator" class="page-section hidden px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto pt-6">
+      <div class="minimal-card p-8 sm:p-10 rounded-2xl text-center">
+        <div class="text-xs font-mono text-sky-400 uppercase tracking-wider mb-2">Instant Calculator</div>
+        <h2 class="text-2xl sm:text-3xl font-bold font-heading text-white mb-3">Project Cost Estimator</h2>
+        <p class="text-slate-400 text-xs sm:text-sm max-w-lg mx-auto mb-8">Estimated budget options starting at <strong>₹1,000 & Above</strong> based on project requirements.</p>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-3xl mx-auto mb-8">
-          <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
-            <div class="text-xs font-semibold opacity-70 mb-2">Estimated Starting Budget</div>
-            <div class="text-3xl font-bold font-heading text-sky-400">₹1,000 & Above</div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-left max-w-2xl mx-auto mb-8">
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+            <div class="text-[11px] font-mono text-slate-400">Starting Budget</div>
+            <div class="text-xl font-bold font-heading text-sky-400 mt-1">₹1,000 & Above</div>
           </div>
-
-          <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
-            <div class="text-xs font-semibold opacity-70 mb-2">Estimated Timeline</div>
-            <div class="text-3xl font-bold font-heading text-emerald-400">5 – 15 Days</div>
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+            <div class="text-[11px] font-mono text-slate-400">Timeline</div>
+            <div class="text-xl font-bold font-heading text-emerald-400 mt-1">5 – 15 Days</div>
           </div>
-
-          <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
-            <div class="text-xs font-semibold opacity-70 mb-2">Consultation</div>
-            <div class="text-3xl font-bold font-heading text-purple-400">100% Free</div>
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+            <div class="text-[11px] font-mono text-slate-400">Consultation</div>
+            <div class="text-xl font-bold font-heading text-purple-400 mt-1">100% Free</div>
           </div>
         </div>
 
-        <button onclick="openHireModal()" class="liquid-glass-button px-8 py-3.5 rounded-full text-white font-semibold text-sm shadow-xl inline-flex items-center gap-2">
-          <span>Get Exact Quote for Your Project</span>
-          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        <button onclick="openHireModal()" class="btn-primary px-7 py-3 rounded-full text-xs font-semibold">
+          Get Exact Quote
         </button>
       </div>
     </section>
 
-    <!-- PAGE 6: CAREERS PAGE -->
-    <section id="page-careers" class="page-section hidden px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto pt-8">
-      <div class="liquid-glass-card p-8 sm:p-12 rounded-3xl text-center">
-        <div class="liquid-glass-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium mb-4">
-          <i data-lucide="briefcase" class="w-3.5 h-3.5 text-sky-400"></i>
-          <span>Careers & Opportunities</span>
+    <!-- PAGE 6: CAREERS -->
+    <section id="page-careers" class="page-section hidden px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto pt-6">
+      <div class="minimal-card p-8 rounded-2xl">
+        <div class="text-center mb-6">
+          <div class="text-xs font-mono text-sky-400 uppercase mb-1">Join Craftiq</div>
+          <h2 class="text-2xl font-bold font-heading text-white">Career Opportunities</h2>
         </div>
-        <h2 class="text-3xl sm:text-4xl font-semibold font-heading mb-4">Build with Craftiq</h2>
-        <p class="text-sm opacity-75 max-w-lg mx-auto mb-8">We are always looking for passionate developers, designers, and creative thinkers to join our team.</p>
 
-        <form action="https://formsubmit.co/ajax/noorulazetirur@gmail.com" method="POST" onsubmit="handleCareerSubmit(event)" class="text-left space-y-4 max-w-xl mx-auto">
+        <form action="https://formsubmit.co/ajax/noorulazetirur@gmail.com" method="POST" onsubmit="handleCareerSubmit(event)" class="space-y-4 text-left">
           <input type="hidden" name="_subject" value="⚡ New Craftiq Career Application" />
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label class="block text-xs font-medium mb-1">Full Name</label>
-              <input type="text" name="FullName" required placeholder="John Doe" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-sm focus:outline-none focus:border-sky-500" />
+              <label class="block text-xs font-medium text-slate-300 mb-1">Full Name</label>
+              <input type="text" name="FullName" required placeholder="John Doe" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs focus:outline-none focus:border-sky-500 text-white" />
             </div>
             <div>
-              <label class="block text-xs font-medium mb-1">Email Address</label>
-              <input type="email" name="Email" required placeholder="john@example.com" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-sm focus:outline-none focus:border-sky-500" />
+              <label class="block text-xs font-medium text-slate-300 mb-1">Email</label>
+              <input type="email" name="Email" required placeholder="john@example.com" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs focus:outline-none focus:border-sky-500 text-white" />
             </div>
           </div>
           <div>
-            <label class="block text-xs font-medium mb-1">Role Interested In</label>
-            <select name="Role" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-sm focus:outline-none focus:border-sky-500">
+            <label class="block text-xs font-medium text-slate-300 mb-1">Role</label>
+            <select name="Role" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs focus:outline-none focus:border-sky-500 text-white">
               <option value="Frontend Developer">Frontend Developer</option>
               <option value="Backend Engineer">Backend Engineer</option>
               <option value="UI/UX Designer">UI/UX Designer</option>
@@ -872,94 +640,88 @@
             </select>
           </div>
           <div>
-            <label class="block text-xs font-medium mb-1">Portfolio Link / GitHub</label>
-            <input type="url" name="Portfolio" placeholder="https://github.com/username" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-sm focus:outline-none focus:border-sky-500" />
+            <label class="block text-xs font-medium text-slate-300 mb-1">Portfolio Link / GitHub</label>
+            <input type="url" name="Portfolio" placeholder="https://github.com/username" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs focus:outline-none focus:border-sky-500 text-white" />
           </div>
-          <button type="submit" class="liquid-glass-button w-full py-3.5 rounded-xl text-white font-semibold text-sm shadow-xl flex items-center justify-center gap-2">
-            <span>Submit Application</span>
-            <i data-lucide="arrow-right" class="w-4 h-4"></i>
-          </button>
+          <button type="submit" class="btn-primary w-full py-3 rounded-xl text-xs font-semibold">Submit Application</button>
         </form>
       </div>
     </section>
 
-    <!-- PAGE 7: CONTACT PAGE -->
-    <section id="page-contact" class="page-section hidden px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto pt-8">
-      <div class="text-center max-w-3xl mx-auto mb-12">
-        <div class="liquid-glass-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium mb-3">
-          <i data-lucide="mail" class="w-3.5 h-3.5 text-sky-400"></i>
-          <span>Get in Touch</span>
-        </div>
-        <h2 class="text-3xl sm:text-5xl font-semibold font-heading tracking-tight">Let's build something extraordinary.</h2>
-        <p class="mt-4 opacity-75 text-sm sm:text-base">Reach out directly via email, phone, or send an inquiry form.</p>
+    <!-- PAGE 7: CONTACT -->
+    <section id="page-contact" class="page-section hidden px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto pt-6">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <div class="text-xs font-mono text-sky-400 uppercase tracking-wider mb-2">Get in Touch</div>
+        <h2 class="text-3xl font-bold font-heading text-white">Contact Craftiq</h2>
+        <p class="text-slate-400 text-sm mt-2">Connect via email, phone, or send an inquiry.</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 text-center">
-        <a href="mailto:noorulazetirur@gmail.com" class="liquid-glass-card p-6 rounded-2xl flex flex-col items-center justify-center hover:border-sky-400 transition-colors">
-          <i data-lucide="mail" class="w-6 h-6 text-sky-400 mb-3"></i>
-          <div class="text-xs opacity-70 mb-1">Email Us</div>
-          <div class="text-sm font-semibold">noorulazetirur@gmail.com</div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+        <a href="mailto:noorulazetirur@gmail.com" class="minimal-card p-6 rounded-2xl flex flex-col items-center justify-center">
+          <i data-lucide="mail" class="w-6 h-6 text-sky-400 mb-2"></i>
+          <div class="text-[11px] text-slate-400">Email</div>
+          <div class="text-xs font-semibold text-white mt-1">noorulazetirur@gmail.com</div>
         </a>
 
-        <a href="tel:+919074300569" class="liquid-glass-card p-6 rounded-2xl flex flex-col items-center justify-center hover:border-emerald-400 transition-colors">
-          <i data-lucide="phone" class="w-6 h-6 text-emerald-400 mb-3"></i>
-          <div class="text-xs opacity-70 mb-1">Call Us Directly</div>
-          <div class="text-sm font-semibold">+91 90743 00569</div>
+        <a href="tel:+919074300569" class="minimal-card p-6 rounded-2xl flex flex-col items-center justify-center">
+          <i data-lucide="phone" class="w-6 h-6 text-emerald-400 mb-2"></i>
+          <div class="text-[11px] text-slate-400">Phone</div>
+          <div class="text-xs font-semibold text-white mt-1">+91 90743 00569</div>
         </a>
 
-        <a href="https://wa.me/919074300569" target="_blank" rel="noopener noreferrer" class="liquid-glass-card p-6 rounded-2xl flex flex-col items-center justify-center hover:border-emerald-500 transition-colors">
-          <i data-lucide="message-square" class="w-6 h-6 text-emerald-500 mb-3"></i>
-          <div class="text-xs opacity-70 mb-1">WhatsApp Chat</div>
-          <div class="text-sm font-semibold">Chat on WhatsApp</div>
+        <a href="https://wa.me/919074300569" target="_blank" rel="noopener noreferrer" class="minimal-card p-6 rounded-2xl flex flex-col items-center justify-center">
+          <i data-lucide="message-square" class="w-6 h-6 text-emerald-500 mb-2"></i>
+          <div class="text-[11px] text-slate-400">WhatsApp</div>
+          <div class="text-xs font-semibold text-white mt-1">Chat on WhatsApp</div>
         </a>
       </div>
     </section>
 
   </main>
 
-  <!-- FOOTER WITH CRAFTIQ LOGO -->
-  <footer class="relative z-10 border-t border-slate-800/80 py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-xs opacity-75">
+  <!-- FOOTER -->
+  <footer class="relative z-10 border-t border-slate-800/80 py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
     <div class="flex items-center gap-3">
-      <div class="w-7 h-7 rounded-lg overflow-hidden border border-sky-400/40 shrink-0">
+      <div class="w-7 h-7 rounded-lg overflow-hidden border border-slate-700 bg-slate-900 shrink-0">
         <img src="./assets/craftiq-logo.png" alt="Craftiq Logo" class="w-full h-full object-cover" />
       </div>
-      <span class="font-heading font-semibold text-sm">Craftiq Digital Product Studio</span>
+      <span class="font-heading font-semibold text-white">Craftiq Digital Product Studio</span>
     </div>
-    <div>© 2026 Craftiq. All rights reserved. Built in Kerala, India.</div>
+    <div>© 2026 Craftiq. Built in Kerala, India.</div>
   </footer>
 
-  <!-- HIRE MODAL OVERLAY -->
+  <!-- HIRE MODAL -->
   <div id="hireModal" class="modal-overlay">
-    <div class="liquid-glass-card p-8 rounded-3xl max-w-lg w-full relative border border-slate-700 shadow-2xl">
-      <button onclick="closeHireModal()" class="absolute top-4 right-4 p-2 rounded-full hover:bg-slate-800 text-slate-400 hover:text-white">
+    <div class="minimal-card p-7 rounded-2xl max-w-md w-full relative border border-slate-700 shadow-2xl">
+      <button onclick="closeHireModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
-      <h3 class="text-2xl font-semibold font-heading mb-2">Start Your Project</h3>
-      <p class="text-xs opacity-75 mb-6">Tell us about your project requirements and budget tier.</p>
+      <h3 class="text-xl font-bold font-heading text-white mb-1">Start Your Project</h3>
+      <p class="text-xs text-slate-400 mb-5">Tell us about your project requirements.</p>
 
-      <form action="https://formsubmit.co/ajax/noorulazetirur@gmail.com" method="POST" onsubmit="handleModalFormSubmit(event)" class="space-y-4">
+      <form action="https://formsubmit.co/ajax/noorulazetirur@gmail.com" method="POST" onsubmit="handleModalFormSubmit(event)" class="space-y-3 text-left">
         <input type="hidden" name="_subject" value="⚡ New Craftiq Project Inquiry" />
         
         <div>
-          <label class="block text-xs font-medium mb-1">Full Name *</label>
-          <input type="text" name="Client_Name" required placeholder="John Doe" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs focus:outline-none focus:border-sky-500" />
+          <label class="block text-xs font-medium text-slate-300 mb-1">Full Name *</label>
+          <input type="text" name="Client_Name" required placeholder="John Doe" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs text-white focus:outline-none focus:border-sky-500" />
         </div>
 
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-medium mb-1">Email *</label>
-            <input type="email" name="Client_Email" required placeholder="john@example.com" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs focus:outline-none focus:border-sky-500" />
+            <label class="block text-xs font-medium text-slate-300 mb-1">Email *</label>
+            <input type="email" name="Client_Email" required placeholder="john@example.com" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs text-white focus:outline-none focus:border-sky-500" />
           </div>
           <div>
-            <label class="block text-xs font-medium mb-1">Phone *</label>
-            <input type="tel" name="Phone_Number" required placeholder="+91 90743 00569" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs focus:outline-none focus:border-sky-500" />
+            <label class="block text-xs font-medium text-slate-300 mb-1">Phone *</label>
+            <input type="tel" name="Phone_Number" required placeholder="+91 90743 00569" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs text-white focus:outline-none focus:border-sky-500" />
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-medium mb-1">Project Domain</label>
-          <select name="Project_Domain" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs focus:outline-none focus:border-sky-500">
+          <label class="block text-xs font-medium text-slate-300 mb-1">Project Domain</label>
+          <select name="Project_Domain" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs text-white focus:outline-none focus:border-sky-500">
             <option value="Website Design & Development">Website Design & Development</option>
             <option value="Mobile App (iOS & Android)">Mobile App (iOS & Android)</option>
             <option value="Artificial Intelligence & Workflows">Artificial Intelligence & Workflows</option>
@@ -969,8 +731,8 @@
         </div>
 
         <div>
-          <label class="block text-xs font-medium mb-1">Budget Tier</label>
-          <select name="Budget_Tier" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs focus:outline-none focus:border-sky-500">
+          <label class="block text-xs font-medium text-slate-300 mb-1">Budget Tier</label>
+          <select name="Budget_Tier" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs text-white focus:outline-none focus:border-sky-500">
             <option value="₹1,000 & Above">₹1,000 & Above</option>
             <option value="₹5,000 - ₹15,000">₹5,000 - ₹15,000</option>
             <option value="₹15,000 & Above">₹15,000 & Above</option>
@@ -978,26 +740,21 @@
         </div>
 
         <div>
-          <label class="block text-xs font-medium mb-1">Project Details</label>
-          <textarea name="Project_Details" rows="3" placeholder="Briefly describe your project requirements..." class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs focus:outline-none focus:border-sky-500"></textarea>
+          <label class="block text-xs font-medium text-slate-300 mb-1">Project Details</label>
+          <textarea name="Project_Details" rows="3" placeholder="Briefly describe your requirements..." class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs text-white focus:outline-none focus:border-sky-500"></textarea>
         </div>
 
-        <button type="submit" class="liquid-glass-button w-full py-3.5 rounded-xl text-white font-semibold text-xs shadow-xl flex items-center justify-center gap-2">
-          <span>Send Inquiry</span>
-          <i data-lucide="arrow-right" class="w-4 h-4"></i>
-        </button>
+        <button type="submit" class="btn-primary w-full py-3 rounded-xl text-xs font-semibold">Send Inquiry</button>
       </form>
     </div>
   </div>
 
   <!-- JAVASCRIPT CONTROLS -->
   <script>
-    // Initialize Lucide Icons
     if (typeof lucide !== 'undefined' && lucide.createIcons) {
       lucide.createIcons();
     }
 
-    // MULTI-PAGE TAB ROUTER
     function showPage(pageId) {
       document.querySelectorAll('.page-section').forEach(el => el.classList.add('hidden'));
       const target = document.getElementById('page-' + pageId);
@@ -1008,11 +765,11 @@
 
       document.querySelectorAll('.nav-link').forEach(el => {
         if (el.getAttribute('data-page') === pageId) {
-          el.classList.add('liquid-glass-button', 'text-white', 'shadow-lg');
-          el.classList.remove('opacity-70');
+          el.classList.add('bg-slate-800', 'text-white');
+          el.classList.remove('text-slate-400');
         } else {
-          el.classList.remove('liquid-glass-button', 'text-white', 'shadow-lg');
-          el.classList.add('opacity-70');
+          el.classList.remove('bg-slate-800', 'text-white');
+          el.classList.add('text-slate-400');
         }
       });
       try {
@@ -1030,54 +787,6 @@
     window.addEventListener('hashchange', handleInitialPage);
     handleInitialPage();
 
-    // Canvas Particles
-    function initCanvas() {
-      const canvas = document.getElementById('cyberCanvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      let width = canvas.width = window.innerWidth;
-      let height = canvas.height = window.innerHeight;
-
-      window.addEventListener('resize', () => {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-      });
-
-      const particles = [];
-      const count = 35;
-      for (let i = 0; i < count; i++) {
-        particles.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.4,
-          vy: (Math.random() - 0.5) * 0.4,
-          radius: Math.random() * 1.8 + 0.6
-        });
-      }
-
-      function animate() {
-        ctx.clearRect(0, 0, width, height);
-        ctx.fillStyle = 'rgba(56, 189, 248, 0.4)';
-        for (let p of particles) {
-          p.x += p.vx; p.y += p.vy;
-          if (p.x < 0 || p.x > width) p.vx *= -1;
-          if (p.y < 0 || p.y > height) p.vy *= -1;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-          ctx.fill();
-        }
-        requestAnimationFrame(animate);
-      }
-      animate();
-    }
-
-    if (document.readyState === 'loading') {
-      window.addEventListener('DOMContentLoaded', initCanvas);
-    } else {
-      initCanvas();
-    }
-
-    // Modal controls
     function openHireModal() {
       document.getElementById('hireModal').classList.add('active');
     }
@@ -1085,7 +794,6 @@
       document.getElementById('hireModal').classList.remove('active');
     }
 
-    // Mobile menu controls
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mobileDrawer = document.getElementById('mobileDrawer');
     if (mobileMenuBtn) {
@@ -1097,23 +805,6 @@
       if (mobileDrawer) mobileDrawer.classList.add('hidden');
     }
 
-    // Theme controls
-    function toggleTheme() {
-      const isDark = document.body.classList.contains('dark');
-      if (isDark) {
-        document.body.classList.remove('dark');
-        document.body.classList.add('light');
-      } else {
-        document.body.classList.remove('light');
-        document.body.classList.add('dark');
-      }
-    }
-    const themeBtn = document.getElementById('themeToggleBtn');
-    const themeBtnMobile = document.getElementById('themeToggleBtnMobile');
-    if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
-    if (themeBtnMobile) themeBtnMobile.addEventListener('click', toggleTheme);
-
-    // Form handlers
     async function handleModalFormSubmit(e) {
       e.preventDefault();
       const form = e.target;
