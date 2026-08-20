@@ -754,24 +754,30 @@
       const [estComplexity, setEstComplexity] = useState('standard');
       const [estHasAI, setEstHasAI] = useState(true);
 
-      // Handle Hash Routing
+      // Handle Hash Routing & Navigation
       useEffect(() => {
         const handleHashChange = () => {
           const hash = window.location.hash.replace('#', '');
           if (NAV_ITEMS.some(item => item.id === hash)) {
             setActivePage(hash);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            const el = document.getElementById(hash);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
           }
         };
         window.addEventListener('hashchange', handleHashChange);
         return () => window.removeEventListener('hashchange', handleHashChange);
       }, []);
 
-      const navigateTo = (pageId) => {
-        setActivePage(pageId);
-        window.location.hash = pageId;
+      const navigateTo = (sectionId) => {
+        setActivePage(sectionId);
         setMobileMenuOpen(false);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.location.hash = sectionId;
+        const el = document.getElementById(sectionId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
       };
 
       useEffect(() => {
@@ -807,15 +813,6 @@
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
       }, []);
-
-      const navigateTo = (sectionId) => {
-        setActivePage(sectionId);
-        setMobileMenuOpen(false);
-        const el = document.getElementById(sectionId);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
-        }
-      };
 
       useEffect(() => {
         if (typeof lucide !== 'undefined' && lucide && lucide.createIcons) {
