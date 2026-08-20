@@ -781,11 +781,41 @@
       }, [theme]);
 
       useEffect(() => {
-        const handleScroll = () => setScrolled(window.scrollY > 20);
+        const handleScroll = () => {
+          if (window.scrollY > 20) {
+            setScrolled(true);
+          } else {
+            setScrolled(false);
+          }
+
+          const sections = ['home', 'services', 'projects', 'team', 'estimator', 'careers', 'contact'];
+          const scrollPosition = window.scrollY + 200;
+
+          for (const sectionId of sections) {
+            const el = document.getElementById(sectionId);
+            if (el) {
+              const top = el.offsetTop;
+              const height = el.offsetHeight;
+              if (scrollPosition >= top && scrollPosition < top + height) {
+                setActivePage(sectionId);
+                break;
+              }
+            }
+          }
+        };
+
         window.addEventListener('scroll', handleScroll);
-        lucide.createIcons();
         return () => window.removeEventListener('scroll', handleScroll);
       }, []);
+
+      const navigateTo = (sectionId) => {
+        setActivePage(sectionId);
+        setMobileMenuOpen(false);
+        const el = document.getElementById(sectionId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      };
 
       useEffect(() => {
         lucide.createIcons();
@@ -1000,15 +1030,11 @@
             )}
           </header>
 
-          {/* DYNAMIC BRANCHED PAGE VIEWS */}
-          <main className="pt-28 pb-16 min-h-[75vh]">
+          {/* SINGLE-PAGE SCROLLING MAIN CONTENT */}
+          <main className="pt-28 pb-16 space-y-24 min-h-[75vh]">
             
-            {/* 1. SHORTENED & PUNCHY HOME PAGE VIEW */}
-            {activePage === 'home' && (
-              <div className="page-fade-in space-y-24">
-                
-                {/* SHORTENED HERO BANNER */}
-                <section className="pt-12 pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col items-center text-center">
+            {/* HERO SECTION */}
+            <section id="home" className="pt-12 pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col items-center text-center">
                   <div className="liquid-glass-pill inline-flex items-center gap-2.5 px-5 py-2 rounded-full text-xs font-medium mb-6 shadow-xl animate-float-slow">
                     <span className="w-2 h-2 rounded-full bg-sky-400 animate-ping"></span>
                     <i data-lucide="sparkles" className="w-3.5 h-3.5 text-sky-400"></i>
@@ -1205,12 +1231,8 @@
                   </div>
                 </section>
 
-              </div>
-            )}
-
-            {/* 2. SERVICES PAGE BRANCH */}
-            {activePage === 'services' && (
-              <div className="page-fade-in py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                {/* 2. SERVICES SECTION */}
+                <section id="services" className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
                 <div className="text-center max-w-3xl mx-auto mb-12">
                   <div className="liquid-glass-pill inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-4">
                     <i data-lucide="layers" className="w-3.5 h-3.5 text-sky-400"></i> Services Branch
@@ -1287,12 +1309,10 @@
                     </div>
                   ))}
                 </div>
-              </div>
-            )}
+                </section>
 
-            {/* 3. PROJECTS / PORTFOLIO PAGE BRANCH */}
-            {activePage === 'projects' && (
-              <div className="page-fade-in py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                {/* 3. PROJECTS SECTION */}
+                <section id="projects" className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
                 <div className="text-center max-w-3xl mx-auto mb-16">
                   <div className="liquid-glass-pill inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-4">
                     <i data-lucide="folder-git-2" className="w-3.5 h-3.5 text-sky-400"></i> Portfolio Branch
@@ -1357,12 +1377,10 @@
                     </div>
                   ))}
                 </div>
-              </div>
-            )}
+                </section>
 
-            {/* 4. ABOUT & TEAM PAGE BRANCH */}
-            {activePage === 'team' && (
-              <div className="page-fade-in py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-16">
+                {/* 4. ABOUT & TEAM SECTION */}
+                <section id="team" className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-16">
                 <div className="text-center max-w-3xl mx-auto">
                   <div className="liquid-glass-pill inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-4">
                     <i data-lucide="users" className="w-3.5 h-3.5 text-sky-400"></i> Studio Team Branch
@@ -1450,12 +1468,10 @@
                     </button>
                   </div>
                 </div>
-              </div>
-            )}
+                </section>
 
-            {/* 5. ESTIMATOR PAGE BRANCH */}
-            {activePage === 'estimator' && (
-              <div className="page-fade-in py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                {/* 5. ESTIMATOR SECTION */}
+                <section id="estimator" className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
                 <div className="text-center max-w-3xl mx-auto mb-16">
                   <div className="liquid-glass-pill inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-4">
                     <i data-lucide="calculator" className="w-3.5 h-3.5 text-sky-400"></i> Estimator Branch
@@ -1544,12 +1560,10 @@
                     </button>
                   </div>
                 </div>
-              </div>
-            )}
+                </section>
 
-            {/* 6. CAREERS PAGE BRANCH */}
-            {activePage === 'careers' && (
-              <div className="page-fade-in py-8 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+                {/* 6. CAREERS SECTION */}
+                <section id="careers" className="py-8 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
                 <div className="liquid-glass-card rounded-3xl p-8 sm:p-12">
                   <div className="text-center max-w-2xl mx-auto mb-10">
                     <div className="liquid-glass-pill inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-3">
@@ -1678,8 +1692,7 @@
                     </form>
                   )}
                 </div>
-              </div>
-            )}
+                </section>
 
           </main>
 
