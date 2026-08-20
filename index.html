@@ -720,10 +720,20 @@
 
     // MAIN APP COMPONENT WITH MULTI-PAGE ROUTING
     function App() {
-      const [theme, setTheme] = useState(() => localStorage.getItem('craftiq-theme') || 'dark');
+      const [theme, setTheme] = useState(() => {
+        try {
+          return localStorage.getItem('craftiq-theme') || 'dark';
+        } catch (e) {
+          return 'dark';
+        }
+      });
       const [activePage, setActivePage] = useState(() => {
-        const hash = window.location.hash.replace('#', '');
-        return NAV_ITEMS.some(item => item.id === hash) ? hash : 'home';
+        try {
+          const hash = window.location.hash.replace('#', '');
+          return NAV_ITEMS.some(item => item.id === hash) ? hash : 'home';
+        } catch (e) {
+          return 'home';
+        }
       });
       const [isHireModalOpen, setIsHireModalOpen] = useState(false);
       const [selectedService, setSelectedService] = useState(null);
@@ -758,12 +768,14 @@
       // Handle Hash Routing & Navigation
       useEffect(() => {
         const handleHashChange = () => {
-          const hash = window.location.hash.replace('#', '');
-          if (NAV_ITEMS.some(item => item.id === hash)) {
-            setActivePage(hash);
-            const el = document.getElementById(hash);
-            if (el) el.scrollIntoView({ behavior: 'smooth' });
-          }
+          try {
+            const hash = window.location.hash.replace('#', '');
+            if (NAV_ITEMS.some(item => item.id === hash)) {
+              setActivePage(hash);
+              const el = document.getElementById(hash);
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }
+          } catch(e) {}
         };
         window.addEventListener('hashchange', handleHashChange);
         return () => window.removeEventListener('hashchange', handleHashChange);
@@ -772,7 +784,9 @@
       const navigateTo = (sectionId) => {
         setActivePage(sectionId);
         setMobileMenuOpen(false);
-        window.location.hash = sectionId;
+        try {
+          window.location.hash = sectionId;
+        } catch(e) {}
         const el = document.getElementById(sectionId);
         if (el) {
           el.scrollIntoView({ behavior: 'smooth' });
@@ -784,7 +798,9 @@
       useEffect(() => {
         document.documentElement.classList.remove('light', 'dark');
         document.documentElement.classList.add(theme);
-        localStorage.setItem('craftiq-theme', theme);
+        try {
+          localStorage.setItem('craftiq-theme', theme);
+        } catch (e) {}
       }, [theme]);
 
       useEffect(() => {
@@ -1907,7 +1923,11 @@
       );
     }
 
-    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    try {
+      ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    } catch (err) {
+      console.error("ReactDOM render error:", err);
+    }
   </script>
 </body>
 </html>
