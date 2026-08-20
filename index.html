@@ -1,11 +1,10 @@
-<!-- CRAFTIQ VERCEL DEPLOYMENT BUILD 2026-08-20 -->
 <!DOCTYPE html>
 <html lang="en" class="dark scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CRAFTIQ — Crafting Intelligent Digital Experiences</title>
-  <meta name="description" content="Craftiq designs and develops premium websites, mobile applications, AI chatbots, AI agents, branding, automation systems, AI videos, and modern digital experiences." />
+  <meta name="description" content="Craftiq designs and develops premium websites, mobile applications, AI chatbots, AI agents, branding, automation systems, and modern digital experiences." />
   <link rel="icon" type="image/png" href="./assets/craftiq-logo.png" />
   <link rel="apple-touch-icon" href="./assets/craftiq-logo.png" />
 
@@ -42,11 +41,6 @@
   <!-- Lucide Icons CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- React 18, ReactDOM 18 & Babel Standalone (Cloudflare High-Availability CDN) -->
-  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
-  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.6/babel.min.js"></script>
-
   <style>
     /* Dark Theme Variables */
     html.dark {
@@ -55,7 +49,7 @@
       --text-primary: #f8fafc;
       --text-secondary: #cbd5e1;
       --text-muted: #94a3b8;
-      --glass-bg: rgba(15, 23, 42, 0.65);
+      --glass-bg: rgba(15, 23, 42, 0.75);
       --glass-border: rgba(255, 255, 255, 0.14);
       --glass-shadow: 0 14px 45px -12px rgba(3, 7, 18, 0.85);
       --aurora-1: rgba(124, 58, 237, 0.25);
@@ -71,7 +65,7 @@
       --text-primary: #0f172a;
       --text-secondary: #334155;
       --text-muted: #64748b;
-      --glass-bg: rgba(255, 255, 255, 0.78);
+      --glass-bg: rgba(255, 255, 255, 0.85);
       --glass-border: rgba(15, 23, 42, 0.09);
       --glass-shadow: 0 14px 40px -10px rgba(15, 23, 42, 0.08);
       --aurora-1: rgba(124, 58, 237, 0.1);
@@ -93,261 +87,889 @@
       letter-spacing: -0.02em;
     }
 
-    p, span, li, button, input, select, textarea {
-      font-family: 'Inter', sans-serif;
-      letter-spacing: -0.01em;
-    }
-
-    .bg-cyber-grid {
-      background-image: linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
-                        linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
-      background-size: 50px 50px;
-    }
-
-    .holographic-card {
-      position: relative;
-      background: var(--glass-bg);
-      backdrop-filter: blur(28px) saturate(200%);
-      -webkit-backdrop-filter: blur(28px) saturate(200%);
-      border: 1px solid var(--glass-border);
-      border-radius: 1.5rem;
-      overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .holographic-card::after {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: conic-gradient(from 0deg, transparent 0deg, rgba(56, 189, 248, 0.3) 90deg, transparent 180deg, rgba(124, 58, 237, 0.3) 270deg, transparent 360deg);
-      animation: rotateHolo 8s linear infinite;
-      opacity: 0;
-      transition: opacity 0.4s ease;
+    /* Background Grid & Aurora Glows */
+    .aurora-bg {
+      position: fixed;
+      inset: 0;
       pointer-events: none;
       z-index: 0;
+      background-image: 
+        radial-gradient(circle at 15% 15%, var(--aurora-1) 0%, transparent 45%),
+        radial-gradient(circle at 85% 30%, var(--aurora-2) 0%, transparent 50%),
+        radial-gradient(circle at 50% 80%, var(--aurora-3) 0%, transparent 55%),
+        linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 48px 48px, 48px 48px;
     }
 
-    .holographic-card:hover::after {
-      opacity: 1;
-    }
-
-    @keyframes rotateHolo {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
+    /* Glassmorphism Card Style */
     .liquid-glass-card {
-      position: relative;
       background: var(--glass-bg);
-      backdrop-filter: blur(28px) saturate(200%);
-      -webkit-backdrop-filter: blur(28px) saturate(200%);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--glass-border);
       box-shadow: var(--glass-shadow);
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     .liquid-glass-card:hover {
-      transform: translateY(-4px) scale(1.008);
-    }
-
-    html.dark .liquid-glass-card:hover {
-      background: rgba(15, 23, 42, 0.85);
       border-color: rgba(56, 189, 248, 0.4);
-      box-shadow: 0 0 35px -5px rgba(37, 99, 235, 0.35), 0 20px 45px -10px rgba(0, 0, 0, 0.9);
+      transform: translateY(-4px);
     }
 
-    html.light .liquid-glass-card:hover {
-      background: rgba(255, 255, 255, 0.95);
-      border-color: rgba(37, 99, 235, 0.35);
-      box-shadow: 0 18px 45px -5px rgba(37, 99, 235, 0.18);
+    .liquid-glass-pill {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
     }
 
     .liquid-glass-button {
-      position: relative;
-      background: linear-gradient(135deg, rgba(37, 99, 235, 0.95) 0%, rgba(56, 189, 248, 0.85) 50%, rgba(124, 58, 237, 0.95) 100%);
-      backdrop-filter: blur(24px) saturate(220%);
-      -webkit-backdrop-filter: blur(24px) saturate(220%);
-      border: 1px solid rgba(255, 255, 255, 0.45);
-      box-shadow: 
-        inset 0 1px 2px 0 rgba(255, 255, 255, 0.75),
-        inset 0 -2px 4px 0 rgba(0, 0, 0, 0.3),
-        0 10px 30px -4px rgba(37, 99, 235, 0.45);
-      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-      overflow: hidden;
-      color: #ffffff;
+      background: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #1d4ed8 100%);
+      box-shadow: 0 8px 25px -4px rgba(37, 99, 235, 0.5);
+      transition: all 0.3s ease;
     }
 
     .liquid-glass-button:hover {
-      border-color: rgba(255, 255, 255, 0.85);
-      box-shadow: 
-        inset 0 1px 3px 0 rgba(255, 255, 255, 0.95),
-        0 0 45px 4px rgba(56, 189, 248, 0.7),
-        0 16px 40px -4px rgba(37, 99, 235, 0.75);
-      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 12px 30px -2px rgba(56, 189, 248, 0.6);
+      transform: translateY(-2px);
     }
 
-    .scanline {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, #38bdf8, #7c3aed, transparent);
-      animation: scanline 4s linear infinite;
-      pointer-events: none;
-      opacity: 0.6;
+    .liquid-glass-button-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      transition: all 0.3s ease;
     }
 
-    @keyframes scanline {
-      0% { top: -10%; opacity: 0; }
-      15% { opacity: 0.8; }
-      85% { opacity: 0.8; }
-      100% { top: 110%; opacity: 0; }
+    .liquid-glass-button-secondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(56, 189, 248, 0.4);
+      transform: translateY(-2px);
     }
 
-    .animate-float-slow {
-      animation: floatSlow 6s ease-in-out infinite;
-    }
-
-    @keyframes floatSlow {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-8px) rotate(1deg); }
-    }
-
-    html.dark .liquid-glass-button-secondary {
-      background: rgba(15, 23, 42, 0.65);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      color: #f8fafc;
-    }
-
-    html.light .liquid-glass-button-secondary {
-      background: rgba(255, 255, 255, 0.8);
-      border: 1px solid rgba(15, 23, 42, 0.12);
-      color: #0f172a;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    }
-
-    html.light .liquid-glass-button-secondary:hover {
-      background: #ffffff;
-      border-color: rgba(37, 99, 235, 0.4);
-    }
-
-    html.dark .liquid-glass-pill {
-      background: rgba(15, 23, 42, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      color: #38bdf8;
-    }
-
-    html.light .liquid-glass-pill {
-      background: rgba(255, 255, 255, 0.85);
-      border: 1px solid rgba(15, 23, 42, 0.1);
-      color: #2563eb;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-    }
-
-    .aurora-bg {
-      position: absolute;
-      top: -20%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 140vw;
-      height: 100vh;
-      background: radial-gradient(circle at 50% 30%, var(--aurora-1), transparent 60%),
-                  radial-gradient(circle at 20% 20%, var(--aurora-2), transparent 50%),
-                  radial-gradient(circle at 80% 25%, var(--aurora-3), transparent 50%);
-      filter: blur(80px);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    html.dark .gradient-text-accent {
-      background: linear-gradient(135deg, #38bdf8 0%, #2563eb 50%, #7c3aed 100%);
+    .gradient-text-accent {
+      background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    html.light .gradient-text-accent {
-      background: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #6d28d9 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    /* Modal Backdrop */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 7, 18, 0.8);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
     }
 
-    /* Page transition animation */
-    .page-fade-in {
-      animation: fadeIn 0.35s ease-out forwards;
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Multi-Ratio & Device Responsiveness Optimization */
-    @media (max-width: 640px) {
-      .holographic-card, .liquid-glass-card {
-        border-radius: 1.25rem;
-      }
-      h1 {
-        font-size: clamp(1.85rem, 7.5vw, 3rem) !important;
-        line-height: 1.15 !important;
-      }
-      h2 {
-        font-size: clamp(1.45rem, 5.5vw, 2.5rem) !important;
-      }
-      .aurora-bg {
-        width: 180vw;
-        height: 60vh;
-      }
-      input, select, textarea {
-        font-size: 15px !important;
-      }
-    }
-
-    @media (min-width: 1536px) {
-      .max-w-7xl {
-        max-width: 90rem;
-      }
-    }
-
-    /* Prevent mobile overflow, text break safety & touch targets */
-    button, a, select, input {
-      touch-action: manipulation;
-    }
-    
-    .word-break-all {
-      word-break: break-all;
-    }
-
-    /* Custom smooth scrollbar & touch safety */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: rgba(3, 7, 18, 0.5);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: rgba(56, 189, 248, 0.25);
-      border-radius: 9999px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: rgba(56, 189, 248, 0.5);
+    #cyberCanvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
     }
   </style>
 </head>
-<body class="antialiased overflow-x-hidden bg-cyber-grid">
+<body class="dark">
 
-  <!-- Interactive Cyber Particles Canvas Background -->
-  <canvas id="cyberCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
+  <div class="aurora-bg"></div>
+  <canvas id="cyberCanvas"></canvas>
 
-  <div id="root"></div>
+  <!-- NAVBAR HEADER -->
+  <header id="mainHeader" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div id="navContainer" class="flex items-center justify-between rounded-full px-6 py-3 bg-slate-950/40 backdrop-blur-md border border-slate-800/40 transition-all duration-300">
+        
+        <!-- Logo -->
+        <a href="#home" class="flex items-center gap-3 group">
+          <div class="relative w-10 h-10 flex items-center justify-center rounded-xl bg-gradient-to-tr from-blue-600 via-sky-400 to-violet-600 p-[1px] shadow-lg shadow-blue-600/30">
+            <div class="w-full h-full bg-[#030712] rounded-[11px] flex items-center justify-center">
+              <span class="font-heading font-bold text-xl text-sky-400">C</span>
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-heading font-bold text-xl tracking-tight dark:text-white text-slate-900">
+              Craft<span class="text-sky-500">iq</span>
+            </span>
+            <span class="text-[9px] font-sans tracking-wider opacity-60 capitalize -mt-1 hidden sm:block">Digital Product Studio</span>
+          </div>
+        </a>
 
-  <!-- Cybernetic Canvas Animation Script -->
+        <!-- Desktop Navigation Items -->
+        <nav class="hidden lg:flex items-center gap-1.5 p-1 rounded-full liquid-glass-pill">
+          <a href="#home" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
+            <i data-lucide="home" class="w-3.5 h-3.5"></i><span>Home</span>
+          </a>
+          <a href="#services" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
+            <i data-lucide="layers" class="w-3.5 h-3.5"></i><span>Services</span>
+          </a>
+          <a href="#projects" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
+            <i data-lucide="folder-git-2" class="w-3.5 h-3.5"></i><span>Projects</span>
+          </a>
+          <a href="#team" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
+            <i data-lucide="users" class="w-3.5 h-3.5"></i><span>About & Team</span>
+          </a>
+          <a href="#estimator" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
+            <i data-lucide="calculator" class="w-3.5 h-3.5"></i><span>Estimator</span>
+          </a>
+          <a href="#careers" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
+            <i data-lucide="briefcase" class="w-3.5 h-3.5"></i><span>Careers</span>
+          </a>
+          <a href="#contact" class="nav-link px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 opacity-70 hover:opacity-100 hover:text-sky-400">
+            <i data-lucide="mail" class="w-3.5 h-3.5"></i><span>Contact</span>
+          </a>
+        </nav>
+
+        <!-- Right Action Controls -->
+        <div class="hidden sm:flex items-center gap-3">
+          <button id="themeToggleBtn" class="p-2.5 rounded-full liquid-glass-pill text-slate-300 hover:text-white transition-transform active:scale-95" title="Toggle Theme">
+            <i data-lucide="sun" class="w-4 h-4 text-amber-400"></i>
+          </button>
+
+          <button onclick="openHireModal()" class="liquid-glass-button inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full text-xs font-semibold text-white shadow-xl">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-sky-200"></i>
+            <span>Start Your Project</span>
+          </button>
+        </div>
+
+        <!-- Mobile Controls -->
+        <div class="lg:hidden flex items-center gap-2">
+          <button id="themeToggleBtnMobile" class="p-2 rounded-lg liquid-glass-pill text-slate-300">
+            <i data-lucide="sun" class="w-5 h-5 text-amber-400"></i>
+          </button>
+          <button id="mobileMenuBtn" class="p-2 rounded-lg liquid-glass-pill">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobileDrawer" class="hidden lg:hidden fixed inset-x-4 top-20 p-6 liquid-glass-card rounded-3xl z-50 border space-y-2">
+      <a href="#home" onclick="closeMobileDrawer()" class="flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
+        <span class="flex items-center gap-2.5"><i data-lucide="home" class="w-4 h-4 text-sky-400"></i><span>Home</span></span>
+      </a>
+      <a href="#services" onclick="closeMobileDrawer()" class="flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
+        <span class="flex items-center gap-2.5"><i data-lucide="layers" class="w-4 h-4 text-sky-400"></i><span>Services</span></span>
+      </a>
+      <a href="#projects" onclick="closeMobileDrawer()" class="flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
+        <span class="flex items-center gap-2.5"><i data-lucide="folder-git-2" class="w-4 h-4 text-sky-400"></i><span>Projects</span></span>
+      </a>
+      <a href="#team" onclick="closeMobileDrawer()" class="flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
+        <span class="flex items-center gap-2.5"><i data-lucide="users" class="w-4 h-4 text-sky-400"></i><span>About & Team</span></span>
+      </a>
+      <a href="#estimator" onclick="closeMobileDrawer()" class="flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
+        <span class="flex items-center gap-2.5"><i data-lucide="calculator" class="w-4 h-4 text-sky-400"></i><span>Estimator</span></span>
+      </a>
+      <a href="#careers" onclick="closeMobileDrawer()" class="flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
+        <span class="flex items-center gap-2.5"><i data-lucide="briefcase" class="w-4 h-4 text-sky-400"></i><span>Careers</span></span>
+      </a>
+      <a href="#contact" onclick="closeMobileDrawer()" class="flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl opacity-80 hover:bg-slate-800/40">
+        <span class="flex items-center gap-2.5"><i data-lucide="mail" class="w-4 h-4 text-sky-400"></i><span>Contact</span></span>
+      </a>
+      <button onclick="closeMobileDrawer(); openHireModal();" class="liquid-glass-button w-full mt-4 py-3 rounded-2xl text-white font-semibold text-xs shadow-lg flex items-center justify-center gap-2">
+        <i data-lucide="sparkles" class="w-4 h-4"></i>
+        <span>Start Your Project</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN SCROLLING CONTENT CONTAINER -->
+  <main class="relative z-10 pt-28 pb-16 space-y-24">
+
+    <!-- 1. HERO SECTION -->
+    <section id="home" class="pt-12 pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col items-center text-center">
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-semibold font-heading tracking-tight max-w-4xl leading-[1.12]">
+        Crafting intelligent digital experiences for <span class="gradient-text-accent font-bold">ambitious brands</span>.
+      </h1>
+
+      <p class="mt-6 opacity-80 text-base sm:text-lg max-w-2xl font-normal leading-relaxed">
+        We design and build modern websites, mobile apps, custom AI agents, and brand systems that help your business scale effortlessly.
+      </p>
+
+      {/* 4 Feature Pill Badges */}
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-2.5 max-w-3xl">
+        <span class="liquid-glass-pill px-4 py-1.5 rounded-full text-xs font-medium">Modern Web & Mobile Apps</span>
+        <span class="liquid-glass-pill px-4 py-1.5 rounded-full text-xs font-medium">Autonomous AI Workflows</span>
+        <span class="liquid-glass-pill px-4 py-1.5 rounded-full text-xs font-medium">Fluid 60fps UI/UX</span>
+        <span class="liquid-glass-pill px-4 py-1.5 rounded-full text-xs font-medium">Scalable Cloud Systems</span>
+      </div>
+
+      {/* 3 Hero Action Buttons */}
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+        <button onclick="openHireModal()" class="liquid-glass-button px-8 py-3.5 rounded-full text-white font-semibold text-sm shadow-xl flex items-center gap-2.5">
+          <span>Start Your Project</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+
+        <a href="#services" class="liquid-glass-button-secondary px-8 py-3.5 rounded-full text-sm font-medium flex items-center gap-2">
+          <i data-lucide="layers" class="w-4 h-4 text-sky-400"></i>
+          <span>Explore Services</span>
+        </a>
+
+        <a href="#contact" class="liquid-glass-button-secondary px-8 py-3.5 rounded-full text-sm font-medium flex items-center gap-2">
+          <i data-lucide="compass" class="w-4 h-4 text-violet-400"></i>
+          <span>Book Free Consultation</span>
+        </a>
+      </div>
+
+      {/* 4 Stat Metric Cards */}
+      <div class="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-5xl">
+        <div class="liquid-glass-card p-5 rounded-2xl text-left relative overflow-hidden group">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[9px] font-mono uppercase px-2 py-0.5 rounded-md liquid-glass-pill tracking-wider opacity-80">GUARANTEED</span>
+          </div>
+          <div class="text-2xl sm:text-3xl font-semibold font-heading tracking-tight">100%</div>
+          <div class="text-xs opacity-70 mt-1 font-medium">Client Satisfaction</div>
+        </div>
+
+        <div class="liquid-glass-card p-5 rounded-2xl text-left relative overflow-hidden group">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[9px] font-mono uppercase px-2 py-0.5 rounded-md liquid-glass-pill tracking-wider opacity-80">NEXT-GEN</span>
+          </div>
+          <div class="text-2xl sm:text-3xl font-semibold font-heading tracking-tight">20+</div>
+          <div class="text-xs opacity-70 mt-1 font-medium">Tech Stack Capabilities</div>
+        </div>
+
+        <div class="liquid-glass-card p-5 rounded-2xl text-left relative overflow-hidden group">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[9px] font-mono uppercase px-2 py-0.5 rounded-md liquid-glass-pill tracking-wider opacity-80">ENTERPRISE</span>
+          </div>
+          <div class="text-2xl sm:text-3xl font-semibold font-heading tracking-tight">99.9%</div>
+          <div class="text-xs opacity-70 mt-1 font-medium">System Performance</div>
+        </div>
+
+        <div class="liquid-glass-card p-5 rounded-2xl text-left relative overflow-hidden group">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[9px] font-mono uppercase px-2 py-0.5 rounded-md liquid-glass-pill tracking-wider opacity-80">GLOBAL</span>
+          </div>
+          <div class="text-2xl sm:text-3xl font-semibold font-heading tracking-tight">24/7</div>
+          <div class="text-xs opacity-70 mt-1 font-medium">Dedicated Support</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. SERVICES SECTION -->
+    <section id="services" class="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pt-8">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="liquid-glass-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium mb-3">
+          <i data-lucide="layers" class="w-3.5 h-3.5 text-sky-400"></i>
+          <span>Services & Capabilities</span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-semibold font-heading tracking-tight">End-to-end product engineering.</h2>
+        <p class="mt-4 opacity-75 text-sm sm:text-base">From initial architecture to high-precision development and cloud deployment.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <div class="liquid-glass-card p-8 rounded-3xl flex flex-col justify-between group">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 mb-6 group-hover:scale-110 transition-transform">
+              <i data-lucide="globe" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-semibold font-heading mb-3">Web Ecosystems & SaaS</h3>
+            <p class="text-sm opacity-70 leading-relaxed mb-6">Full-stack web applications, SaaS platforms, high-conversion web portals, and custom cloud CMS integrations.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">React 18</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">Next.js</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">TypeScript</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">TailwindCSS</span>
+            </div>
+          </div>
+          <button onclick="openHireModal()" class="text-xs font-semibold text-sky-400 inline-flex items-center gap-1.5 hover:gap-2.5 transition-all">
+            <span>Request Web Project</span><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+        <div class="liquid-glass-card p-8 rounded-3xl flex flex-col justify-between group">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-6 group-hover:scale-110 transition-transform">
+              <i data-lucide="smartphone" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-semibold font-heading mb-3">Mobile Applications</h3>
+            <p class="text-sm opacity-70 leading-relaxed mb-6">Native and cross-platform iOS & Android mobile applications built for high performance and offline capability.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">Flutter</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">React Native</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">iOS / Android</span>
+            </div>
+          </div>
+          <button onclick="openHireModal()" class="text-xs font-semibold text-emerald-400 inline-flex items-center gap-1.5 hover:gap-2.5 transition-all">
+            <span>Request Mobile App</span><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+        <div class="liquid-glass-card p-8 rounded-3xl flex flex-col justify-between group">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400 mb-6 group-hover:scale-110 transition-transform">
+              <i data-lucide="bot" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-semibold font-heading mb-3">AI Agents & Workflows</h3>
+            <p class="text-sm opacity-70 leading-relaxed mb-6">Autonomous AI chatbots, custom LLM integrations, retrieval-augmented generation (RAG), and business automation.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">OpenAI API</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">LangChain</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">Python</span>
+            </div>
+          </div>
+          <button onclick="openHireModal()" class="text-xs font-semibold text-violet-400 inline-flex items-center gap-1.5 hover:gap-2.5 transition-all">
+            <span>Request AI Build</span><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+        <div class="liquid-glass-card p-8 rounded-3xl flex flex-col justify-between group">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-6 group-hover:scale-110 transition-transform">
+              <i data-lucide="video" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-semibold font-heading mb-3">Media & AI Videos</h3>
+            <p class="text-sm opacity-70 leading-relaxed mb-6">AI video generation, brand promo videos, motion graphics, and high-impact visual media production.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">Motion Visuals</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">AI Video Generation</span>
+            </div>
+          </div>
+          <button onclick="openHireModal()" class="text-xs font-semibold text-amber-400 inline-flex items-center gap-1.5 hover:gap-2.5 transition-all">
+            <span>Request Media Build</span><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+        <div class="liquid-glass-card p-8 rounded-3xl flex flex-col justify-between group">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400 mb-6 group-hover:scale-110 transition-transform">
+              <i data-lucide="palette" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-semibold font-heading mb-3">Brand Engineering & UI/UX</h3>
+            <p class="text-sm opacity-70 leading-relaxed mb-6">Visual brand identities, design systems, interactive prototypes, and micro-interaction design.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">Figma</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">Design Systems</span>
+            </div>
+          </div>
+          <button onclick="openHireModal()" class="text-xs font-semibold text-pink-400 inline-flex items-center gap-1.5 hover:gap-2.5 transition-all">
+            <span>Request UI/UX Design</span><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+        <div class="liquid-glass-card p-8 rounded-3xl flex flex-col justify-between group">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mb-6 group-hover:scale-110 transition-transform">
+              <i data-lucide="cpu" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-semibold font-heading mb-3">Cloud Infrastructure</h3>
+            <p class="text-sm opacity-70 leading-relaxed mb-6">Scalable serverless backends, API gateways, PostgreSQL/Firebase databases, and cloud security.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">Firebase</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">PostgreSQL</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/50 text-[11px] font-medium text-slate-300">Docker</span>
+            </div>
+          </div>
+          <button onclick="openHireModal()" class="text-xs font-semibold text-cyan-400 inline-flex items-center gap-1.5 hover:gap-2.5 transition-all">
+            <span>Request Cloud Infrastructure</span><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. FEATURED SHOWCASE PROJECTS SECTION -->
+    <section id="projects" class="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pt-8">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="liquid-glass-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium mb-3">
+          <i data-lucide="folder-git-2" class="w-3.5 h-3.5 text-sky-400"></i>
+          <span>Featured Projects & Live Platforms</span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-semibold font-heading tracking-tight">Recent client releases & platforms.</h2>
+        <p class="mt-4 opacity-75 text-sm sm:text-base">Explore live production websites, reward portals, event platforms, and sports engines built by Craftiq.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- Project 1: DI Coin Platform -->
+        <div class="liquid-glass-card rounded-3xl overflow-hidden group flex flex-col justify-between">
+          <div>
+            <div class="relative h-52 overflow-hidden bg-slate-900">
+              <img src="./assets/di-coin-platform.png" alt="DI Coin Platform" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute top-3 right-3 px-3 py-1 rounded-full liquid-glass-pill text-[10px] font-bold uppercase tracking-wider text-sky-300">Reward Engine</div>
+            </div>
+            <div class="p-6">
+              <div class="text-xs text-sky-400 font-semibold mb-1">Student Reward Platform</div>
+              <h3 class="text-xl font-semibold font-heading mb-2">DI Coin Platform</h3>
+              <p class="text-xs opacity-70 leading-relaxed mb-4">Digital economy and engagement ecosystem enabling gamified reward tracking for educational environments via virtual currency metrics and live dashboards.</p>
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">React</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">TypeScript</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Firebase</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-slate-800/50 mt-auto flex items-center justify-between">
+            <span class="text-[11px] font-semibold text-emerald-400">+450% Engagement</span>
+            <a href="https://di-coin-platform-web-tunj.bolt.host" target="_blank" rel="noopener noreferrer" class="liquid-glass-button-secondary px-4 py-2 rounded-xl text-xs font-semibold inline-flex items-center gap-1.5 text-sky-400 hover:text-white">
+              <span>Launch Platform</span><i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 2: Personal Portfolios -->
+        <div class="liquid-glass-card rounded-3xl overflow-hidden group flex flex-col justify-between">
+          <div>
+            <div class="relative h-52 overflow-hidden bg-slate-900">
+              <img src="./assets/noorul-aze-portfolio.png" alt="Personal Portfolios" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute top-3 right-3 px-3 py-1 rounded-full liquid-glass-pill text-[10px] font-bold uppercase tracking-wider text-purple-300">Portfolio</div>
+            </div>
+            <div class="p-6">
+              <div class="text-xs text-purple-400 font-semibold mb-1">Interactive Portfolio Platform</div>
+              <h3 class="text-xl font-semibold font-heading mb-2">Personal Portfolios</h3>
+              <p class="text-xs opacity-70 leading-relaxed mb-4">Ultra-high performance creative developer portfolio featuring bespoke spatial graphics, fluid motion animations, and interactive project deep-dives.</p>
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Framer Motion</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">WebGL</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">TypeScript</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-slate-800/50 mt-auto flex items-center justify-between">
+            <span class="text-[11px] font-semibold text-purple-400">Award Nominated</span>
+            <a href="https://noorulazetirur.vercel.app" target="_blank" rel="noopener noreferrer" class="liquid-glass-button-secondary px-4 py-2 rounded-xl text-xs font-semibold inline-flex items-center gap-1.5 text-purple-400 hover:text-white">
+              <span>View Portfolio</span><i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 3: MIC Learning Resource Centre -->
+        <div class="liquid-glass-card rounded-3xl overflow-hidden group flex flex-col justify-between">
+          <div>
+            <div class="relative h-52 overflow-hidden bg-slate-900">
+              <img src="./assets/miclrc.png" alt="MIC Learning Resource Centre" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute top-3 right-3 px-3 py-1 rounded-full liquid-glass-pill text-[10px] font-bold uppercase tracking-wider text-emerald-300">Academic</div>
+            </div>
+            <div class="p-6">
+              <div class="text-xs text-emerald-400 font-semibold mb-1">Educational Resource Portal</div>
+              <h3 class="text-xl font-semibold font-heading mb-2">MIC Resource Centre</h3>
+              <p class="text-xs opacity-70 leading-relaxed mb-4">Academic portal providing centralized access to learning materials, digital libraries, research papers, and student resources.</p>
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Web Portal</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Digital Library</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Search Engine</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-slate-800/50 mt-auto flex items-center justify-between">
+            <span class="text-[11px] font-semibold text-emerald-400">1000+ Students</span>
+            <a href="https://miclrc.netlify.app/" target="_blank" rel="noopener noreferrer" class="liquid-glass-button-secondary px-4 py-2 rounded-xl text-xs font-semibold inline-flex items-center gap-1.5 text-emerald-400 hover:text-white">
+              <span>Open Portal</span><i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 4: Irshad Volleyball League (IVL Auction) -->
+        <div class="liquid-glass-card rounded-3xl overflow-hidden group flex flex-col justify-between">
+          <div>
+            <div class="relative h-52 overflow-hidden bg-slate-900">
+              <img src="./assets/ivl-auction.png" alt="Irshad Volleyball League IVL Auction" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute top-3 right-3 px-3 py-1 rounded-full liquid-glass-pill text-[10px] font-bold uppercase tracking-wider text-amber-300">Auction Engine</div>
+            </div>
+            <div class="p-6">
+              <div class="text-xs text-amber-400 font-semibold mb-1">Sports League & Bidding Engine</div>
+              <h3 class="text-xl font-semibold font-heading mb-2">IVL Auction Platform</h3>
+              <p class="text-xs opacity-70 leading-relaxed mb-4">Real-time player auction and tournament management platform with live bidding feeds, budget tracking, and team roster management.</p>
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Real-time Bidding</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Sports Stats</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Team Rosters</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-slate-800/50 mt-auto flex items-center justify-between">
+            <span class="text-[11px] font-semibold text-amber-400">Live Bidding</span>
+            <a href="https://ivlauction.onhercules.app/" target="_blank" rel="noopener noreferrer" class="liquid-glass-button-secondary px-4 py-2 rounded-xl text-xs font-semibold inline-flex items-center gap-1.5 text-amber-400 hover:text-white">
+              <span>Open Auction</span><i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 5: Thenishal 2K25 -->
+        <div class="liquid-glass-card rounded-3xl overflow-hidden group flex flex-col justify-between">
+          <div>
+            <div class="relative h-52 overflow-hidden bg-slate-900">
+              <img src="./assets/thenishal.png" alt="Thenishal 2K25" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute top-3 right-3 px-3 py-1 rounded-full liquid-glass-pill text-[10px] font-bold uppercase tracking-wider text-rose-300">Cultural Fest</div>
+            </div>
+            <div class="p-6">
+              <div class="text-xs text-rose-400 font-semibold mb-1">Event & Cultural Fest Web App</div>
+              <h3 class="text-xl font-semibold font-heading mb-2">Thenishal 2K25</h3>
+              <p class="text-xs opacity-70 leading-relaxed mb-4">Official fest platform featuring live event schedules, online registration, competition guidelines, and real-time result scoreboards.</p>
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Event Portal</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Registrations</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Live Scores</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-slate-800/50 mt-auto flex items-center justify-between">
+            <span class="text-[11px] font-semibold text-rose-400">500+ Fest Entries</span>
+            <a href="https://thenishal.netlify.app/" target="_blank" rel="noopener noreferrer" class="liquid-glass-button-secondary px-4 py-2 rounded-xl text-xs font-semibold inline-flex items-center gap-1.5 text-rose-400 hover:text-white">
+              <span>View Fest Site</span><i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 6: Campus Chat & Vibe -->
+        <div class="liquid-glass-card rounded-3xl overflow-hidden group flex flex-col justify-between">
+          <div>
+            <div class="relative h-52 overflow-hidden bg-slate-900">
+              <img src="./assets/campus-vibe.png" alt="Campus Chat & Vibe" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute top-3 right-3 px-3 py-1 rounded-full liquid-glass-pill text-[10px] font-bold uppercase tracking-wider text-cyan-300">Community</div>
+            </div>
+            <div class="p-6">
+              <div class="text-xs text-cyan-400 font-semibold mb-1">Real-time Campus Platform</div>
+              <h3 class="text-xl font-semibold font-heading mb-2">Campus Chat & Vibe</h3>
+              <p class="text-xs opacity-70 leading-relaxed mb-4">Social community hub for campus updates, student discussions, event announcements, and real-time interactive messaging.</p>
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Real-time Chat</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Student Feed</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Campus Events</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-slate-800/50 mt-auto flex items-center justify-between">
+            <span class="text-[11px] font-semibold text-cyan-400">Campus Community</span>
+            <a href="https://campusvibe.onhercules.app/" target="_blank" rel="noopener noreferrer" class="liquid-glass-button-secondary px-4 py-2 rounded-xl text-xs font-semibold inline-flex items-center gap-1.5 text-cyan-400 hover:text-white">
+              <span>Enter Community</span><i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 7: Joao Felix Profile Showcase -->
+        <div class="liquid-glass-card rounded-3xl overflow-hidden group flex flex-col justify-between">
+          <div>
+            <div class="relative h-52 overflow-hidden bg-slate-900">
+              <img src="./assets/joao-felix.png" alt="Joao Felix Profile Showcase" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute top-3 right-3 px-3 py-1 rounded-full liquid-glass-pill text-[10px] font-bold uppercase tracking-wider text-sky-300">Athlete Showcase</div>
+            </div>
+            <div class="p-6">
+              <div class="text-xs text-sky-400 font-semibold mb-1">Athlete Profile & Stats Portfolio</div>
+              <h3 class="text-xl font-semibold font-heading mb-2">Joao Felix Showcase</h3>
+              <p class="text-xs opacity-70 leading-relaxed mb-4">High-impact sports portfolio showcasing career achievements, match statistics, highlight reels, and interactive biography timelines.</p>
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Sports Analytics</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Media Gallery</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800/80 text-[10px] text-slate-300">Interactive UI</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-slate-800/50 mt-auto flex items-center justify-between">
+            <span class="text-[11px] font-semibold text-sky-400">Global Engagement</span>
+            <a href="https://joaofelix.netlify.app/" target="_blank" rel="noopener noreferrer" class="liquid-glass-button-secondary px-4 py-2 rounded-xl text-xs font-semibold inline-flex items-center gap-1.5 text-sky-400 hover:text-white">
+              <span>View Showcase</span><i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. TEAM SECTION -->
+    <section id="team" class="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pt-8">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="liquid-glass-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium mb-3">
+          <i data-lucide="users" class="w-3.5 h-3.5 text-sky-400"></i>
+          <span>Studio Team & Leadership</span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-semibold font-heading tracking-tight">Meet the minds behind Craftiq.</h2>
+        <p class="mt-4 opacity-75 text-sm sm:text-base">Engineers, designers, writers, and digital strategists based in Kerala, India.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Team Member 1: Noorul Aze -->
+        <div class="liquid-glass-card p-6 rounded-3xl relative overflow-hidden group border border-sky-500/30">
+          <div class="absolute top-4 right-4 px-3 py-1 rounded-full bg-sky-500/20 border border-sky-500/30 text-sky-300 text-[10px] font-bold uppercase tracking-wider">Founder</div>
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-sky-500 to-blue-600 flex items-center justify-center font-heading text-2xl font-bold text-white shadow-lg mb-4">NA</div>
+          <h3 class="text-xl font-semibold font-heading">Noorul Aze</h3>
+          <div class="text-xs text-sky-400 font-medium mb-2">Founder & Creative Developer</div>
+          <p class="text-xs opacity-70 leading-relaxed mb-4">Leading Craftiq with a vision to build intelligent digital experiences through cutting-edge web technology, modern UI/UX architecture, and AI-powered automation systems.</p>
+          <div class="space-y-1.5 text-xs opacity-80 pt-3 border-t border-slate-800/60">
+            <div class="flex items-center gap-2"><i data-lucide="mail" class="w-3.5 h-3.5 text-sky-400"></i><a href="mailto:noorulazetirur@gmail.com" class="hover:underline">noorulazetirur@gmail.com</a></div>
+            <div class="flex items-center gap-2"><i data-lucide="phone" class="w-3.5 h-3.5 text-emerald-400"></i><a href="tel:+919074300569" class="hover:underline">+91 90743 00569</a></div>
+            <div class="flex items-center gap-2"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i><span>Madampat, Kerala, India</span></div>
+          </div>
+        </div>
+
+        <!-- Team Member 2: Kasim Rahees -->
+        <div class="liquid-glass-card p-6 rounded-3xl relative overflow-hidden group border border-blue-500/30">
+          <div class="absolute top-4 right-4 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-300 text-[10px] font-bold uppercase tracking-wider">Co-Founder</div>
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center font-heading text-2xl font-bold text-white shadow-lg mb-4">KR</div>
+          <h3 class="text-xl font-semibold font-heading">Kasim Rahees</h3>
+          <div class="text-xs text-blue-400 font-medium mb-2">Co-Founder & Developer</div>
+          <p class="text-xs opacity-70 leading-relaxed mb-4">Specializing in scalable backend infrastructure, robust API engineering, and high-availability database architectures for enterprise client solutions.</p>
+          <div class="space-y-1.5 text-xs opacity-80 pt-3 border-t border-slate-800/60">
+            <div class="flex items-center gap-2"><i data-lucide="mail" class="w-3.5 h-3.5 text-sky-400"></i><a href="mailto:kasimraheeskzr@gmail.com" class="hover:underline">kasimraheeskzr@gmail.com</a></div>
+            <div class="flex items-center gap-2"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i><span>Keezhur, Kerala, India</span></div>
+          </div>
+        </div>
+
+        <!-- Team Member 3: Aboobacker -->
+        <div class="liquid-glass-card p-6 rounded-3xl relative overflow-hidden group">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-slate-700 to-slate-800 flex items-center justify-center font-heading text-2xl font-bold text-white shadow-lg mb-4">AB</div>
+          <h3 class="text-xl font-semibold font-heading">Aboobacker</h3>
+          <div class="text-xs text-slate-300 font-medium mb-2">Developer</div>
+          <p class="text-xs opacity-70 leading-relaxed mb-4">Focused on building reliable web platforms, complex business logic engines, app integration, and clean code software paradigms.</p>
+          <div class="space-y-1.5 text-xs opacity-80 pt-3 border-t border-slate-800/60">
+            <div class="flex items-center gap-2"><i data-lucide="mail" class="w-3.5 h-3.5 text-sky-400"></i><a href="mailto:aboobackerbinabid86@gmail.com" class="hover:underline">aboobackerbinabid86@gmail.com</a></div>
+            <div class="flex items-center gap-2"><i data-lucide="phone" class="w-3.5 h-3.5 text-emerald-400"></i><a href="tel:+917510210559" class="hover:underline">+91 75102 10559</a></div>
+            <div class="flex items-center gap-2"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i><span>Beenichery, Kerala, India</span></div>
+          </div>
+        </div>
+
+        <!-- Team Member 4: Alfas -->
+        <div class="liquid-glass-card p-6 rounded-3xl relative overflow-hidden group">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-cyan-600 to-teal-600 flex items-center justify-center font-heading text-2xl font-bold text-white shadow-lg mb-4">AL</div>
+          <h3 class="text-xl font-semibold font-heading">Alfas</h3>
+          <div class="text-xs text-cyan-400 font-medium mb-2">Developer</div>
+          <p class="text-xs opacity-70 leading-relaxed mb-4">Crafting modern, fluid user interfaces with micro-interactions, responsive frameworks, and lightning-fast client-side page rendering.</p>
+          <div class="space-y-1.5 text-xs opacity-80 pt-3 border-t border-slate-800/60">
+            <div class="flex items-center gap-2"><i data-lucide="mail" class="w-3.5 h-3.5 text-sky-400"></i><a href="mailto:alfaskp543@gmail.com" class="hover:underline">alfaskp543@gmail.com</a></div>
+            <div class="flex items-center gap-2"><i data-lucide="phone" class="w-3.5 h-3.5 text-emerald-400"></i><a href="tel:+916235928551" class="hover:underline">+91 62359 28551</a></div>
+            <div class="flex items-center gap-2"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i><span>Naduvil, Kerala, India</span></div>
+          </div>
+        </div>
+
+        <!-- Team Member 5: Abdul Wahid -->
+        <div class="liquid-glass-card p-6 rounded-3xl relative overflow-hidden group">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-purple-600 to-pink-600 flex items-center justify-center font-heading text-2xl font-bold text-white shadow-lg mb-4">AW</div>
+          <h3 class="text-xl font-semibold font-heading">Abdul Wahid</h3>
+          <div class="text-xs text-purple-400 font-medium mb-2">Creative Designer</div>
+          <p class="text-xs opacity-70 leading-relaxed mb-4">Architecting visual identities, brand systems, high-fidelity UI design schemes, and promotional visual assets that elevate digital presence.</p>
+          <div class="space-y-1.5 text-xs opacity-80 pt-3 border-t border-slate-800/60">
+            <div class="flex items-center gap-2"><i data-lucide="mail" class="w-3.5 h-3.5 text-sky-400"></i><a href="mailto:vahidillikkal@gmail.com" class="hover:underline">vahidillikkal@gmail.com</a></div>
+            <div class="flex items-center gap-2"><i data-lucide="phone" class="w-3.5 h-3.5 text-emerald-400"></i><a href="tel:+918714154422" class="hover:underline">+91 87141 54422</a></div>
+            <div class="flex items-center gap-2"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i><span>Illikal, Kerala, India</span></div>
+          </div>
+        </div>
+
+        <!-- Team Member 6: Rabeeue -->
+        <div class="liquid-glass-card p-6 rounded-3xl relative overflow-hidden group">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-600 to-orange-600 flex items-center justify-center font-heading text-2xl font-bold text-white shadow-lg mb-4">RB</div>
+          <h3 class="text-xl font-semibold font-heading">Rabeeue</h3>
+          <div class="text-xs text-amber-400 font-medium mb-2">Writer & Thinker</div>
+          <p class="text-xs opacity-70 leading-relaxed mb-4">Formulating brand narratives, technical documentation, creative copywriting, and conceptual strategy for digital product launches.</p>
+          <div class="space-y-1.5 text-xs opacity-80 pt-3 border-t border-slate-800/60">
+            <div class="flex items-center gap-2"><i data-lucide="mail" class="w-3.5 h-3.5 text-sky-400"></i><a href="mailto:muhammedrabeeuek@gmail.com" class="hover:underline">muhammedrabeeuek@gmail.com</a></div>
+            <div class="flex items-center gap-2"><i data-lucide="phone" class="w-3.5 h-3.5 text-emerald-400"></i><a href="tel:+917034648251" class="hover:underline">+91 70346 48251</a></div>
+            <div class="flex items-center gap-2"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i><span>Kerala, India</span></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. ESTIMATOR SECTION -->
+    <section id="estimator" class="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto pt-8">
+      <div class="liquid-glass-card p-8 sm:p-12 rounded-3xl border border-violet-500/30 text-center">
+        <div class="liquid-glass-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium mb-4">
+          <i data-lucide="calculator" class="w-3.5 h-3.5 text-violet-400"></i>
+          <span>AI Cost Estimator</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-semibold font-heading mb-4">Instant Project Cost Calculator</h2>
+        <p class="text-sm opacity-75 max-w-xl mx-auto mb-8">Calculate an estimated budget starting at <strong>₹1,000 & Above</strong> tailored to your project requirements.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-3xl mx-auto mb-8">
+          <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
+            <div class="text-xs font-semibold opacity-70 mb-2">Estimated Starting Budget</div>
+            <div class="text-3xl font-bold font-heading text-sky-400">₹1,000 & Above</div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
+            <div class="text-xs font-semibold opacity-70 mb-2">Estimated Timeline</div>
+            <div class="text-3xl font-bold font-heading text-emerald-400">5 – 15 Days</div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
+            <div class="text-xs font-semibold opacity-70 mb-2">Consultation</div>
+            <div class="text-3xl font-bold font-heading text-purple-400">100% Free</div>
+          </div>
+        </div>
+
+        <button onclick="openHireModal()" class="liquid-glass-button px-8 py-3.5 rounded-full text-white font-semibold text-sm shadow-xl inline-flex items-center gap-2">
+          <span>Get Exact Quote for Your Project</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- 6. CAREERS SECTION -->
+    <section id="careers" class="px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto pt-8">
+      <div class="liquid-glass-card p-8 sm:p-12 rounded-3xl text-center">
+        <div class="liquid-glass-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium mb-4">
+          <i data-lucide="briefcase" class="w-3.5 h-3.5 text-sky-400"></i>
+          <span>Careers & Opportunities</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-semibold font-heading mb-4">Build with Craftiq</h2>
+        <p class="text-sm opacity-75 max-w-lg mx-auto mb-8">We are always looking for passionate developers, designers, and creative thinkers to join our team.</p>
+
+        <form action="https://formsubmit.co/ajax/noorulazetirur@gmail.com" method="POST" onsubmit="handleCareerSubmit(event)" class="text-left space-y-4 max-w-xl mx-auto">
+          <input type="hidden" name="_subject" value="⚡ New Craftiq Career Application" />
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-medium mb-1">Full Name</label>
+              <input type="text" name="FullName" required placeholder="John Doe" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-sm focus:outline-none focus:border-sky-500" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium mb-1">Email Address</label>
+              <input type="email" name="Email" required placeholder="john@example.com" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-sm focus:outline-none focus:border-sky-500" />
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-medium mb-1">Role Interested In</label>
+            <select name="Role" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-sm focus:outline-none focus:border-sky-500">
+              <option value="Frontend Developer">Frontend Developer</option>
+              <option value="Backend Engineer">Backend Engineer</option>
+              <option value="UI/UX Designer">UI/UX Designer</option>
+              <option value="AI / ML Specialist">AI / ML Specialist</option>
+              <option value="Writer & Strategist">Writer & Strategist</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-medium mb-1">Portfolio Link / GitHub</label>
+            <input type="url" name="Portfolio" placeholder="https://github.com/username" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-sm focus:outline-none focus:border-sky-500" />
+          </div>
+          <button type="submit" class="liquid-glass-button w-full py-3.5 rounded-xl text-white font-semibold text-sm shadow-xl flex items-center justify-center gap-2">
+            <span>Submit Application</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- 7. CONTACT SECTION -->
+    <section id="contact" class="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto pt-8">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="liquid-glass-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium mb-3">
+          <i data-lucide="mail" class="w-3.5 h-3.5 text-sky-400"></i>
+          <span>Get in Touch</span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-semibold font-heading tracking-tight">Let's build something extraordinary.</h2>
+        <p class="mt-4 opacity-75 text-sm sm:text-base">Reach out directly via email, phone, or send an inquiry form.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 text-center">
+        <a href="mailto:noorulazetirur@gmail.com" class="liquid-glass-card p-6 rounded-2xl flex flex-col items-center justify-center hover:border-sky-400 transition-colors">
+          <i data-lucide="mail" class="w-6 h-6 text-sky-400 mb-3"></i>
+          <div class="text-xs opacity-70 mb-1">Email Us</div>
+          <div class="text-sm font-semibold">noorulazetirur@gmail.com</div>
+        </a>
+
+        <a href="tel:+919074300569" class="liquid-glass-card p-6 rounded-2xl flex flex-col items-center justify-center hover:border-emerald-400 transition-colors">
+          <i data-lucide="phone" class="w-6 h-6 text-emerald-400 mb-3"></i>
+          <div class="text-xs opacity-70 mb-1">Call Us Directly</div>
+          <div class="text-sm font-semibold">+91 90743 00569</div>
+        </a>
+
+        <a href="https://wa.me/919074300569" target="_blank" rel="noopener noreferrer" class="liquid-glass-card p-6 rounded-2xl flex flex-col items-center justify-center hover:border-emerald-500 transition-colors">
+          <i data-lucide="message-square" class="w-6 h-6 text-emerald-500 mb-3"></i>
+          <div class="text-xs opacity-70 mb-1">WhatsApp Chat</div>
+          <div class="text-sm font-semibold">Chat on WhatsApp</div>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="relative z-10 border-t border-slate-800/80 py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-xs opacity-75">
+    <div class="flex items-center gap-3">
+      <div class="w-7 h-7 flex items-center justify-center rounded-lg bg-sky-500/20 text-sky-400 font-bold text-sm">C</div>
+      <span class="font-heading font-semibold text-sm">Craftiq Digital Product Studio</span>
+    </div>
+    <div>© 2026 Craftiq. All rights reserved. Built in Kerala, India.</div>
+  </footer>
+
+  <!-- HIRE MODAL OVERLAY -->
+  <div id="hireModal" class="modal-overlay">
+    <div class="liquid-glass-card p-8 rounded-3xl max-w-lg w-full relative border border-slate-700 shadow-2xl">
+      <button onclick="closeHireModal()" class="absolute top-4 right-4 p-2 rounded-full hover:bg-slate-800 text-slate-400 hover:text-white">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <h3 class="text-2xl font-semibold font-heading mb-2">Start Your Project</h3>
+      <p class="text-xs opacity-75 mb-6">Tell us about your project requirements and budget tier.</p>
+
+      <form action="https://formsubmit.co/ajax/noorulazetirur@gmail.com" method="POST" onsubmit="handleModalFormSubmit(event)" class="space-y-4">
+        <input type="hidden" name="_subject" value="⚡ New Craftiq Project Inquiry" />
+        
+        <div>
+          <label class="block text-xs font-medium mb-1">Full Name *</label>
+          <input type="text" name="Client_Name" required placeholder="John Doe" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs focus:outline-none focus:border-sky-500" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-medium mb-1">Email *</label>
+            <input type="email" name="Client_Email" required placeholder="john@example.com" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs focus:outline-none focus:border-sky-500" />
+          </div>
+          <div>
+            <label class="block text-xs font-medium mb-1">Phone *</label>
+            <input type="tel" name="Phone_Number" required placeholder="+91 90743 00569" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs focus:outline-none focus:border-sky-500" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium mb-1">Project Domain</label>
+          <select name="Project_Domain" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs focus:outline-none focus:border-sky-500">
+            <option value="Website Design & Development">Website Design & Development</option>
+            <option value="Mobile App (iOS & Android)">Mobile App (iOS & Android)</option>
+            <option value="Artificial Intelligence & Workflows">Artificial Intelligence & Workflows</option>
+            <option value="Media Production & Videos">Media Production & Videos</option>
+            <option value="Brand Identity & Design System">Brand Identity & Design System</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium mb-1">Budget Tier</label>
+          <select name="Budget_Tier" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs focus:outline-none focus:border-sky-500">
+            <option value="₹1,000 & Above">₹1,000 & Above</option>
+            <option value="₹5,000 - ₹15,000">₹5,000 - ₹15,000</option>
+            <option value="₹15,000 & Above">₹15,000 & Above</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium mb-1">Project Details</label>
+          <textarea name="Project_Details" rows="3" placeholder="Briefly describe your project requirements..." class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs focus:outline-none focus:border-sky-500"></textarea>
+        </div>
+
+        <button type="submit" class="liquid-glass-button w-full py-3.5 rounded-xl text-white font-semibold text-xs shadow-xl flex items-center justify-center gap-2">
+          <span>Send Inquiry</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT CONTROLS -->
   <script>
-    window.addEventListener('DOMContentLoaded', () => {
+    // Initialize Lucide Icons
+    if (typeof lucide !== 'undefined' && lucide.createIcons) {
+      lucide.createIcons();
+    }
+
+    // Canvas Particles
+    function initCanvas() {
       const canvas = document.getElementById('cyberCanvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
@@ -360,1573 +982,97 @@
       });
 
       const particles = [];
-      const particleCount = 45;
-
-      for (let i = 0; i < particleCount; i++) {
+      const count = 35;
+      for (let i = 0; i < count; i++) {
         particles.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.6,
-          vy: (Math.random() - 0.5) * 0.6,
-          radius: Math.random() * 2 + 1,
-          color: Math.random() > 0.5 ? '#38bdf8' : '#7c3aed'
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          radius: Math.random() * 1.8 + 0.6
         });
       }
 
       function animate() {
         ctx.clearRect(0, 0, width, height);
-
-        for (let i = 0; i < particleCount; i++) {
-          let p = particles[i];
-          p.x += p.vx;
-          p.y += p.vy;
-
+        ctx.fillStyle = 'rgba(56, 189, 248, 0.4)';
+        for (let p of particles) {
+          p.x += p.vx; p.y += p.vy;
           if (p.x < 0 || p.x > width) p.vx *= -1;
           if (p.y < 0 || p.y > height) p.vy *= -1;
-
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-          ctx.fillStyle = p.color;
           ctx.fill();
-
-          for (let j = i + 1; j < particleCount; j++) {
-            let p2 = particles[j];
-            let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-            if (dist < 130) {
-              ctx.beginPath();
-              ctx.moveTo(p.x, p.y);
-              ctx.lineTo(p2.x, p2.y);
-              ctx.strokeStyle = `rgba(56, 189, 248, ${0.25 * (1 - dist / 130)})`;
-              ctx.lineWidth = 0.6;
-              ctx.stroke();
-            }
-          }
         }
         requestAnimationFrame(animate);
       }
       animate();
-    });
-  </script>
-
-  <script type="text/babel">
-    const { useState, useEffect } = React;
-
-    // DATA STRUCTURES
-    const NAV_ITEMS = [
-      { id: 'home', label: 'Home', icon: 'home' },
-      { id: 'services', label: 'Services', icon: 'layers' },
-      { id: 'projects', label: 'Projects', icon: 'folder-git-2' },
-      { id: 'team', label: 'About & Team', icon: 'users' },
-      { id: 'estimator', label: 'Estimator', icon: 'calculator' },
-      { id: 'careers', label: 'Careers', icon: 'briefcase' },
-      { id: 'contact', label: 'Contact', icon: 'mail' },
-    ];
-
-    const TEAM_MEMBERS = [
-      {
-        id: "noorul-aze",
-        name: "Noorul Aze",
-        role: "Founder & Creative Developer",
-        location: "Madampat, Kerala, India",
-        bio: "Leading Craftiq with a vision to build intelligent digital experiences through cutting-edge technology, modern UI/UX architecture, and AI-powered automation systems.",
-        skills: ["Full Stack Web", "AI Systems", "Mobile Apps", "UI/UX Architecture", "Digital Strategy", "Creative Direction"],
-        email: "noorulazetirur@gmail.com",
-        phone: "+91 90743 00569",
-        instagram: "@azu_00_1",
-        isFounder: true
-      },
-      {
-        id: "kasim-rahees",
-        name: "Kasim Rahees",
-        role: "Co-Founder & Developer",
-        location: "Keezhur, Kerala, India",
-        bio: "Specializing in scalable backend infrastructure, robust API engineering, and high-availability database architectures for enterprise client solutions.",
-        skills: ["Backend Architecture", "Web Engineering", "Database Optimization", "System Design", "Cloud Infrastructure"],
-        email: "kasimraheeskzr@gmail.com",
-        isFounder: true
-      },
-      {
-        id: "aboobacker",
-        name: "Aboobacker",
-        role: "Developer",
-        location: "Beenichery, Kerala, India",
-        bio: "Focused on building reliable web platforms, complex business logic engines, app integration, and clean code software paradigms.",
-        skills: ["Web Development", "App Engineering", "QA Automation", "Algorithm Optimization", "REST APIs"],
-        email: "aboobackerbinabid86@gmail.com",
-        phone: "+91 75102 10559"
-      },
-      {
-        id: "alfas",
-        name: "Alfas",
-        role: "Developer",
-        location: "Naduvil, Kerala, India",
-        bio: "Crafting modern, fluid user interfaces with micro-interactions, responsive frameworks, and lightning-fast client-side page rendering.",
-        skills: ["Frontend Engineering", "UI Components", "React", "TailwindCSS", "TypeScript", "Performance"],
-        email: "alfaskp543@gmail.com",
-        phone: "+91 62359 28551"
-      },
-      {
-        id: "abdul-wahid",
-        name: "Abdul Wahid",
-        role: "Creative Designer",
-        location: "Illikal, Kerala, India",
-        bio: "Architecting visual identities, brand systems, high-fidelity UI design schemes, and promotional visual assets that elevate digital presence.",
-        skills: ["Brand Identity", "Graphic Design", "UI/UX Systems", "Vector Art", "Creative Assets", "Motion Visuals"],
-        email: "vahidillikkal@gmail.com",
-        phone: "+91 87141 54422"
-      },
-      {
-        id: "rabeeue",
-        name: "Rabeeue",
-        role: "Writer & Thinker",
-        location: "Kerala, India",
-        bio: "Crafting compelling narratives, strategic content architecture, conceptual storytelling, and creative vision that give digital experiences a powerful voice.",
-        skills: ["Creative Writing", "Strategic Thinking", "Content Architecture", "Brand Storytelling", "Conceptual Direction", "Copywriting"],
-        email: "muhammedrabeeuek@gmail.com",
-        phone: "+91 70346 48251"
-      }
-    ];
-
-    const PROJECTS = [
-      {
-        id: "di-coin",
-        title: "DI Coin Platform",
-        category: "Student Reward Platform",
-        image: "./assets/di-coin-platform.png",
-        description: "A digital economy and engagement ecosystem enabling gamified reward tracking for educational environments via virtual currency metrics and live dashboards.",
-        url: "https://di-coin-platform-web-tunj.bolt.host",
-        techStack: ["React", "TypeScript", "Tailwind CSS", "Node.js", "Firebase", "Realtime Analytics"],
-        metrics: "+450% Student Engagement",
-        highlights: [
-          "Real-time balance tracking & ledger transaction history",
-          "Interactive student achievement leaderboard",
-          "Automated incentive distribution algorithms"
-        ]
-      },
-      {
-        id: "personal-portfolios",
-        title: "Personal Portfolios",
-        category: "Interactive Portfolio Platform",
-        image: "./assets/noorul-aze-portfolio.png",
-        description: "An ultra-high performance creative development portfolio featuring bespoke spatial graphics, fluid animations, and interactive project deep-dives.",
-        url: "https://noorulazetirur.vercel.app",
-        techStack: ["UI/UX Architecture", "Framer Motion", "WebGL Canvas", "TypeScript", "Responsive Grid"],
-        metrics: "Award-Nominated Experience",
-        highlights: [
-          "Custom glassmorphic spatial navigation",
-          "Immersive micro-interactions & motion choreography",
-          "Optimized Core Web Vitals & instantaneous load speeds"
-        ]
-      },
-      {
-        id: "mic-lrc",
-        title: "MIC Learning Resource Centre",
-        category: "Educational Resource Hub",
-        image: "./assets/miclrc.png",
-        description: "The official Learning Resource Centre portal for Malabar Islamic Complex (MIC), dedicated to enhancing learning, intellectual growth, and preserving cultural heritage.",
-        url: "https://miclrc.netlify.app/",
-        techStack: ["React", "Tailwind CSS", "Netlify", "UI/UX System"],
-        metrics: "Comprehensive Learning Hub",
-        highlights: [
-          "Digital archive & traditional library catalog",
-          "Interactive features & student access portal",
-          "Modern responsive Islamic educational architecture"
-        ]
-      },
-      {
-        id: "ivl-auction",
-        title: "Irshad Volleyball League (IVL)",
-        category: "Sports Auction Platform",
-        image: "./assets/ivl-auction.png",
-        description: "A real-time player auction and bidding management platform designed for the Irshad Volleyball League tournament management and live bidding.",
-        url: "https://ivlauction.onhercules.app/",
-        techStack: ["React", "Realtime Bidding", "Tailwind CSS", "Hercules Cloud"],
-        metrics: "Live Auction Bidding",
-        highlights: [
-          "Real-time player auction & live bid tracking",
-          "Team budget management & squad analytics",
-          "High-performance sports event dashboard"
-        ]
-      },
-      {
-        id: "thenishal-2k25",
-        title: "Thenishal 2K25",
-        category: "Cultural Institution Portal",
-        image: "./assets/thenishal.png",
-        description: "A ceremonial cultural platform celebrating voice, devotion, and artistic excellence presented with global institutional standards.",
-        url: "https://thenishal.netlify.app/",
-        techStack: ["React", "Framer Motion", "Netlify", "Tailwind CSS"],
-        metrics: "Global Ceremonial Standard",
-        highlights: [
-          "Candidate profiles & legacy event timeline",
-          "Interactive gallery & finale broadcast hub",
-          "Rich cinematic dark aesthetics & fluid animations"
-        ]
-      },
-      {
-        id: "campus-vibe",
-        title: "Campus Chat & Vibe",
-        category: "Campus Social Network",
-        image: "./assets/campus-vibe.png",
-        description: "A real-time campus social & instant messaging platform connecting students across campus networks with instant chat capabilities.",
-        url: "https://campusvibe.onhercules.app/",
-        techStack: ["React", "WebSockets", "Tailwind CSS", "Realtime DB"],
-        metrics: "Instant Campus Connection",
-        highlights: [
-          "Real-time peer-to-peer campus messaging",
-          "Campus feed, followings & instant notifications",
-          "Spam-free zero friction authentication"
-        ]
-      },
-      {
-        id: "joao-felix-profile",
-        title: "Joao Felix Profile Showcase",
-        category: "Sports Personality Showcase",
-        image: "./assets/joao-felix.png",
-        description: "An elegant interactive sports profile showcasing the career highlights, stats, technical abilities, and bio of professional footballer João Félix.",
-        url: "https://joaofelix.netlify.app/",
-        techStack: ["React", "Netlify", "Tailwind CSS", "Interactive Layout"],
-        metrics: "High-Fidelity Athlete Showcase",
-        highlights: [
-          "Career profile overview & downloadable media kit",
-          "Social links & technical skill highlight cards",
-          "Clean minimalist typography & grid layout"
-        ]
-      }
-    ];
-
-    const SERVICES = [
-      {
-        id: "s1",
-        category: "Web Ecosystems",
-        title: "Website Design & Development",
-        description: "Bespoke high-conversion landing pages, corporate platforms, enterprise portals, e-commerce systems, and interactive portfolio sites engineered for speed and aesthetic excellence.",
-        iconName: "globe",
-        tags: ["React 19", "Next.js", "Tailwind CSS", "Framer Motion", "E-Commerce", "Headless CMS"],
-        features: [
-          "Custom UI/UX with responsive typography",
-          "SEO & Core Web Vitals optimization",
-          "Ultra-fast global CDN deployment",
-          "Seamless payment gateway & API integrations"
-        ]
-      },
-      {
-        id: "s2",
-        category: "Mobile Products",
-        title: "Android & iOS Mobile Apps",
-        description: "Fluid, high-performance mobile applications engineered cross-platform for iOS and Android using Flutter and React Native for smooth 60fps animations.",
-        iconName: "smartphone",
-        tags: ["Flutter", "React Native", "iOS", "Android", "Push Notifications", "Offline Sync"],
-        features: [
-          "Native device capability integration (Camera, GPS, Biometrics)",
-          "Cross-platform code reuse with zero compromise on performance",
-          "App Store & Google Play Store publishing pipeline",
-          "Real-time database sync & cloud push alerts"
-        ]
-      },
-      {
-        id: "s3",
-        category: "Artificial Intelligence",
-        title: "AI Chatbots, Agents & Customer Support Automation",
-        description: "Custom LLM integrations, autonomous AI agents, voice assistants, and customer support automations that streamline operations and elevate customer experience.",
-        iconName: "bot",
-        tags: ["OpenAI API", "Gemini AI", "Claude 3.5", "LangChain", "Autonomous Agents", "Vector DB"],
-        features: [
-          "Context-aware custom trained chatbots on company docs",
-          "Multi-agent workflow automation for business tasks",
-          "24/7 intelligent customer service routing",
-          "Integrations with WhatsApp, Telegram & CRM tools"
-        ]
-      },
-      {
-        id: "s4",
-        category: "Media Production",
-        title: "AI Advertisement, Product & Explainer Videos",
-        description: "Generative AI product trailers, high-impact social media reels, 3D explainer videos, and brand visual campaigns designed to captivate audience attention.",
-        iconName: "video",
-        tags: ["Generative AI", "Runway Gen-3", "Sora Tech", "3D Motion", "Product Reels", "Audio FX"],
-        features: [
-          "AI synthetic voiceover & multilingual dubbing",
-          "Cinematic lighting & 3D render aesthetics",
-          "High-converting video ad scripting",
-          "Multi-format export for Instagram, YouTube & TikTok"
-        ]
-      },
-      {
-        id: "s5",
-        category: "Brand Engineering",
-        title: "UI/UX Design, Logo Design & Visual Identity Systems",
-        description: "Design architectures, responsive component libraries, high-fidelity wireframes, logo craft, vector iconography, and comprehensive brand guideline books.",
-        iconName: "palette",
-        tags: ["Figma Design", "Design Systems", "Logo Identity", "Brand Guidelines", "Design Tokens"],
-        features: [
-          "Comprehensive typography & color palette systems",
-          "Interactive high-fidelity clickable prototypes",
-          "Reusable component design libraries for developers",
-          "Vector logo assets and print/digital brand kits"
-        ]
-      },
-      {
-        id: "s6",
-        category: "Enterprise Infrastructure",
-        title: "Custom Dashboards, CRMs & Cloud Architecture",
-        description: "Real-time analytics dashboards, administrative control centers, custom CRM tools, serverless cloud architectures (AWS, Supabase, Firebase).",
-        iconName: "cpu",
-        tags: ["AWS", "Supabase", "Firebase", "PostgreSQL", "Analytics", "Role-Based Auth"],
-        features: [
-          "Real-time WebSocket data visualization",
-          "Granular user permissions & role management",
-          "Scalable cloud architecture on AWS / Vercel",
-          "Encrypted data storage & automated backups"
-        ]
-      }
-    ];
-
-    const PROCESS_STEPS = [
-      { number: "01", title: "Discovery", description: "In-depth consultation to map business targets, scope requirements, and key performance goals.", details: "Stakeholder alignment and objective mapping." },
-      { number: "02", title: "Planning", description: "Structuring sprint milestones, tech stack choices, database architecture, and timeline blueprints.", details: "Technical specification and schema design." },
-      { number: "03", title: "Research", description: "User experience benchmarks, interface trends, and technical feasibility verification.", details: "User flow and wireframe audits." },
-      { number: "04", title: "UI/UX Design", description: "Crafting pixel-perfect visual interfaces, design systems, glassmorphism UI, and interactive prototypes.", details: "Figma design system & micro-interactions." },
-      { number: "05", title: "Development", description: "Writing modular TypeScript, React, Tailwind CSS code, backend API endpoints, and AI logic.", details: "Full-stack code construction." },
-      { number: "06", title: "Testing", description: "Rigorous quality assurance across mobile/desktop viewports, performance, and accessibility.", details: "Cross-device & speed optimization." },
-      { number: "07", title: "Deployment", description: "Seamless launch to global CDN servers, SSL setup, domain routing, and production database sync.", details: "Production server launch." },
-      { number: "08", title: "Support", description: "Continuous monitoring, feature updates, performance tuning, and 24/7 technical maintenance.", details: "Ongoing maintenance & upgrades." }
-    ];
-
-    const TECH_STACK = [
-      "React 19", "Next.js", "TypeScript", "Tailwind CSS", "Node.js", "Python",
-      "Flutter", "React Native", "Firebase", "Supabase", "MongoDB", "PostgreSQL",
-      "OpenAI API", "Gemini AI", "Claude 3.5", "Framer Motion", "Three.js / WebGL",
-      "Docker", "AWS", "Vercel"
-    ];
-
-    function DynamicBadge() {
-      const phrases = ["Autonomous AI Agents", "Spatial Interfaces", "Custom Mobile Ecosystems", "Enterprise Cloud Systems"];
-      const [idx, setIdx] = useState(0);
-
-      useEffect(() => {
-        const interval = setInterval(() => {
-          setIdx(prev => (prev + 1) % phrases.length);
-        }, 2400);
-        return () => clearInterval(interval);
-      }, []);
-
-      return (
-        <span className="font-heading text-sky-500 font-semibold tracking-tight transition-all duration-500">
-          {phrases[idx]}
-        </span>
-      );
     }
 
-    // MAIN APP COMPONENT WITH MULTI-PAGE ROUTING
-    function App() {
-      const [theme, setTheme] = useState(() => {
-        try {
-          return localStorage.getItem('craftiq-theme') || 'dark';
-        } catch (e) {
-          return 'dark';
-        }
-      });
-      const [activePage, setActivePage] = useState(() => {
-        try {
-          const hash = window.location.hash.replace('#', '');
-          return NAV_ITEMS.some(item => item.id === hash) ? hash : 'home';
-        } catch (e) {
-          return 'home';
-        }
-      });
-      const [isHireModalOpen, setIsHireModalOpen] = useState(false);
-      const [selectedService, setSelectedService] = useState(null);
-      const [serviceFilter, setServiceFilter] = useState('All');
-      const [activeProcessStep, setActiveProcessStep] = useState(0);
-      const [floatingExpanded, setFloatingExpanded] = useState(false);
-      const [scrolled, setScrolled] = useState(false);
-      const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-      // Form States
-      const [submittedModal, setSubmittedModal] = useState(false);
-      const [loadingModal, setLoadingModal] = useState(false);
-      const [copiedSummary, setCopiedSummary] = useState(false);
-      const [modalForm, setModalForm] = useState({
-        fullName: '', companyName: '', email: '', phone: '',
-        projectDomain: 'Website Design & Development',
-        budget: '₹1,000 & Above', scopeDetails: '', termsAgreed: false
-      });
-
-      // Careers Form State
-      const [careerSubmitted, setCareerSubmitted] = useState(false);
-      const [careerLoading, setCareerLoading] = useState(false);
-      const [careerForm, setCareerForm] = useState({
-        fullName: '', email: '', role: 'Frontend Developer', portfolio: '', coverNote: ''
-      });
-
-      // Estimator State
-      const [estPlatform, setEstPlatform] = useState('web');
-      const [estComplexity, setEstComplexity] = useState('standard');
-      const [estHasAI, setEstHasAI] = useState(true);
-
-      // Handle Hash Routing & Navigation
-      useEffect(() => {
-        const handleHashChange = () => {
-          try {
-            const hash = window.location.hash.replace('#', '');
-            if (NAV_ITEMS.some(item => item.id === hash)) {
-              setActivePage(hash);
-              const el = document.getElementById(hash);
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }
-          } catch(e) {}
-        };
-        window.addEventListener('hashchange', handleHashChange);
-        return () => window.removeEventListener('hashchange', handleHashChange);
-      }, []);
-
-      const navigateTo = (sectionId) => {
-        setActivePage(sectionId);
-        setMobileMenuOpen(false);
-        try {
-          window.location.hash = sectionId;
-        } catch(e) {}
-        const el = document.getElementById(sectionId);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
-        } else {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-      };
-
-      useEffect(() => {
-        document.documentElement.classList.remove('light', 'dark');
-        document.documentElement.classList.add(theme);
-        try {
-          localStorage.setItem('craftiq-theme', theme);
-        } catch (e) {}
-      }, [theme]);
-
-      useEffect(() => {
-        const handleScroll = () => {
-          if (window.scrollY > 20) {
-            setScrolled(true);
-          } else {
-            setScrolled(false);
-          }
-
-          const sections = ['home', 'services', 'projects', 'team', 'estimator', 'careers', 'contact'];
-          const scrollPosition = window.scrollY + 200;
-
-          for (const sectionId of sections) {
-            const el = document.getElementById(sectionId);
-            if (el) {
-              const top = el.offsetTop;
-              const height = el.offsetHeight;
-              if (scrollPosition >= top && scrollPosition < top + height) {
-                setActivePage(sectionId);
-                break;
-              }
-            }
-          }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-      }, []);
-
-      useEffect(() => {
-        if (typeof lucide !== 'undefined' && lucide && lucide.createIcons) {
-          lucide.createIcons();
-        }
-      }, [theme, activePage, selectedService, serviceFilter, activeProcessStep, submittedModal, careerSubmitted, floatingExpanded, mobileMenuOpen]);
-
-      const toggleTheme = () => {
-        setTheme(prev => prev === 'dark' ? 'light' : 'dark');
-      };
-
-      const handleModalSubmit = async (e) => {
-        e.preventDefault();
-        if (!modalForm.termsAgreed) return;
-        setLoadingModal(true);
-
-        const payload = {
-          _subject: `⚡ New Craftiq Project Inquiry: ${modalForm.fullName}`,
-          Client_Name: modalForm.fullName,
-          Company: modalForm.companyName || 'N/A',
-          Client_Email: modalForm.email,
-          Phone_Number: modalForm.phone,
-          Project_Domain: modalForm.projectDomain,
-          Budget_Tier: modalForm.budget,
-          Project_Details: modalForm.scopeDetails || 'No details provided',
-          Submission_Time: new Date().toLocaleString('en-IN')
-        };
-
-        try {
-          await fetch('https://formsubmit.co/ajax/noorulazetirur@gmail.com', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-            },
-            body: JSON.stringify(payload)
-          });
-        } catch (err) {
-          console.error('FormSubmit dispatch error:', err);
-        }
-
-        const mailSubject = encodeURIComponent(`New Craftiq Project Inquiry: ${modalForm.fullName}`);
-        const mailBody = encodeURIComponent(`CRAFTIQ Project Inquiry Details:\n\nClient Name: ${modalForm.fullName}\nCompany: ${modalForm.companyName || 'N/A'}\nClient Email: ${modalForm.email}\nPhone: ${modalForm.phone}\nDomain: ${modalForm.projectDomain}\nBudget: ${modalForm.budget}\nDetails: ${modalForm.scopeDetails}`);
-        window.open(`mailto:noorulazetirur@gmail.com?subject=${mailSubject}&body=${mailBody}`, '_blank');
-
-        setLoadingModal(false);
-        setSubmittedModal(true);
-      };
-
-      const handleCareerSubmit = async (e) => {
-        e.preventDefault();
-        setCareerLoading(true);
-
-        const payload = {
-          _subject: `💼 New Craftiq Career Application: ${careerForm.fullName}`,
-          Applicant_Name: careerForm.fullName,
-          Applicant_Email: careerForm.email,
-          Target_Role: careerForm.role,
-          Portfolio_Link: careerForm.portfolio || 'N/A',
-          Cover_Note: careerForm.coverNote || 'N/A',
-          Submission_Time: new Date().toLocaleString('en-IN')
-        };
-
-        try {
-          await fetch('https://formsubmit.co/ajax/noorulazetirur@gmail.com', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-            },
-            body: JSON.stringify(payload)
-          });
-        } catch (err) {
-          console.error('Career FormSubmit dispatch error:', err);
-        }
-
-        const mailSubject = encodeURIComponent(`Craftiq Career Application: ${careerForm.fullName}`);
-        const mailBody = encodeURIComponent(`Applicant Name: ${careerForm.fullName}\nEmail: ${careerForm.email}\nRole: ${careerForm.role}\nPortfolio: ${careerForm.portfolio || 'N/A'}\nNote: ${careerForm.coverNote || 'N/A'}`);
-        window.open(`mailto:noorulazetirur@gmail.com?subject=${mailSubject}&body=${mailBody}`, '_blank');
-
-        setCareerLoading(false);
-        setCareerSubmitted(true);
-      };
-
-      const copySummaryText = () => {
-        const text = `CRAFTIQ Project Inquiry:\nClient: ${modalForm.fullName}\nCompany: ${modalForm.companyName || 'N/A'}\nEmail: ${modalForm.email}\nPhone: ${modalForm.phone}\nDomain: ${modalForm.projectDomain}\nBudget: ${modalForm.budget}\nDetails: ${modalForm.scopeDetails}`;
-        navigator.clipboard.writeText(text);
-        setCopiedSummary(true);
-        setTimeout(() => setCopiedSummary(false), 2500);
-      };
-
-      const calcEstimate = () => {
-        let min = 1000, max = 3000, days = 5;
-        if (estPlatform === 'mobile') { min += 5000; max += 10000; days += 7; }
-        else if (estPlatform === 'ai') { min += 8000; max += 15000; days += 10; }
-        else if (estPlatform === 'full') { min += 15000; max += 30000; days += 20; }
-
-        if (estComplexity === 'standard') { min *= 2.0; max *= 2.0; days += 5; }
-        else if (estComplexity === 'enterprise') { min *= 4.0; max *= 4.0; days += 15; }
-
-        if (estHasAI) { min += 2000; max += 5000; days += 3; }
-
-        return { min: Math.round(min), max: Math.round(max), days: Math.round(days) };
-      };
-
-      const estimate = calcEstimate();
-
-      const filteredServices = serviceFilter === 'All' 
-        ? SERVICES 
-        : SERVICES.filter(s => s.category === serviceFilter);
-
-      return (
-        <div className="min-h-screen relative z-10">
-          <div className="aurora-bg"></div>
-          <div className="scanline"></div>
-
-          {/* NAVBAR WITH ACTIVE PAGE INDICATOR & DIRECT ROUTING */}
-          <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'py-3' : 'py-6'}`}>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className={`flex items-center justify-between rounded-full px-6 py-3 transition-all duration-300 ${
-                scrolled ? 'liquid-glass-card shadow-2xl' : 'bg-slate-950/20 dark:bg-slate-950/40 backdrop-blur-md border border-slate-800/40'
-              }`}>
-                <a href="#home" onClick={(e)=>{ e.preventDefault(); navigateTo('home'); }} className="flex items-center gap-3 group">
-                  <div className="relative w-10 h-10 flex items-center justify-center rounded-xl bg-gradient-to-tr from-blue-600 via-sky-400 to-violet-600 p-[1px] shadow-lg shadow-blue-600/30">
-                    <div className="w-full h-full bg-[#030712] rounded-[11px] flex items-center justify-center">
-                      <span className="font-heading font-bold text-xl text-sky-400">C</span>
-                    </div>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="font-heading font-bold text-xl tracking-tight dark:text-white text-slate-900">
-                      Craft<span className="text-sky-500">iq</span>
-                    </span>
-                    <span className="text-[9px] font-sans tracking-wider opacity-60 capitalize -mt-1 hidden sm:block">Digital Product Studio</span>
-                  </div>
-                </a>
-
-                {/* Desktop Multi-Page Branch Links */}
-                <nav className="hidden lg:flex items-center gap-1.5 p-1 rounded-full liquid-glass-pill">
-                  {NAV_ITEMS.map((item) => (
-                    <button
-                      key={item.id}
-                      onClick={() => navigateTo(item.id)}
-                      className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 ${
-                        activePage === item.id 
-                          ? 'liquid-glass-button text-white shadow-lg' 
-                          : 'opacity-70 hover:opacity-100 hover:text-sky-400'
-                      }`}
-                    >
-                      <i data-lucide={item.icon} className="w-3.5 h-3.5"></i>
-                      <span>{item.label}</span>
-                    </button>
-                  ))}
-                </nav>
-
-                <div className="hidden sm:flex items-center gap-3">
-                  <button
-                    onClick={toggleTheme}
-                    className="p-2.5 rounded-full liquid-glass-pill text-slate-300 hover:text-white transition-transform active:scale-95"
-                    title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
-                  >
-                    <i data-lucide={theme === 'dark' ? "sun" : "moon"} className="w-4 h-4 text-amber-400"></i>
-                  </button>
-
-                  <button
-                    onClick={() => setIsHireModalOpen(true)}
-                    className="liquid-glass-button inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full text-xs font-semibold shadow-xl"
-                  >
-                    <i data-lucide="sparkles" className="w-3.5 h-3.5 text-sky-200"></i>
-                    <span>Start Your Project</span>
-                  </button>
-                </div>
-
-                <div className="lg:hidden flex items-center gap-2">
-                  <button
-                    onClick={toggleTheme}
-                    className="p-2 rounded-lg liquid-glass-pill text-slate-300"
-                  >
-                    <i data-lucide={theme === 'dark' ? "sun" : "moon"} className="w-5 h-5 text-amber-400"></i>
-                  </button>
-                  <button
-                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                    className="p-2 rounded-lg liquid-glass-pill"
-                  >
-                    <i data-lucide={mobileMenuOpen ? "x" : "menu"} className="w-6 h-6"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Mobile Drawer */}
-            {mobileMenuOpen && (
-              <div className="lg:hidden fixed inset-x-4 top-20 p-6 liquid-glass-card rounded-3xl z-50 border space-y-2">
-                {NAV_ITEMS.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => navigateTo(item.id)}
-                    className={`w-full flex items-center justify-between text-sm font-medium py-2.5 px-4 rounded-xl transition-colors ${
-                      activePage === item.id ? 'liquid-glass-button text-white' : 'opacity-80 hover:bg-slate-800/40'
-                    }`}
-                  >
-                    <span className="flex items-center gap-2.5">
-                      <i data-lucide={item.icon} className="w-4 h-4 text-sky-400"></i>
-                      <span>{item.label}</span>
-                    </span>
-                    <i data-lucide="chevron-right" className="w-4 h-4 opacity-50"></i>
-                  </button>
-                ))}
-                <button
-                  onClick={() => { setMobileMenuOpen(false); setIsHireModalOpen(true); }}
-                  className="liquid-glass-button w-full mt-4 py-3 rounded-2xl text-white font-semibold text-xs shadow-lg flex items-center justify-center gap-2"
-                >
-                  <i data-lucide="sparkles" className="w-4 h-4"></i>
-                  <span>Start Your Project</span>
-                </button>
-              </div>
-            )}
-          </header>
-
-          {/* SINGLE-PAGE SCROLLING MAIN CONTENT */}
-          <main className="pt-28 pb-16 space-y-24 min-h-[75vh]">
-            
-            {/* HERO SECTION */}
-            <section id="home" className="pt-12 pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col items-center text-center">
-                  <h1 className="text-4xl sm:text-6xl lg:text-7xl font-semibold font-heading tracking-tight max-w-4xl leading-[1.12]">
-                    Crafting intelligent digital experiences for <span className="gradient-text-accent font-bold">ambitious brands</span>.
-                  </h1>
-
-                  <p className="mt-6 opacity-80 text-base sm:text-lg max-w-2xl font-normal leading-relaxed">
-                    We design and build modern websites, mobile apps, custom AI agents, and brand systems that help your business scale effortlessly.
-                  </p>
-
-                  {/* 4 Feature Pill Badges */}
-                  <div className="mt-6 flex flex-wrap items-center justify-center gap-2.5 max-w-3xl">
-                    <span className="liquid-glass-pill px-4 py-1.5 rounded-full text-xs font-medium">Modern Web & Mobile Apps</span>
-                    <span className="liquid-glass-pill px-4 py-1.5 rounded-full text-xs font-medium">Autonomous AI Workflows</span>
-                    <span className="liquid-glass-pill px-4 py-1.5 rounded-full text-xs font-medium">Fluid 60fps UI/UX</span>
-                    <span className="liquid-glass-pill px-4 py-1.5 rounded-full text-xs font-medium">Scalable Cloud Systems</span>
-                  </div>
-
-                  {/* 3 Hero Action Buttons */}
-                  <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-                    <button
-                      onClick={() => setIsHireModalOpen(true)}
-                      className="liquid-glass-button px-8 py-3.5 rounded-full text-white font-semibold text-sm shadow-xl flex items-center gap-2.5"
-                    >
-                      <span>Start Your Project</span>
-                      <i data-lucide="arrow-right" className="w-4 h-4"></i>
-                    </button>
-
-                    <button
-                      onClick={() => navigateTo('services')}
-                      className="liquid-glass-button-secondary px-8 py-3.5 rounded-full text-sm font-medium flex items-center gap-2"
-                    >
-                      <i data-lucide="layers" className="w-4 h-4 text-sky-400"></i>
-                      <span>Explore Services</span>
-                    </button>
-
-                    <button
-                      onClick={() => navigateTo('contact')}
-                      className="liquid-glass-button-secondary px-8 py-3.5 rounded-full text-sm font-medium flex items-center gap-2"
-                    >
-                      <i data-lucide="compass" className="w-4 h-4 text-violet-400"></i>
-                      <span>Book Free Consultation</span>
-                    </button>
-                  </div>
-
-                  {/* 4 Stat Metric Cards with Badges */}
-                  <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-5xl">
-                    {[
-                      { val: '100%', label: 'Client Satisfaction', badge: 'GUARANTEED' },
-                      { val: '20+', label: 'Tech Stack Capabilities', badge: 'NEXT-GEN' },
-                      { val: '99.9%', label: 'System Performance', badge: 'ENTERPRISE' },
-                      { val: '24/7', label: 'Dedicated Support', badge: 'GLOBAL' }
-                    ].map((stat, idx) => (
-                      <div key={idx} className="liquid-glass-card p-5 rounded-2xl text-left relative overflow-hidden group">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-[9px] font-mono uppercase px-2 py-0.5 rounded-md liquid-glass-pill tracking-wider opacity-80">{stat.badge}</span>
-                        </div>
-                        <div className="text-2xl sm:text-3xl font-semibold font-heading tracking-tight">{stat.val}</div>
-                        <div className="text-xs opacity-70 mt-1 font-medium">{stat.label}</div>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-
-                {/* FEATURED SERVICES HIGHLIGHT (Top 3 Teaser) */}
-                <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-                  <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
-                    <div>
-                      <div className="liquid-glass-pill inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-3">
-                        <i data-lucide="sparkles" className="w-3.5 h-3.5"></i> Core Capabilities
-                      </div>
-                      <h2 className="text-3xl sm:text-4xl font-semibold font-heading tracking-tight">Services Overview</h2>
-                    </div>
-                    <button
-                      onClick={() => navigateTo('services')}
-                      className="text-xs font-semibold text-sky-500 flex items-center gap-1.5 hover:underline"
-                    >
-                      <span>View All 6 Services</span>
-                      <i data-lucide="arrow-right" className="w-4 h-4"></i>
-                    </button>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {SERVICES.slice(0, 3).map((service) => (
-                      <div
-                        key={service.id}
-                        onClick={() => navigateTo('services')}
-                        className="holographic-card liquid-glass-card rounded-3xl p-7 flex flex-col justify-between cursor-pointer group"
-                      >
-                        <div>
-                          <div className="w-11 h-11 rounded-2xl liquid-glass-pill flex items-center justify-center text-sky-400 mb-5">
-                            <i data-lucide={service.iconName} className="w-5 h-5"></i>
-                          </div>
-                          <h3 className="text-lg font-semibold font-heading mb-2 group-hover:text-sky-400 transition-colors">{service.title}</h3>
-                          <p className="opacity-70 text-xs leading-relaxed mb-6">{service.description}</p>
-                        </div>
-                        <div className="flex items-center justify-between text-xs font-semibold text-sky-500 pt-4 border-t border-slate-800/20">
-                          <span>Explore Solutions</span>
-                          <i data-lucide="arrow-right" className="w-4 h-4"></i>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-
-                {/* SPOTLIGHT FEATURED PROJECT */}
-                <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-                  <div className="liquid-glass-card rounded-3xl p-8 sm:p-12 relative overflow-hidden border-sky-500/30">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                      <div className="lg:col-span-6 space-y-4">
-                        <div className="liquid-glass-pill inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-2">
-                          <i data-lucide="award" className="w-3.5 h-3.5"></i> Featured Showcase
-                        </div>
-                        <h2 className="text-3xl sm:text-4xl font-semibold font-heading mb-3">{PROJECTS[0].title}</h2>
-                        <p className="opacity-80 text-sm leading-relaxed mb-6">{PROJECTS[0].description}</p>
-                        <div className="flex flex-wrap gap-2 mb-6">
-                          {PROJECTS[0].techStack.map((t, idx) => (
-                            <span key={idx} className="text-[11px] liquid-glass-pill px-3 py-1 rounded-lg">{t}</span>
-                          ))}
-                        </div>
-                        <div className="flex flex-wrap gap-3">
-                          <a
-                            href={PROJECTS[0].url}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="liquid-glass-button px-6 py-3.5 rounded-2xl text-xs font-semibold text-center flex items-center justify-center gap-2 shadow-xl"
-                          >
-                            <span>Launch Platform Demo</span>
-                            <i data-lucide="external-link" className="w-4 h-4"></i>
-                          </a>
-                          <button
-                            onClick={() => navigateTo('projects')}
-                            className="liquid-glass-button-secondary px-6 py-3.5 rounded-2xl text-xs font-semibold text-center flex items-center justify-center gap-2"
-                          >
-                            <span>View All Case Studies</span>
-                            <i data-lucide="folder-git-2" className="w-4 h-4 text-sky-400"></i>
-                          </button>
-                        </div>
-                      </div>
-
-                      <div className="lg:col-span-6 rounded-2xl overflow-hidden border border-slate-700/60 shadow-2xl relative group">
-                        <img 
-                          src={PROJECTS[0].image} 
-                          alt={PROJECTS[0].title} 
-                          className="w-full h-64 sm:h-80 object-cover object-top transition-transform duration-700 group-hover:scale-105" 
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#030712]/80 via-transparent to-transparent"></div>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-
-                {/* FOUNDING TEAM TEASER BANNER */}
-                <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-                  <div className="liquid-glass-card rounded-3xl p-8 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
-                    <div className="flex items-center gap-5">
-                      <div className="flex -space-x-3 overflow-hidden">
-                        {TEAM_MEMBERS.map((m, idx) => (
-                          <div key={idx} className="w-12 h-12 rounded-full border-2 border-slate-900 bg-sky-600 flex items-center justify-center font-heading font-bold text-xs text-white shadow-md">
-                            {m.name.split(' ').map(n=>n[0]).join('')}
-                          </div>
-                        ))}
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold font-heading">Craftiq Founding Team</h3>
-                        <p className="text-xs opacity-75 mt-0.5">Academic roots at Darul Huda Islamic University • Madampat, Kerala</p>
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => navigateTo('team')}
-                      className="liquid-glass-button px-7 py-3 rounded-full text-xs font-semibold shrink-0 flex items-center gap-2"
-                    >
-                      <span>Meet the Team & Story</span>
-                      <i data-lucide="arrow-right" className="w-4 h-4"></i>
-                    </button>
-                  </div>
-                </section>
-
-                {/* BOTTOM CALL TO ACTION */}
-                <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-                  <div className="liquid-glass-card rounded-3xl p-10 text-center relative overflow-hidden border-sky-400/40">
-                    <h2 className="text-3xl sm:text-4xl font-semibold font-heading mb-4">Ready to Build Something Extraordinary?</h2>
-                    <p className="opacity-80 text-sm max-w-xl mx-auto mb-8">
-                      Whether you need a modern web application, native mobile app, or autonomous AI agent, our studio is ready to bring your vision to life.
-                    </p>
-                    <div className="flex flex-wrap items-center justify-center gap-4">
-                      <button
-                        onClick={() => setIsHireModalOpen(true)}
-                        className="liquid-glass-button px-8 py-4 rounded-full font-semibold text-xs shadow-xl flex items-center gap-2"
-                      >
-                        <i data-lucide="sparkles" className="w-4 h-4"></i>
-                        <span>Start Your Project Inquiry</span>
-                      </button>
-                      <button
-                        onClick={() => navigateTo('contact')}
-                        className="liquid-glass-button-secondary px-8 py-4 rounded-full font-semibold text-xs flex items-center gap-2"
-                      >
-                        <i data-lucide="mail" className="w-4 h-4 text-sky-400"></i>
-                        <span>Contact Direct Directives</span>
-                      </button>
-                    </div>
-                  </div>
-                </section>
-
-                {/* 2. SERVICES SECTION */}
-                <section id="services" className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-                <div className="text-center max-w-3xl mx-auto mb-12">
-                  <div className="liquid-glass-pill inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-4">
-                    <i data-lucide="layers" className="w-3.5 h-3.5 text-sky-400"></i> Services Branch
-                  </div>
-                  <h1 className="text-4xl sm:text-5xl font-semibold font-heading tracking-tight">Digital Capabilities & Solutions</h1>
-                  <p className="mt-4 opacity-70 text-base leading-relaxed">
-                    Explore our complete suite of software engineering, AI automation, media production, and digital brand architecture services.
-                  </p>
-
-                  {/* Filter Tabs */}
-                  <div className="mt-8 flex flex-wrap justify-center gap-2">
-                    {['All', 'Web Ecosystems', 'Mobile Products', 'Artificial Intelligence', 'Media Production', 'Brand Engineering', 'Enterprise Infrastructure'].map((cat) => (
-                      <button
-                        key={cat}
-                        onClick={() => setServiceFilter(cat)}
-                        className={`px-4 py-2 rounded-full text-xs font-medium transition-all ${
-                          serviceFilter === cat ? 'liquid-glass-button text-white shadow-lg' : 'liquid-glass-pill hover:text-sky-400'
-                        }`}
-                      >
-                        {cat}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {filteredServices.map((service) => (
-                    <div
-                      key={service.id}
-                      className="holographic-card liquid-glass-card rounded-3xl p-8 flex flex-col justify-between group"
-                    >
-                      <div>
-                        <div className="flex items-center justify-between mb-6">
-                          <div className="w-12 h-12 rounded-2xl liquid-glass-pill flex items-center justify-center text-sky-400">
-                            <i data-lucide={service.iconName} className="w-6 h-6"></i>
-                          </div>
-                          <span className="text-[10px] font-mono font-semibold uppercase tracking-wider liquid-glass-pill px-3 py-1 rounded-full">
-                            {service.category}
-                          </span>
-                        </div>
-
-                        <h3 className="text-xl font-semibold font-heading mb-3">{service.title}</h3>
-                        <p className="opacity-70 text-xs leading-relaxed mb-6">{service.description}</p>
-
-                        <div className="space-y-2 mb-6">
-                          <span className="text-[10px] font-mono uppercase opacity-60 font-semibold block">Key Features</span>
-                          {service.features.map((feat, fIdx) => (
-                            <div key={fIdx} className="flex items-center gap-2 text-xs opacity-90">
-                              <span className="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
-                              <span>{feat}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div>
-                        <div className="flex flex-wrap gap-1.5 pt-4 border-t border-slate-800/20 mb-6">
-                          {service.tags.map((tag, tIdx) => (
-                            <span key={tIdx} className="text-[10px] liquid-glass-pill px-2.5 py-1 rounded-md">{tag}</span>
-                          ))}
-                        </div>
-
-                        <button
-                          onClick={() => {
-                            setModalForm(prev => ({ ...prev, projectDomain: service.title }));
-                            setIsHireModalOpen(true);
-                          }}
-                          className="liquid-glass-button w-full py-3.5 rounded-2xl font-semibold text-xs shadow-lg flex items-center justify-center gap-2"
-                        >
-                          <span>Inquire About This Service</span>
-                          <i data-lucide="arrow-right" className="w-4 h-4"></i>
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                </section>
-
-                {/* 3. PROJECTS SECTION */}
-                <section id="projects" className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-                <div className="text-center max-w-3xl mx-auto mb-16">
-                  <div className="liquid-glass-pill inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-4">
-                    <i data-lucide="folder-git-2" className="w-3.5 h-3.5 text-sky-400"></i> Portfolio Branch
-                  </div>
-                  <h1 className="text-4xl sm:text-5xl font-semibold font-heading tracking-tight">Featured Projects & Live Platforms</h1>
-                  <p className="mt-4 opacity-70 text-base">
-                    Discover digital platforms, spatial web applications, and reward ecosystems built and powered by Craftiq.
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                  {PROJECTS.map((proj) => (
-                    <div key={proj.id} className="holographic-card liquid-glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between group">
-                      <div>
-                        {proj.image && (
-                          <div className="mb-6 rounded-2xl overflow-hidden border border-slate-700/60 shadow-2xl relative group/img aspect-video">
-                            <img 
-                              src={proj.image} 
-                              alt={proj.title} 
-                              className="w-full h-full object-cover object-top transition-transform duration-700 group-hover/img:scale-105" 
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#030712]/60 via-transparent to-transparent"></div>
-                          </div>
-                        )}
-
-                        <div className="flex items-center justify-between gap-4 mb-4">
-                          <span className="text-xs font-mono uppercase liquid-glass-pill px-3 py-1 rounded-full">{proj.category}</span>
-                          <span className="text-xs font-semibold text-emerald-400 liquid-glass-pill px-3 py-1 rounded-full">{proj.metrics}</span>
-                        </div>
-
-                        <h2 className="text-2xl sm:text-3xl font-semibold font-heading mb-3">{proj.title}</h2>
-                        <p className="opacity-80 text-xs sm:text-sm leading-relaxed mb-6">{proj.description}</p>
-
-                        <div className="space-y-2.5 mb-8">
-                          <span className="text-[10px] font-mono uppercase opacity-60 font-semibold block">Key Platform Deliverables</span>
-                          {proj.highlights.map((h, i) => (
-                            <div key={i} className="flex items-center gap-2.5 text-xs opacity-90">
-                              <span className="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
-                              <span>{h}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div>
-                        <div className="flex flex-wrap gap-2 mb-8">
-                          {proj.techStack.map((tech, tIdx) => (
-                            <span key={tIdx} className="text-[11px] liquid-glass-pill px-3 py-1 rounded-lg">{tech}</span>
-                          ))}
-                        </div>
-
-                        <a
-                          href={proj.url}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="liquid-glass-button inline-flex items-center justify-center gap-2.5 w-full py-4 rounded-2xl font-semibold text-xs shadow-lg"
-                        >
-                          <span>Launch Live Platform Demo</span>
-                          <i data-lucide="external-link" className="w-4 h-4"></i>
-                        </a>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                </section>
-
-                {/* 4. ABOUT & TEAM SECTION */}
-                <section id="team" className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-16">
-                <div className="text-center max-w-3xl mx-auto">
-                  <div className="liquid-glass-pill inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-4">
-                    <i data-lucide="users" className="w-3.5 h-3.5 text-sky-400"></i> Studio Team Branch
-                  </div>
-                  <h1 className="text-4xl sm:text-5xl font-semibold font-heading tracking-tight">Founders & Creative Team</h1>
-                  <p className="mt-4 opacity-70 text-base leading-relaxed">
-                    Craftiq is powered by a team of young engineers, designers, and creators committed to building next-generation software products.
-                  </p>
-                </div>
-
-                {/* Team Directory Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {TEAM_MEMBERS.map((member) => (
-                    <div key={member.id} className="holographic-card liquid-glass-card rounded-3xl p-7 flex flex-col justify-between">
-                      <div>
-                        <div className="flex items-center gap-4 mb-6">
-                          <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 via-sky-400 to-violet-600 p-[1px] shadow-lg shadow-blue-600/30 shrink-0">
-                            <div className="w-full h-full bg-[#030712] rounded-[15px] flex items-center justify-center font-heading font-bold text-xl text-white">
-                              {member.name.split(' ').map(n=>n[0]).join('')}
-                            </div>
-                          </div>
-                          <div>
-                            <h3 className="text-lg font-semibold font-heading">{member.name}</h3>
-                            <p className="text-xs font-semibold text-sky-500">{member.role}</p>
-                            <div className="flex items-center gap-1 text-[11px] opacity-60 mt-1">
-                              <i data-lucide="map-pin" className="w-3 h-3"></i>
-                              <span>{member.location}</span>
-                            </div>
-                          </div>
-                        </div>
-
-                        <p className="opacity-80 text-xs leading-relaxed mb-6">{member.bio}</p>
-
-                        <div className="mb-6">
-                          <span className="text-[10px] font-mono uppercase opacity-60 tracking-wider block mb-2 font-semibold">Skills & Focus</span>
-                          <div className="flex flex-wrap gap-1.5">
-                            {member.skills.map((skill, i) => (
-                              <span key={i} className="px-2.5 py-1 rounded-md liquid-glass-pill text-[11px]">{skill}</span>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="pt-4 border-t border-slate-800/20 space-y-2">
-                        <div className="flex items-center justify-between text-xs">
-                          <a href={`mailto:${member.email}`} className="opacity-80 hover:text-sky-500 truncate flex items-center gap-1.5">
-                            <i data-lucide="mail" className="w-3.5 h-3.5 text-sky-500"></i>
-                            <span className="truncate">{member.email}</span>
-                          </a>
-                          {member.instagram && (
-                            <a href={`https://instagram.com/${member.instagram.replace('@','')}`} target="_blank" rel="noreferrer" className="text-pink-500 hover:underline text-xs">
-                              {member.instagram}
-                            </a>
-                          )}
-                        </div>
-                        {member.phone && (
-                          <div className="text-[11px] opacity-70 flex items-center gap-1.5">
-                            <i data-lucide="phone" className="w-3 h-3 text-emerald-400"></i>
-                            <span>{member.phone}</span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Academic Roots Spotlight Card */}
-                <div className="liquid-glass-card rounded-3xl p-8 sm:p-12 border-sky-400/40">
-                  <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
-                    <div className="max-w-3xl">
-                      <div className="liquid-glass-pill inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-3">
-                        <i data-lucide="graduation-cap" className="w-4 h-4"></i>
-                        <span>Academic Roots & Story</span>
-                      </div>
-                      <h2 className="text-2xl sm:text-3xl font-semibold font-heading mb-3">Founding Journey at Darul Huda Islamic University</h2>
-                      <p className="opacity-80 text-sm sm:text-base leading-relaxed">
-                        The founding team members are currently pursuing their <span className="font-semibold underline decoration-sky-400 decoration-2 underline-offset-4">Secondary Final Year at Darul Huda Islamic University</span>. Alongside our rigorous academic curriculum, we founded Craftiq to build modern digital platforms, AI automation systems, and high-impact visual software.
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => setIsHireModalOpen(true)}
-                      className="liquid-glass-button px-8 py-4 rounded-full font-semibold text-xs shadow-xl whitespace-nowrap"
-                    >
-                      Start Project Consultation
-                    </button>
-                  </div>
-                </div>
-                </section>
-
-                {/* 5. ESTIMATOR SECTION */}
-                <section id="estimator" className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-                <div className="text-center max-w-3xl mx-auto mb-16">
-                  <div className="liquid-glass-pill inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-4">
-                    <i data-lucide="calculator" className="w-3.5 h-3.5 text-sky-400"></i> Estimator Branch
-                  </div>
-                  <h1 className="text-4xl sm:text-5xl font-semibold font-heading tracking-tight">Interactive AI Project Estimator</h1>
-                  <p className="mt-4 opacity-70 text-base">Estimate your software project scope and budget range in real time.</p>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                  <div className="lg:col-span-7 liquid-glass-card p-8 rounded-3xl space-y-6">
-                    <div>
-                      <label className="block text-xs font-mono uppercase opacity-60 mb-3 font-semibold">1. Select Platform</label>
-                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                        {['web', 'mobile', 'ai', 'full'].map((id) => (
-                          <button
-                            key={id}
-                            onClick={() => setEstPlatform(id)}
-                            className={`py-3 px-3 rounded-2xl text-xs font-semibold uppercase transition-all ${
-                              estPlatform === id ? 'liquid-glass-button text-white' : 'liquid-glass-button-secondary'
-                            }`}
-                          >
-                            {id}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-mono uppercase opacity-60 mb-3 font-semibold">2. Feature Scale</label>
-                      <div className="grid grid-cols-3 gap-3">
-                        {['mvp', 'standard', 'enterprise'].map((id) => (
-                          <button
-                            key={id}
-                            onClick={() => setEstComplexity(id)}
-                            className={`py-3 px-3 rounded-2xl text-xs font-semibold uppercase transition-all ${
-                              estComplexity === id ? 'liquid-glass-button text-white' : 'liquid-glass-button-secondary'
-                            }`}
-                          >
-                            {id}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between p-4 liquid-glass-pill rounded-2xl">
-                      <span className="text-sm font-semibold">Include AI / LLM Capabilities</span>
-                      <button
-                        onClick={() => setEstHasAI(!estHasAI)}
-                        className={`w-12 h-6 rounded-full transition-colors p-1 flex items-center ${estHasAI ? 'bg-emerald-500 justify-end' : 'bg-slate-800 justify-start'}`}
-                      >
-                        <span className="w-4 h-4 rounded-full bg-white"></span>
-                      </button>
-                    </div>
-
-                    <div className="pt-4 border-t border-slate-800/20">
-                      <span className="text-[10px] font-mono uppercase opacity-60 block mb-2 font-semibold">Supported Tech Stack</span>
-                      <div className="flex flex-wrap gap-2">
-                        {TECH_STACK.map((tech, i) => (
-                          <span key={i} className="text-[11px] liquid-glass-pill px-3 py-1 rounded-lg">{tech}</span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="lg:col-span-5 liquid-glass-card p-8 rounded-3xl border-sky-400/50">
-                    <span className="text-xs font-mono uppercase opacity-60">Estimated Project Investment</span>
-                    <div className="text-3xl sm:text-4xl font-semibold font-heading mt-1">
-                      ₹{estimate.min.toLocaleString('en-IN')} – ₹{estimate.max.toLocaleString('en-IN')}
-                    </div>
-                    <p className="text-xs opacity-60 mt-1 mb-6">Estimated budget starting from ₹1,000 & Above in Indian Rupees (INR)</p>
-
-                    <div className="p-4 rounded-2xl liquid-glass-pill mb-8 flex items-center justify-between">
-                      <div>
-                        <span className="text-xs opacity-60 block">Est. Production Time</span>
-                        <span className="text-lg font-bold text-sky-500">{estimate.days} Business Days</span>
-                      </div>
-                      <span className="text-xs font-semibold text-emerald-500">Fast Track</span>
-                    </div>
-
-                    <button
-                      onClick={() => setIsHireModalOpen(true)}
-                      className="liquid-glass-button w-full py-4 rounded-2xl font-semibold text-xs shadow-xl flex items-center justify-center gap-2"
-                    >
-                      <span>Start Project Inquiry</span>
-                      <i data-lucide="arrow-right" className="w-4 h-4"></i>
-                    </button>
-                  </div>
-                </div>
-                </section>
-
-                {/* 6. CAREERS SECTION */}
-                <section id="careers" className="py-8 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-                <div className="liquid-glass-card rounded-3xl p-8 sm:p-12">
-                  <div className="text-center max-w-2xl mx-auto mb-10">
-                    <div className="liquid-glass-pill inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-3">
-                      <i data-lucide="briefcase" className="w-3.5 h-3.5 text-sky-400"></i> Careers Branch
-                    </div>
-                    <h1 className="text-3xl sm:text-4xl font-semibold font-heading">Join Craftiq Studio</h1>
-                    <p className="mt-2 opacity-70 text-xs sm:text-sm">Apply for Frontend, Backend, UI/UX, AI Engineer, or Internship positions.</p>
-                  </div>
-
-                  {careerSubmitted ? (
-                    <div className="py-8 text-center">
-                      <div className="w-12 h-12 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center mx-auto mb-3">
-                        <i data-lucide="check-circle" className="w-6 h-6"></i>
-                      </div>
-                      <h3 className="text-lg font-semibold mb-1">Application Submitted</h3>
-                      <p className="text-xs opacity-70">Transmitted to noorulazetirur@gmail.com</p>
-                    </div>
-                  ) : (
-                    <form onSubmit={handleCareerSubmit} className="space-y-4">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <input required type="text" placeholder="Full Name *" value={careerForm.fullName} onChange={e=>setCareerForm({...careerForm, fullName:e.target.value})} className="bg-slate-900/60 border border-slate-700/50 rounded-xl p-3 text-xs" />
-                        <input required type="email" placeholder="Email Address *" value={careerForm.email} onChange={e=>setCareerForm({...careerForm, email:e.target.value})} className="bg-slate-900/60 border border-slate-700/50 rounded-xl p-3 text-xs" />
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <select value={careerForm.role} onChange={e=>setCareerForm({...careerForm, role:e.target.value})} className="bg-slate-900/60 border border-slate-700/50 rounded-xl p-3 text-xs">
-                          <option>Frontend Developer</option>
-                          <option>Backend Developer</option>
-                          <option>UI/UX Designer</option>
-                          <option>AI Engineer</option>
-                          <option>Internships</option>
-                        </select>
-                        <input type="url" placeholder="Portfolio / GitHub Link" value={careerForm.portfolio} onChange={e=>setCareerForm({...careerForm, portfolio:e.target.value})} className="bg-slate-900/60 border border-slate-700/50 rounded-xl p-3 text-xs" />
-                      </div>
-                      <textarea rows={3} placeholder="Cover Note / Intro" value={careerForm.coverNote} onChange={e=>setCareerForm({...careerForm, coverNote:e.target.value})} className="w-full bg-slate-900/60 border border-slate-700/50 rounded-xl p-3 text-xs"></textarea>
-                      <button type="submit" disabled={careerLoading} className="liquid-glass-button w-full py-3.5 rounded-xl font-semibold text-xs shadow-lg">
-                        {careerLoading ? 'Submitting Application...' : 'Submit Application (Routes to noorulazetirur@gmail.com)'}
-                      </button>
-                    </form>
-                  )}
-                </div>
-              </div>
-            )}
-
-            {/* 7. CONTACT PAGE BRANCH */}
-            {activePage === 'contact' && (
-              <div className="page-fade-in py-8 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-                <div className="liquid-glass-card rounded-3xl p-8 sm:p-12">
-                  <div className="text-center max-w-2xl mx-auto mb-10">
-                    <div className="liquid-glass-pill inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-3">
-                      <i data-lucide="mail" className="w-3.5 h-3.5 text-sky-400"></i> Contact Branch
-                    </div>
-                    <h1 className="text-3xl sm:text-4xl font-semibold font-heading">Get in Touch with Craftiq</h1>
-                    <p className="mt-2 opacity-70 text-xs sm:text-sm">Direct studio lines and online inquiry routing.</p>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-                    <a href="mailto:noorulazetirur@gmail.com" className="liquid-glass-pill p-4 rounded-2xl flex flex-col items-center text-center">
-                      <i data-lucide="mail" className="w-5 h-5 text-sky-400 mb-2"></i>
-                      <span className="text-xs font-semibold">Email Studio</span>
-                      <span className="text-[11px] opacity-70 truncate max-w-full">noorulazetirur@gmail.com</span>
-                    </a>
-                    <a href="tel:+919074300569" className="liquid-glass-pill p-4 rounded-2xl flex flex-col items-center text-center">
-                      <i data-lucide="phone" className="w-5 h-5 text-emerald-400 mb-2"></i>
-                      <span className="text-xs font-semibold">Direct Call</span>
-                      <span className="text-[11px] opacity-70">+91 90743 00569</span>
-                    </a>
-                    <a href="https://wa.me/919074300569" target="_blank" rel="noreferrer" className="liquid-glass-pill p-4 rounded-2xl flex flex-col items-center text-center">
-                      <i data-lucide="message-square" className="w-5 h-5 text-emerald-500 mb-2"></i>
-                      <span className="text-xs font-semibold">WhatsApp Chat</span>
-                      <span className="text-[11px] opacity-70">Instant Response</span>
-                    </a>
-                  </div>
-
-                  {submittedModal ? (
-                    <div className="py-8 text-center">
-                      <div className="w-16 h-16 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center mx-auto mb-4">
-                        <i data-lucide="check-circle" className="w-10 h-10"></i>
-                      </div>
-                      <h3 className="text-2xl font-semibold font-heading mb-2">Inquiry Submitted Successfully</h3>
-                      <p className="text-xs mb-6 opacity-80">Target routing: <span className="font-mono text-sky-500">noorulazetirur@gmail.com</span></p>
-
-                      <button onClick={copySummaryText} className="liquid-glass-button-secondary px-5 py-2.5 rounded-full text-xs font-medium">
-                        {copiedSummary ? 'Copied to Clipboard!' : 'Copy Summary'}
-                      </button>
-                    </div>
-                  ) : (
-                    <form onSubmit={handleModalSubmit} className="space-y-4">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <input required type="text" placeholder="Full Name *" value={modalForm.fullName} onChange={e=>setModalForm({...modalForm, fullName:e.target.value})} className="bg-slate-900/60 border border-slate-700/50 rounded-xl p-3 text-xs" />
-                        <input type="text" placeholder="Company Name" value={modalForm.companyName} onChange={e=>setModalForm({...modalForm, companyName:e.target.value})} className="bg-slate-900/60 border border-slate-700/50 rounded-xl p-3 text-xs" />
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <input required type="email" placeholder="Work Email *" value={modalForm.email} onChange={e=>setModalForm({...modalForm, email:e.target.value})} className="bg-slate-900/60 border border-slate-700/50 rounded-xl p-3 text-xs" />
-                        <input required type="tel" placeholder="Phone Number *" value={modalForm.phone} onChange={e=>setModalForm({...modalForm, phone:e.target.value})} className="bg-slate-900/60 border border-slate-700/50 rounded-xl p-3 text-xs" />
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <select value={modalForm.projectDomain} onChange={e=>setModalForm({...modalForm, projectDomain:e.target.value})} className="bg-slate-900/60 border border-slate-700/50 rounded-xl p-3 text-xs">
-                          <option>Website Design & Development</option>
-                          <option>Android & iOS Mobile Apps</option>
-                          <option>AI Chatbots, Agents & Automation</option>
-                          <option>AI Advertisement & Explainer Videos</option>
-                          <option>UI/UX Design & Brand System</option>
-                          <option>Custom Dashboards, CRMs & Cloud</option>
-                        </select>
-                        <select value={modalForm.budget} onChange={e=>setModalForm({...modalForm, budget:e.target.value})} className="bg-slate-900/60 border border-slate-700/50 rounded-xl p-3 text-xs text-sky-500 font-semibold">
-                          <option>₹1,000 & Above</option>
-                          <option>₹1,000–₹5,000</option>
-                          <option>₹5,000–₹10,000</option>
-                          <option>₹10,000–₹25,000</option>
-                          <option>₹25,000–₹50,000</option>
-                          <option>Above ₹50,000</option>
-                        </select>
-                      </div>
-                      <textarea rows={3} placeholder="Scope Details & Requirements" value={modalForm.scopeDetails} onChange={e=>setModalForm({...modalForm, scopeDetails:e.target.value})} className="w-full bg-slate-900/60 border border-slate-700/50 rounded-xl p-3 text-xs"></textarea>
-
-                      <div className="flex items-center gap-3">
-                        <input type="checkbox" id="contactModalChk" checked={modalForm.termsAgreed} onChange={e=>setModalForm({...modalForm, termsAgreed:e.target.checked})} className="w-4 h-4 rounded" />
-                        <label htmlFor="contactModalChk" className="text-xs opacity-70">
-                          I agree to terms. Submissions route to <span className="font-mono">noorulazetirur@gmail.com</span>.
-                        </label>
-                      </div>
-
-                      <button type="submit" disabled={loadingModal || !modalForm.termsAgreed} className="liquid-glass-button w-full py-4 rounded-xl font-semibold text-xs shadow-lg flex items-center justify-center gap-2">
-                        {loadingModal ? 'Routing Inquiry...' : 'Submit Direct Inquiry'}
-                      </button>
-                    </form>
-                  )}
-                </div>
-                </section>
-
-          </main>
-
-          {/* FOOTER WITH DEVELOPER SPOTLIGHT */}
-          <footer className="border-t border-slate-800/30 pt-16 pb-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10 mb-12">
-              <div className="md:col-span-5">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-9 h-9 rounded-xl overflow-hidden border border-sky-400/40 shadow-md shrink-0">
-                    <img src="./assets/craftiq-logo.png" alt="Craftiq Logo" className="w-full h-full object-cover" />
-                  </div>
-                  <span className="font-heading font-bold text-2xl tracking-tight">Craft<span className="text-sky-500">iq</span></span>
-                </div>
-                <p className="opacity-70 text-xs leading-relaxed max-w-sm">
-                  Craftiq designs and develops premium websites, mobile applications, AI chatbots, AI agents, branding, automation systems, AI videos, and modern digital experiences.
-                </p>
-              </div>
-
-              <div className="md:col-span-3">
-                <h4 className="text-xs font-mono uppercase font-semibold mb-4">Navigation Branches</h4>
-                <ul className="space-y-2 text-xs opacity-70">
-                  {NAV_ITEMS.map((item) => (
-                    <li key={item.id}>
-                      <button onClick={() => navigateTo(item.id)} className="hover:text-sky-400">
-                        {item.label}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="md:col-span-4">
-                <h4 className="text-xs font-mono uppercase font-semibold mb-4">Studio Directives</h4>
-                <div className="space-y-2 text-xs opacity-80">
-                  <p>Primary Inquiry: noorulazetirur@gmail.com</p>
-                  <p>Direct Line: +91 90743 00569</p>
-                  <p>Academic Roots: Darul Huda Islamic University</p>
-                </div>
-              </div>
-            </div>
-
-            {/* FEATURED LEAD DEVELOPER SIGNATURE CARD */}
-            <div className="max-w-7xl mx-auto mb-12 liquid-glass-card rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border-sky-500/40">
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-blue-600 via-sky-400 to-violet-600 p-[1px] shadow-xl shadow-blue-600/30 shrink-0">
-                  <div className="w-full h-full bg-[#030712] rounded-[13px] flex items-center justify-center font-heading font-bold text-lg text-sky-400">
-                    NA
-                  </div>
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h4 className="text-lg font-bold text-white font-heading">Noorul Aze</h4>
-                    <span className="liquid-glass-pill px-2.5 py-0.5 rounded-full text-[10px] font-semibold text-sky-400">Founder & Lead Creative Developer</span>
-                  </div>
-                  <p className="text-xs opacity-75 mt-0.5">Designed, engineered & built with precision • Madampat, Kerala, India</p>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2.5 shrink-0 w-full sm:w-auto">
-                <a href="mailto:noorulazetirur@gmail.com" className="liquid-glass-button-secondary px-4 py-2 rounded-full text-xs font-medium flex items-center gap-1.5">
-                  <i data-lucide="mail" className="w-3.5 h-3.5 text-sky-400"></i>
-                  <span>noorulazetirur@gmail.com</span>
-                </a>
-                <a href="tel:+919074300569" className="liquid-glass-button-secondary px-4 py-2 rounded-full text-xs font-medium flex items-center gap-1.5">
-                  <i data-lucide="phone" className="w-3.5 h-3.5 text-emerald-400"></i>
-                  <span>+91 90743 00569</span>
-                </a>
-                <a href="https://instagram.com/azu_00_1" target="_blank" rel="noreferrer" className="liquid-glass-button-secondary p-2.5 rounded-full text-xs text-pink-400">
-                  <i data-lucide="instagram" className="w-4 h-4"></i>
-                </a>
-              </div>
-            </div>
-
-            <div className="max-w-7xl mx-auto border-t border-slate-800/20 pt-8 flex items-center justify-between text-xs opacity-60">
-              <p>Copyright © 2026 Craftiq. Designed & Engineered by Noorul Aze.</p>
-              <p>Multi-Page Architecture</p>
-            </div>
-          </footer>
-
-          {/* PROJECT REQUEST MODAL */}
-          {isHireModalOpen && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
-              <div onClick={()=>setIsHireModalOpen(false)} className="fixed inset-0 bg-slate-950/80 backdrop-blur-xl"></div>
-              <div className="relative w-full max-w-3xl liquid-glass-card rounded-3xl p-6 sm:p-10 z-10">
-                <button onClick={()=>setIsHireModalOpen(false)} className="absolute top-6 right-6 p-2 rounded-full liquid-glass-pill">
-                  <i data-lucide="x" className="w-5 h-5"></i>
-                </button>
-
-                {submittedModal ? (
-                  <div className="py-8 text-center">
-                    <div className="w-16 h-16 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center mx-auto mb-4">
-                      <i data-lucide="check-circle" className="w-10 h-10"></i>
-                    </div>
-                    <h3 className="text-2xl font-semibold font-heading mb-2">Request Submitted Successfully</h3>
-                    <p className="text-xs mb-6 opacity-80">Target routing: <span className="font-mono text-sky-500">noorulazetirur@gmail.com</span></p>
-
-                    <div className="p-4 rounded-2xl liquid-glass-pill text-left text-xs space-y-1 mb-6 max-w-md mx-auto">
-                      <p className="font-semibold text-sky-500 mb-2">Summary Confirmation:</p>
-                      <p>Client: {modalForm.fullName}</p>
-                      <p>Domain: {modalForm.projectDomain}</p>
-                      <p>Budget: {modalForm.budget}</p>
-                      <p>Phone: {modalForm.phone}</p>
-                    </div>
-
-                    <button onClick={copySummaryText} className="liquid-glass-button-secondary px-5 py-2.5 rounded-full text-xs font-medium mr-3">
-                      {copiedSummary ? 'Copied to Clipboard!' : 'Copy Summary'}
-                    </button>
-                    <button onClick={()=>{ setSubmittedModal(false); setIsHireModalOpen(false); }} className="liquid-glass-button px-6 py-2.5 rounded-full text-xs font-semibold">
-                      Close Window
-                    </button>
-                  </div>
-                ) : (
-                  <div>
-                    <h2 className="text-3xl font-semibold font-heading mb-1">Start Your Project</h2>
-                    <p className="opacity-70 text-xs mb-6">Complete client inquiry parameters below.</p>
-
-                    <form onSubmit={handleModalSubmit} className="space-y-4">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <input required type="text" placeholder="Full Name *" value={modalForm.fullName} onChange={e=>setModalForm({...modalForm, fullName:e.target.value})} className="bg-slate-900/60 border border-slate-700/50 rounded-xl p-3 text-xs" />
-                        <input type="text" placeholder="Company Name" value={modalForm.companyName} onChange={e=>setModalForm({...modalForm, companyName:e.target.value})} className="bg-slate-900/60 border border-slate-700/50 rounded-xl p-3 text-xs" />
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <input required type="email" placeholder="Work Email *" value={modalForm.email} onChange={e=>setModalForm({...modalForm, email:e.target.value})} className="bg-slate-900/60 border border-slate-700/50 rounded-xl p-3 text-xs" />
-                        <input required type="tel" placeholder="Phone Number *" value={modalForm.phone} onChange={e=>setModalForm({...modalForm, phone:e.target.value})} className="bg-slate-900/60 border border-slate-700/50 rounded-xl p-3 text-xs" />
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <select value={modalForm.projectDomain} onChange={e=>setModalForm({...modalForm, projectDomain:e.target.value})} className="bg-slate-900/60 border border-slate-700/50 rounded-xl p-3 text-xs">
-                          <option>Website Design & Development</option>
-                          <option>Android & iOS Mobile Apps</option>
-                          <option>AI Chatbots, Agents & Automation</option>
-                          <option>AI Advertisement & Explainer Videos</option>
-                          <option>UI/UX Design & Brand System</option>
-                          <option>Custom Dashboards, CRMs & Cloud</option>
-                        </select>
-                        <select value={modalForm.budget} onChange={e=>setModalForm({...modalForm, budget:e.target.value})} className="bg-slate-900/60 border border-slate-700/50 rounded-xl p-3 text-xs text-sky-500 font-semibold">
-                          <option>₹1,000 & Above</option>
-                          <option>₹1,000–₹5,000</option>
-                          <option>₹5,000–₹10,000</option>
-                          <option>₹10,000–₹25,000</option>
-                          <option>₹25,000–₹50,000</option>
-                          <option>Above ₹50,000</option>
-                        </select>
-                      </div>
-                      <textarea rows={3} placeholder="Scope Details & Requirements" value={modalForm.scopeDetails} onChange={e=>setModalForm({...modalForm, scopeDetails:e.target.value})} className="w-full bg-slate-900/60 border border-slate-700/50 rounded-xl p-3 text-xs"></textarea>
-
-                      <div className="flex items-center gap-3">
-                        <input type="checkbox" id="modalChk" checked={modalForm.termsAgreed} onChange={e=>setModalForm({...modalForm, termsAgreed:e.target.checked})} className="w-4 h-4 rounded" />
-                        <label htmlFor="modalChk" className="text-xs opacity-70">
-                          I agree to terms. Submissions route to <span className="font-mono">noorulazetirur@gmail.com</span>.
-                        </label>
-                      </div>
-
-                      <button type="submit" disabled={loadingModal || !modalForm.termsAgreed} className="liquid-glass-button w-full py-4 rounded-xl font-semibold text-xs shadow-lg flex items-center justify-center gap-2">
-                        {loadingModal ? 'Routing Request...' : 'Submit Project Request'}
-                      </button>
-                    </form>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-
-          {/* FLOATING ACTION WIDGET */}
-          <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3">
-            {floatingExpanded && (
-              <div className="flex flex-col gap-2 mb-2">
-                <a href="tel:+919074300569" className="flex items-center gap-3 px-4 py-2.5 rounded-full liquid-glass-pill text-xs">
-                  <i data-lucide="phone" className="w-4 h-4 text-blue-500"></i>
-                  <span>Call (+91 90743 00569)</span>
-                </a>
-                <a href="https://wa.me/919074300569" target="_blank" rel="noreferrer" className="flex items-center gap-3 px-4 py-2.5 rounded-full liquid-glass-pill text-xs">
-                  <i data-lucide="message-square" className="w-4 h-4 text-emerald-500"></i>
-                  <span>WhatsApp</span>
-                </a>
-                <a href="mailto:noorulazetirur@gmail.com" className="flex items-center gap-3 px-4 py-2.5 rounded-full liquid-glass-pill text-xs">
-                  <i data-lucide="mail" className="w-4 h-4 text-sky-500"></i>
-                  <span>Email (noorulazetirur@gmail.com)</span>
-                </a>
-                <a href="https://instagram.com/azu_00_1" target="_blank" rel="noreferrer" className="flex items-center gap-3 px-4 py-2.5 rounded-full liquid-glass-pill text-xs">
-                  <i data-lucide="instagram" className="w-4 h-4 text-pink-500"></i>
-                  <span>Instagram (@azu_00_1)</span>
-                </a>
-              </div>
-            )}
-
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => setIsHireModalOpen(true)}
-                className="liquid-glass-button flex items-center gap-2 px-5 py-3.5 rounded-full font-semibold text-xs shadow-2xl"
-              >
-                <i data-lucide="sparkles" className="w-4 h-4"></i>
-                <span>Hire Craftiq</span>
-              </button>
-
-              <button
-                onClick={() => setFloatingExpanded(!floatingExpanded)}
-                className="p-3.5 rounded-full liquid-glass-pill text-sky-500 shadow-xl"
-              >
-                <i data-lucide={floatingExpanded ? "x" : "layers"} className="w-5 h-5"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      );
+    if (document.readyState === 'loading') {
+      window.addEventListener('DOMContentLoaded', initCanvas);
+    } else {
+      initCanvas();
     }
 
-    try {
-      ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-    } catch (err) {
-      console.error("ReactDOM render error:", err);
+    // Modal controls
+    function openHireModal() {
+      document.getElementById('hireModal').classList.add('active');
+    }
+    function closeHireModal() {
+      document.getElementById('hireModal').classList.remove('active');
+    }
+
+    // Mobile menu controls
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    if (mobileMenuBtn) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileDrawer.classList.toggle('hidden');
+      });
+    }
+    function closeMobileDrawer() {
+      if (mobileDrawer) mobileDrawer.classList.add('hidden');
+    }
+
+    // Theme controls
+    function toggleTheme() {
+      const isDark = document.body.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.remove('dark');
+        document.body.classList.add('light');
+      } else {
+        document.body.classList.remove('light');
+        document.body.classList.add('dark');
+      }
+    }
+    const themeBtn = document.getElementById('themeToggleBtn');
+    const themeBtnMobile = document.getElementById('themeToggleBtnMobile');
+    if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+    if (themeBtnMobile) themeBtnMobile.addEventListener('click', toggleTheme);
+
+    // Form handlers
+    async function handleModalFormSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = new FormData(form);
+      try {
+        await fetch(form.action, { method: 'POST', body: data });
+      } catch(err) {}
+      alert('Thank you! Your project inquiry has been sent to Craftiq.');
+      closeHireModal();
+      form.reset();
+    }
+
+    async function handleCareerSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = new FormData(form);
+      try {
+        await fetch(form.action, { method: 'POST', body: data });
+      } catch(err) {}
+      alert('Thank you! Your career application has been submitted to Craftiq.');
+      form.reset();
     }
   </script>
 </body>
