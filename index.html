@@ -1436,14 +1436,53 @@
       if (mobileDrawer) mobileDrawer.classList.add('hidden');
     }
 
+    async function sendToGoogleForms({ fullName, email, phone, phone2, tier, investment, details }) {
+      const gFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSfuD5Nwqn_rkuatiC6UtAGfN7PFCxdYOwA0Q6lpIxuG3JZKwQ/formResponse';
+      
+      const params = new URLSearchParams();
+      params.append('entry.1347326555', fullName || '');
+      params.append('entry.194949326', email || '');
+      params.append('entry.686313120', phone || '');
+      params.append('entry.805390761', phone2 || phone || '');
+      params.append('entry.2101009909', tier || '');
+      params.append('entry.1658322185', investment || '');
+      params.append('entry.1868065808', details || '');
+
+      try {
+        await fetch(gFormUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: params.toString()
+        });
+      } catch (err) {
+        console.warn('Google Form submission log:', err);
+      }
+    }
+
     async function handleModalFormSubmit(e) {
       e.preventDefault();
       const form = e.target;
       const data = new FormData(form);
+
+      const fullName = data.get('Client_Name') || '';
+      const email = data.get('Client_Email') || '';
+      const phone = data.get('Phone_Number') || '';
+      const tier = data.get('Selected_Package') || selectedTierName || '';
+      const investment = data.get('Estimated_Cost') || ('₹' + selectedBaseTierPrice.toLocaleString('en-IN')) || '';
+      const details = data.get('Project_Details') || '';
+
+      // Automatically store in Google Forms
+      sendToGoogleForms({ fullName, email, phone, phone2: phone, tier, investment, details });
+
+      // Send email alert via FormSubmit AJAX
       try {
         await fetch(form.action, { method: 'POST', body: data });
       } catch(err) {}
-      alert('Thank you! Your project inquiry has been sent to Creaftiq.');
+
+      showCyberToast('Inquiry Submitted!', 'Thank you! Your project inquiry has been saved to Creaftiq.');
       closeHireModal();
       form.reset();
     }
@@ -1452,9 +1491,22 @@
       e.preventDefault();
       const form = e.target;
       const data = new FormData(form);
+
+      const fullName = data.get('FullName') || '';
+      const email = data.get('Email') || '';
+      const role = data.get('Role') || 'Applicant';
+      const portfolio = data.get('Portfolio') || '';
+      const coverNote = data.get('CoverNote') || '';
+      const details = `Role: ${role}\nPortfolio: ${portfolio}\nCover Note: ${coverNote}`;
+
+      // Automatically store in Google Forms
+      sendToGoogleForms({ fullName, email, phone: 'N/A', phone2: 'N/A', tier: 'Career Application', investment: role, details });
+
+      // Send email alert via FormSubmit AJAX
       try {
         await fetch(form.action, { method: 'POST', body: data });
       } catch(err) {}
+
       showCyberToast('Application Submitted!', 'Thank you! Your career application has been sent to Creaftiq.');
       form.reset();
     }
