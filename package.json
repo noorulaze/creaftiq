@@ -1,0 +1,27 @@
+{
+  "name": "primary",
+  "version": "1.0.0",
+  "description": "Craftiq is a modern, high-performance multi-page web application featuring bespoke spatial graphics, fluid animations, liquid glassmorphic UI components, and 7 branched page views.",
+  "main": "index.js",
+  "scripts": {
+    "build:speed-insights": "esbuild speed-insights.js --bundle --outfile=assets/speed-insights.bundle.js --format=iife",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noorulaze/creaftiq.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/noorulaze/creaftiq/issues"
+  },
+  "homepage": "https://github.com/noorulaze/creaftiq#readme",
+  "dependencies": {
+    "@vercel/speed-insights": "^2.0.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}
