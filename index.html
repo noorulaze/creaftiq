@@ -230,6 +230,28 @@
       from { opacity: 0; transform: translateY(12px) scale(0.99); }
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
+
+    /* MOBILE EXCLUSIVE UI ENHANCEMENTS (Desktop Vision Remains 100% Untouched) */
+    @media (max-width: 1023px) {
+      main {
+        padding-bottom: 7.5rem !important;
+        padding-top: 5.5rem !important;
+      }
+
+      .modal-overlay {
+        align-items: flex-end !important;
+        padding: 0 !important;
+      }
+
+      .modal-overlay .cyber-card {
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+        border-top-left-radius: 1.75rem !important;
+        border-top-right-radius: 1.75rem !important;
+        max-height: 88vh;
+        overflow-y: auto;
+      }
+    }
   </style>
 </head>
 <body class="dark">
@@ -1268,6 +1290,21 @@
           el.classList.add('text-slate-300');
         }
       });
+
+      document.querySelectorAll('.mobile-dock-link').forEach(el => {
+        const page = el.getAttribute('data-page');
+        const dot = el.querySelector('.dock-dot');
+        if (page === pageId) {
+          el.classList.add('text-sky-400');
+          el.classList.remove('text-slate-400');
+          if (dot) dot.classList.remove('opacity-0');
+        } else {
+          el.classList.remove('text-sky-400');
+          el.classList.add('text-slate-400');
+          if (dot) dot.classList.add('opacity-0');
+        }
+      });
+
       try {
         window.location.hash = pageId;
       } catch(e) {}
@@ -1459,6 +1496,49 @@
       <span id="toastMessage" class="text-[11px] text-slate-300">Contact information copied to clipboard!</span>
     </div>
   </div>
+
+  <!-- MOBILE EXCLUSIVE FLOATING BOTTOM APP DOCK (HIDDEN ON DESKTOP) -->
+  <nav id="mobileBottomDock" class="block lg:hidden fixed bottom-0 left-0 right-0 z-50 px-3 py-2 bg-[#050914]/90 backdrop-blur-2xl border-t border-sky-500/30 shadow-[0_-10px_25px_rgba(0,0,0,0.8)]">
+    <div class="max-w-md mx-auto flex items-center justify-around">
+      
+      <button onclick="showPage('home')" data-page="home" class="mobile-dock-link flex flex-col items-center gap-1 p-1.5 transition-colors text-slate-400 relative">
+        <i data-lucide="home" class="w-5 h-5"></i>
+        <span class="text-[10px] font-medium tracking-tight">Home</span>
+        <span class="dock-dot w-1.5 h-1.5 rounded-full bg-sky-400 opacity-0 transition-opacity absolute -top-0.5"></span>
+      </button>
+
+      <button onclick="showPage('services')" data-page="services" class="mobile-dock-link flex flex-col items-center gap-1 p-1.5 transition-colors text-slate-400 relative">
+        <i data-lucide="grid" class="w-5 h-5"></i>
+        <span class="text-[10px] font-medium tracking-tight">Services</span>
+        <span class="dock-dot w-1.5 h-1.5 rounded-full bg-sky-400 opacity-0 transition-opacity absolute -top-0.5"></span>
+      </button>
+
+      <button onclick="showPage('projects')" data-page="projects" class="mobile-dock-link flex flex-col items-center gap-1 p-1.5 transition-colors text-slate-400 relative">
+        <i data-lucide="folder-git-2" class="w-5 h-5"></i>
+        <span class="text-[10px] font-medium tracking-tight">Projects</span>
+        <span class="dock-dot w-1.5 h-1.5 rounded-full bg-sky-400 opacity-0 transition-opacity absolute -top-0.5"></span>
+      </button>
+
+      <button onclick="showPage('team')" data-page="team" class="mobile-dock-link flex flex-col items-center gap-1 p-1.5 transition-colors text-slate-400 relative">
+        <i data-lucide="users" class="w-5 h-5"></i>
+        <span class="text-[10px] font-medium tracking-tight">Team</span>
+        <span class="dock-dot w-1.5 h-1.5 rounded-full bg-sky-400 opacity-0 transition-opacity absolute -top-0.5"></span>
+      </button>
+
+      <button onclick="showPage('estimator')" data-page="estimator" class="mobile-dock-link flex flex-col items-center gap-1 p-1.5 transition-colors text-slate-400 relative">
+        <i data-lucide="calculator" class="w-5 h-5"></i>
+        <span class="text-[10px] font-medium tracking-tight">Estimate</span>
+        <span class="dock-dot w-1.5 h-1.5 rounded-full bg-sky-400 opacity-0 transition-opacity absolute -top-0.5"></span>
+      </button>
+
+      <button onclick="showPage('contact')" data-page="contact" class="mobile-dock-link flex flex-col items-center gap-1 p-1.5 transition-colors text-slate-400 relative">
+        <i data-lucide="message-square" class="w-5 h-5"></i>
+        <span class="text-[10px] font-medium tracking-tight">Contact</span>
+        <span class="dock-dot w-1.5 h-1.5 rounded-full bg-sky-400 opacity-0 transition-opacity absolute -top-0.5"></span>
+      </button>
+
+    </div>
+  </nav>
 
   <!-- Vercel Web Analytics -->
   <script type="module" src="./analytics.js"></script>
