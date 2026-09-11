@@ -2,5 +2,9 @@
 // Using unpkg CDN for static HTML sites
 import { inject } from 'https://unpkg.com/@vercel/analytics@1/dist/index.mjs';
 
-// Initialize Vercel Analytics
-inject();
+try {
+  inject();
+} catch (e) {
+  // Analytics failed or blocked by client
+}
+
