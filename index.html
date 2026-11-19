@@ -585,36 +585,70 @@
           </div>
         </div>
 
-        <!-- Flagship Spotlight Banner: OUR NATION -->
-        <div class="cyber-card p-6 sm:p-8 rounded-2xl border border-emerald-500/30 hover:border-emerald-400/60 transition-all relative overflow-hidden bg-gradient-to-r from-emerald-950/20 via-slate-900/40 to-slate-950">
-          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
-            <div class="flex items-start gap-4">
-              <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center shrink-0 shadow-lg">
-                <i data-lucide="landmark" class="w-6 h-6"></i>
+        <!-- Flagship Spotlight Banner: OUR NATION (With Authentic UI Preview) -->
+        <div class="cyber-card p-6 sm:p-8 rounded-3xl border border-emerald-500/40 hover:border-emerald-400/70 transition-all relative overflow-hidden bg-gradient-to-br from-emerald-950/40 via-slate-950 to-[#080D1B]">
+          <div class="absolute -right-16 -top-16 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+          
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center relative z-10">
+            <!-- Left Info -->
+            <div class="lg:col-span-7 space-y-4">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-emerald-950/90 border border-emerald-500/50 text-emerald-300 flex items-center gap-1.5 shadow-sm">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  Flagship Case Study
+                </span>
+                <span class="px-2.5 py-0.5 rounded-md text-[10px] font-mono text-amber-300 bg-amber-950/60 border border-amber-500/30 flex items-center gap-1">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-amber-400"></i>
+                  Tanur, Kerala
+                </span>
+                <span class="px-2.5 py-0.5 rounded-md text-[10px] font-mono text-slate-300 bg-slate-900 border border-slate-800">
+                  Engineered by CRAFTIQ
+                </span>
               </div>
+
               <div>
-                <div class="flex items-center gap-2 mb-1">
-                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 flex items-center gap-1.5">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                    New Flagship Case Study
-                  </span>
-                  <span class="text-[11px] font-mono text-amber-300/80">Tanur, Kerala</span>
-                </div>
-                <h3 class="text-lg sm:text-xl font-bold text-white">OUR NATION — Civic Technology & Digital Governance</h3>
-                <p class="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
-                  A citizen-centric digital platform connecting people with local government services, 44-ward councillor directories, civic issue tracking, and grounded AI assistance.
+                <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold text-white tracking-tight">
+                  OUR NATION — Civic Technology & Digital Governance
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
+                  A citizen-centric digital platform connecting people with local government services, 44-ward councillor directories, civic issue tracking, and grounded AI assistance for Tanur Municipality.
                 </p>
               </div>
+
+              <div class="flex flex-wrap gap-2 pt-1">
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/15 border border-emerald-500/30 text-emerald-300">Next.js 14 App Router</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-sky-500/15 border border-sky-500/30 text-sky-300">Gemini 1.5 Flash</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-teal-500/15 border border-teal-500/30 text-teal-300">Supabase PostgreSQL</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-500/15 border border-amber-500/30 text-amber-300">Bilingual Malayalam/English</span>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-3 pt-2">
+                <button onclick="showPage('work-our-nation')" class="px-6 py-2.5 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 transition-all flex items-center gap-2 shadow-lg shadow-emerald-600/30 hover:scale-105 active:scale-95">
+                  <i data-lucide="file-text" class="w-4 h-4"></i>
+                  <span>Read Full Case Study</span>
+                </button>
+                <a href="https://our-nation.vercel.app/" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-xl text-xs font-semibold text-slate-200 bg-slate-900/90 border border-slate-700/80 hover:bg-slate-800 transition-all flex items-center gap-2">
+                  <span>Visit Live Platform</span>
+                  <i data-lucide="external-link" class="w-3.5 h-3.5 text-emerald-400"></i>
+                </a>
+              </div>
             </div>
-            <div class="flex flex-wrap items-center gap-3 shrink-0">
-              <button onclick="showPage('work-our-nation')" class="px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 transition-all flex items-center gap-2 shadow-lg shadow-emerald-600/25">
-                <i data-lucide="file-text" class="w-4 h-4"></i>
-                <span>Read Case Study</span>
-              </button>
-              <a href="https://our-nation.vercel.app/" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-xl text-xs font-semibold text-slate-200 bg-slate-900 border border-slate-700/80 hover:bg-slate-800 transition-all flex items-center gap-2">
-                <span>Visit Platform</span>
-                <i data-lucide="external-link" class="w-3.5 h-3.5 text-emerald-400"></i>
-              </a>
+
+            <!-- Right Preview Mockup -->
+            <div class="lg:col-span-5 relative group cursor-pointer" onclick="showPage('work-our-nation')">
+              <div class="absolute -inset-1.5 bg-gradient-to-r from-emerald-500/30 to-amber-500/30 rounded-2xl blur-lg opacity-60 group-hover:opacity-100 transition-opacity"></div>
+              <div class="relative rounded-2xl overflow-hidden border border-emerald-500/40 bg-slate-950 shadow-2xl">
+                <div class="px-3 py-2 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-[10px] font-mono text-slate-400">
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80 inline-block"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block"></span>
+                    <span class="ml-1 text-slate-300">our-nation.vercel.app</span>
+                  </div>
+                  <span class="text-emerald-400 font-semibold">LIVE</span>
+                </div>
+                <img src="./assets/our-nation-cover.png" alt="OUR NATION — Civic Platform Screenshot" class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500" />
+              </div>
             </div>
           </div>
         </div>
