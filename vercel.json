@@ -2,6 +2,8 @@
   "version": 2,
   "cleanUrls": true,
   "rewrites": [
+    { "source": "/work/our-nation", "destination": "/work/our-nation/index.html" },
+    { "source": "/work/our-nation/(.*)", "destination": "/work/our-nation/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

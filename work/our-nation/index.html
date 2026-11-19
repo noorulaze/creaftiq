@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>OUR NATION — Civic Tech Flagship Case Study | CRAFTIQ</title>
+  <meta name="description" content="Explore the comprehensive case study of OUR NATION: A citizen-centric digital municipality and civic governance platform for Tanur, Kerala, engineered by CRAFTIQ." />
+  <link rel="icon" type="image/png" href="../../assets/craftiq-logo.png" />
+  <link rel="apple-touch-icon" href="../../assets/craftiq-logo.png" />
+
+  <!-- Open Graph & Social Meta Tags -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="OUR NATION — Civic Technology Case Study | CRAFTIQ" />
+  <meta property="og:description" content="A citizen-centric digital platform designed to connect people with local government services, civic information, public representatives, and community development initiatives in Tanur, Kerala." />
+  <meta property="og:image" content="../../assets/our-nation-cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Google Fonts: Plus Jakarta Sans, Inter, JetBrains Mono, Noto Sans Malayalam -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Malayalam:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            bgMain: '#030611',
+            surfaceCard: '#0B1120',
+            surfaceHover: '#131C31',
+            primarySky: '#38BDF8',
+            accentBlue: '#2563EB',
+            accentViolet: '#7C3AED',
+            forestGreen: '#064E3B',
+            forestLight: '#059669',
+            earthGold: '#D97706',
+            warmCream: '#FDFBF7'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            malayalam: ['Noto Sans Malayalam', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      background-color: #030611;
+      color: #F8FAFC;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .font-heading {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      letter-spacing: -0.025em;
+    }
+
+    /* Animated Ambient Glow */
+    .aurora-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+      opacity: 0.22;
+      z-index: 0;
+    }
+
+    .aurora-1 {
+      top: -5%; left: 10%; width: 50vw; height: 50vw;
+      background: radial-gradient(circle, #059669 0%, #064E3B 40%, transparent 75%);
+    }
+
+    .aurora-2 {
+      top: 35%; right: 5%; width: 45vw; height: 45vw;
+      background: radial-gradient(circle, #2563EB 0%, #1D4ED8 40%, transparent 75%);
+    }
+
+    .aurora-3 {
+      bottom: 10%; left: 5%; width: 50vw; height: 50vw;
+      background: radial-gradient(circle, #D97706 0%, #B45309 35%, transparent 75%);
+    }
+
+    /* Cyber Card System */
+    .cyber-card {
+      background: rgba(11, 17, 32, 0.75);
+      border: 1px solid rgba(56, 189, 248, 0.15);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .cyber-card:hover {
+      border-color: rgba(56, 189, 248, 0.35);
+      box-shadow: 0 16px 36px -10px rgba(6, 78, 59, 0.25);
+    }
+
+    .civic-badge {
+      background: rgba(6, 78, 59, 0.6);
+      border: 1px solid rgba(52, 211, 153, 0.35);
+      color: #A7F3D0;
+    }
+
+    .gold-badge {
+      background: rgba(180, 83, 9, 0.4);
+      border: 1px solid rgba(251, 191, 36, 0.4);
+      color: #FDE68A;
+    }
+
+    /* Subtle Scanlines & Mesh Overlay */
+    .grid-overlay {
+      position: fixed;
+      inset: 0;
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #030611; }
+    ::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+  </style>
+</head>
+<body class="relative min-h-screen selection:bg-emerald-500/30 selection:text-emerald-200">
+
+  <!-- Ambient Light Orbs -->
+  <div class="aurora-orb aurora-1"></div>
+  <div class="aurora-orb aurora-2"></div>
+  <div class="aurora-orb aurora-3"></div>
+  <div class="grid-overlay"></div>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="fixed top-0 left-0 right-0 z-50 py-3 sm:py-4 bg-[#030611]/85 backdrop-blur-xl border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      
+      <!-- Brand & Back Link -->
+      <div class="flex items-center gap-3 sm:gap-4">
+        <a href="../../#projects" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 transition-all text-xs font-medium">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5 text-sky-400"></i>
+          <span>All Projects</span>
+        </a>
+        <div class="h-4 w-px bg-slate-800 hidden sm:block"></div>
+        <a href="../../" class="flex items-center gap-2.5 group">
+          <div class="w-8 h-8 rounded-lg overflow-hidden border border-sky-400/30 bg-slate-900 flex items-center justify-center shrink-0">
+            <img src="../../assets/craftiq-logo.png" alt="CRAFTIQ" class="w-full h-full object-cover" />
+          </div>
+          <span class="font-heading font-bold text-base text-white tracking-tight hidden md:inline">Creaft<span class="text-sky-400">iq</span></span>
+        </a>
+      </div>
+
+      <!-- Center Title Pill -->
+      <div class="hidden lg:flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-950/80 border border-slate-800/80 text-xs font-mono text-slate-400">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>FLAGSHIP CASE STUDY</span>
+        <span class="text-slate-600">•</span>
+        <span class="text-emerald-400 font-semibold">OUR NATION (TANUR)</span>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2.5">
+        <a href="https://our-nation.vercel.app/" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-full text-xs font-semibold text-white flex items-center gap-2 shadow-lg transition-all" style="background: linear-gradient(135deg, #059669 0%, #10b981 50%, #047857 100%);">
+          <span>Live Platform</span>
+          <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN CASE STUDY CONTENT -->
+  <main class="relative z-10 pt-24 sm:pt-28 pb-20">
+
+    <!-- ===================================================================== -->
+    <!-- SECTION A: HERO SECTION                                               -->
+    <!-- ===================================================================== -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-12 sm:pb-16">
+      
+      <!-- Eyebrow Badges -->
+      <div class="flex flex-wrap items-center gap-2.5 mb-6">
+        <span class="civic-badge px-3 py-1 rounded-full text-[11px] font-mono uppercase tracking-wider flex items-center gap-1.5">
+          <i data-lucide="landmark" class="w-3.5 h-3.5 text-emerald-400"></i>
+          Civic Technology & Digital Governance
+        </span>
+        <span class="gold-badge px-3 py-1 rounded-full text-[11px] font-mono uppercase tracking-wider flex items-center gap-1.5">
+          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-300"></i>
+          Tanur, Kerala, India
+        </span>
+        <span class="px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-300 text-[11px] font-mono">
+          Engineered by CRAFTIQ
+        </span>
+      </div>
+
+      <!-- Main Project Title -->
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold font-heading text-white tracking-tight leading-[1.1] mb-6">
+        OUR NATION
+        <span class="block text-2xl sm:text-4xl lg:text-5xl font-normal text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-amber-300 mt-2">
+          Reimagining Local Governance Through Citizen-Centric Civic Tech
+        </span>
+      </h1>
+
+      <!-- Intro Paragraph -->
+      <p class="text-slate-300 text-base sm:text-xl max-w-3xl leading-relaxed mb-8 font-light">
+        A citizen-centric digital platform designed to bridge everyday people with local government services, transparent municipal records, public representatives, and community development initiatives — starting with <strong class="text-white font-medium">Tanur, Kerala</strong>.
+      </p>
+
+      <!-- Meta Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 sm:p-6 rounded-2xl bg-slate-950/70 border border-slate-800/80 mb-10">
+        <div>
+          <div class="text-[10px] font-mono text-slate-400 uppercase tracking-widest mb-1">Locality & Scope</div>
+          <div class="text-sm font-semibold text-white">Tanur Municipality</div>
+          <div class="text-[11px] text-slate-400">44 Wards • 69,864 Population</div>
+        </div>
+        <div>
+          <div class="text-[10px] font-mono text-slate-400 uppercase tracking-widest mb-1">Domain</div>
+          <div class="text-sm font-semibold text-white">Civic Technology</div>
+          <div class="text-[11px] text-slate-400">Local Self Government (LSGD)</div>
+        </div>
+        <div>
+          <div class="text-[10px] font-mono text-slate-400 uppercase tracking-widest mb-1">CRAFTIQ Role</div>
+          <div class="text-sm font-semibold text-white">End-to-End Delivery</div>
+          <div class="text-[11px] text-slate-400">Design, Architecture & AI</div>
+        </div>
+        <div>
+          <div class="text-[10px] font-mono text-slate-400 uppercase tracking-widest mb-1">Production URL</div>
+          <a href="https://our-nation.vercel.app/" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-emerald-400 hover:text-emerald-300 flex items-center gap-1">
+            <span>our-nation.vercel.app</span>
+            <i data-lucide="external-link" class="w-3 h-3"></i>
+          </a>
+          <div class="text-[11px] text-emerald-500 flex items-center gap-1 mt-0.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+            Verified Live
+          </div>
+        </div>
+      </div>
+
+      <!-- Action CTAs -->
+      <div class="flex flex-wrap items-center gap-3.5 mb-12">
+        <a href="https://our-nation.vercel.app/" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-full text-xs font-bold text-white flex items-center gap-2 shadow-xl hover:scale-105 transition-all" style="background: linear-gradient(135deg, #059669 0%, #10b981 50%, #047857 100%);">
+          <span>Launch Live Platform</span>
+          <i data-lucide="external-link" class="w-4 h-4"></i>
+        </a>
+        <a href="#overview" class="px-6 py-3 rounded-full text-xs font-semibold text-slate-200 bg-slate-900 border border-slate-700/80 hover:bg-slate-800 transition-all flex items-center gap-2">
+          <span>Explore Case Study</span>
+          <i data-lucide="chevron-down" class="w-4 h-4 text-emerald-400"></i>
+        </a>
+      </div>
+
+      <!-- Hero Browser Preview Mockup -->
+      <div class="rounded-2xl sm:rounded-3xl overflow-hidden border border-emerald-500/30 bg-slate-950 shadow-2xl relative group">
+        <!-- Mockup Header -->
+        <div class="px-4 py-3 bg-slate-900/90 border-b border-slate-800/80 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-rose-500/80 inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+            <span class="ml-2 px-3 py-1 rounded bg-slate-950 border border-slate-800 text-[11px] font-mono text-slate-400">https://our-nation.vercel.app</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs text-slate-400">
+            <span class="hidden sm:inline text-emerald-400 font-mono text-[10px]">VERIFIED KERALA CIVIC PORTAL</span>
+            <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
+          </div>
+        </div>
+        <!-- Mockup Screen Image -->
+        <div class="relative overflow-hidden bg-slate-950 aspect-[16/10]">
+          <img src="../../assets/our-nation-home.png" alt="OUR NATION Homepage UI" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.02]" />
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-30 pointer-events-none"></div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- SECTION B: PROJECT OVERVIEW & THE COMMUNITY PROBLEM                   -->
+    <!-- ===================================================================== -->
+    <section id="overview" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-slate-800/80">
+      
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <div class="text-xs font-mono text-emerald-400 uppercase tracking-widest mb-2">01 / Foundation & Context</div>
+        <h2 class="text-3xl sm:text-4xl font-bold font-heading text-white">Why OUR NATION Was Created</h2>
+        <p class="text-slate-400 text-sm mt-2">Bridging the critical digital divide between municipal administration and everyday citizens.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start mb-14">
+        
+        <!-- Left: What It Is & The Vision -->
+        <div class="cyber-card p-6 sm:p-8 rounded-2xl border-emerald-500/20 space-y-4">
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center">
+            <i data-lucide="compass" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-xl sm:text-2xl font-bold text-white">The Vision: Democratized Civic Participation</h3>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            <strong>OUR NATION</strong> is a civic-technology web application conceptualized and built by CRAFTIQ to transform how citizens interact with their local self-government institutions.
+          </p>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Starting with the historic coastal municipality of <strong>Tanur (Malappuram District, Kerala)</strong>, the project establishes a modern digital standard for urban and rural local bodies across Kerala. It consolidates scattered public services, statutory guidelines, ward-level leadership contacts, civic issue lodgement, and development monitoring into an intuitive, accessible web platform.
+          </p>
+          <div class="pt-2">
+            <div class="text-xs font-mono text-emerald-400 uppercase tracking-wider mb-2 font-semibold">Core Architectural Principles</div>
+            <ul class="text-xs text-slate-300 space-y-1.5">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> Zero misinformation: 100% grounded in verified government records</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> Mobile-first accessible design for diverse age and literacy demographics</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> Native bilingual capability in Malayalam and English</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> Public transparency without political bias or fake metrics</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Right: The Community Problem in Tanur -->
+        <div class="cyber-card p-6 sm:p-8 rounded-2xl border-amber-500/20 space-y-4">
+          <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center">
+            <i data-lucide="alert-triangle" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-xl sm:text-2xl font-bold text-white">The Real Community Challenge in Tanur</h3>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            In everyday municipal life across Kerala, citizens face recurring administrative friction that discourages active community participation:
+          </p>
+          
+          <div class="space-y-3 pt-1">
+            <div class="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800">
+              <div class="text-xs font-semibold text-white flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-rose-400"></span> Information Fragmentation
+              </div>
+              <p class="text-[11px] text-slate-400 mt-1">Official circulars, vital record procedures, and welfare schemes were scattered across bulletin boards, physical registers, or poorly maintained websites.</p>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800">
+              <div class="text-xs font-semibold text-white flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-amber-400"></span> Unmonitored Public Grievances
+              </div>
+              <p class="text-[11px] text-slate-400 mt-1">When streetlights broke or drainages overflowed, residents lacked a public tracking system to verify if their complaint was triaged or resolved.</p>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800">
+              <div class="text-xs font-semibold text-white flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-sky-400"></span> Delimitation & Electoral Confusion
+              </div>
+              <p class="text-[11px] text-slate-400 mt-1">Many residents struggled to distinguish whether their locality fell under Tanur Municipality (Urban) or Tanur Block Panchayat (Rural Grama Panchayats).</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Impact Metrics Strip -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="p-5 rounded-2xl bg-slate-950 border border-slate-800 text-center">
+          <div class="text-2xl sm:text-3xl font-bold font-heading text-emerald-400">44 Wards</div>
+          <div class="text-xs text-slate-400 mt-1">Fully Mapped Divisions</div>
+        </div>
+        <div class="p-5 rounded-2xl bg-slate-950 border border-slate-800 text-center">
+          <div class="text-2xl sm:text-3xl font-bold font-heading text-amber-400">69,864+</div>
+          <div class="text-xs text-slate-400 mt-1">Census Resident Baseline</div>
+        </div>
+        <div class="p-5 rounded-2xl bg-slate-950 border border-slate-800 text-center">
+          <div class="text-2xl sm:text-3xl font-bold font-heading text-sky-400">6 Stages</div>
+          <div class="text-xs text-slate-400 mt-1">Grievance Triage Lifecycle</div>
+        </div>
+        <div class="p-5 rounded-2xl bg-slate-950 border border-slate-800 text-center">
+          <div class="text-2xl sm:text-3xl font-bold font-heading text-teal-400">100%</div>
+          <div class="text-xs text-slate-400 mt-1">Grounded Gemini AI Responses</div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- SECTION C: 10 KEY VERIFIED FEATURES                                    -->
+    <!-- ===================================================================== -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-slate-800/80">
+      
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <div class="text-xs font-mono text-emerald-400 uppercase tracking-widest mb-2">02 / Platform Architecture</div>
+        <h2 class="text-3xl sm:text-4xl font-bold font-heading text-white">10 Core Implemented Features</h2>
+        <p class="text-slate-400 text-sm mt-2">Every feature verified directly against the production codebase and live deployment.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- Feature 1: Digital Municipality -->
+        <div class="cyber-card p-6 rounded-2xl border-emerald-500/20 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="civic-badge px-2.5 py-0.5 rounded text-[10px] font-mono font-semibold">FEATURE 01</span>
+              <span class="text-xs font-mono text-slate-400">/digital-municipality</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+              <i data-lucide="building-2" class="w-5 h-5 text-emerald-400"></i>
+              Digital Municipality Hub
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed mb-3">
+              Comprehensive institutional directory for Tanur Municipality (Grade II Urban Local Body, 19.59 sq. km). Displays statutory administrative data, key municipal statistics, official switchboard contacts (<code class="text-emerald-400 font-mono">0494 2440228</code>), departments, and civic assets.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+            <span>44 Mapped Divisions</span>
+            <span class="text-emerald-400 font-medium">LSGD Integrated</span>
+          </div>
+        </div>
+
+        <!-- Feature 2: Civic Issue Reporting -->
+        <div class="cyber-card p-6 rounded-2xl border-amber-500/20 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="gold-badge px-2.5 py-0.5 rounded text-[10px] font-mono font-semibold">FEATURE 02</span>
+              <span class="text-xs font-mono text-slate-400">/civic-connect</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+              <i data-lucide="megaphone" class="w-5 h-5 text-amber-400"></i>
+              Civic Connect (Issue Redressal)
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed mb-3">
+              Citizen grievance reporting engine spanning 6 civic categories (Roads & Footpaths, Waste Management, Drainage, Streetlights, Trees & Environment, and General). Features a transparent 6-stage lifecycle from <code class="text-amber-400 font-mono">Submitted</code> to <code class="text-emerald-400 font-mono">Resolved</code> with public tracking IDs.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+            <span>Tracking by Unique ID</span>
+            <span class="text-amber-400 font-medium">48-Hr Triage Target</span>
+          </div>
+        </div>
+
+        <!-- Feature 3: Local Government Directory -->
+        <div class="cyber-card p-6 rounded-2xl border-sky-500/20 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-2.5 py-0.5 rounded bg-sky-950/70 border border-sky-500/40 text-[10px] font-mono text-sky-300 font-semibold">FEATURE 03</span>
+              <span class="text-xs font-mono text-slate-400">/local-governments</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+              <i data-lucide="network" class="w-5 h-5 text-sky-400"></i>
+              Local Government & Delimitation Directory
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed mb-3">
+              Constitutional governance guide based on the 73rd and 74th Amendments. Clarifies the structural separation between Category A (Urban: Tanur Municipality) and Category B (Rural: Tanur Block Panchayat's constituent Grama Panchayats: Cheriyamundam, Niramaruthur, Ozhur, Ponmundam, Tanalur, Perumanna-Klari).
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+            <span>Constitutional Structure</span>
+            <span class="text-sky-400 font-medium">Urban & Rural Breakdown</span>
+          </div>
+        </div>
+
+        <!-- Feature 4: Leadership & Representative Profiles -->
+        <div class="cyber-card p-6 rounded-2xl border-teal-500/20 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-2.5 py-0.5 rounded bg-teal-950/70 border border-teal-500/40 text-[10px] font-mono text-teal-300 font-semibold">FEATURE 04</span>
+              <span class="text-xs font-mono text-slate-400">/leadership</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+              <i data-lucide="users" class="w-5 h-5 text-teal-400"></i>
+              Leadership & Ward Representatives
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed mb-3">
+              Public profiles of statutory municipal heads (Chairperson Nasla Basheer, Vice Chairman Ashraf M.P., Secretary Hazeena K.P.) alongside a complete ward councillor directory across all 44 municipal wards with verified phone numbers, ward names, and official affiliations.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+            <span>All 44 Councillors</span>
+            <span class="text-teal-400 font-medium">Verified Contacts</span>
+          </div>
+        </div>
+
+        <!-- Feature 5: Development Tracker -->
+        <div class="cyber-card p-6 rounded-2xl border-emerald-500/20 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="civic-badge px-2.5 py-0.5 rounded text-[10px] font-mono font-semibold">FEATURE 05</span>
+              <span class="text-xs font-mono text-slate-400">/development-tracker</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+              <i data-lucide="trending-up" class="w-5 h-5 text-emerald-400"></i>
+              Public Development Tracker
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed mb-3">
+              Transparent capital projects directory monitoring infrastructure investments (roads, drainage networks, healthcare upgrades, coastal facilities). Tracks sanctioned budgets, executing departments, contractors, milestones, and photographic completion evidence.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+            <span>Tender & Budget Records</span>
+            <span class="text-emerald-400 font-medium">GIS Mapped Sites</span>
+          </div>
+        </div>
+
+        <!-- Feature 6: Public Services Directory -->
+        <div class="cyber-card p-6 rounded-2xl border-amber-500/20 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="gold-badge px-2.5 py-0.5 rounded text-[10px] font-mono font-semibold">FEATURE 06</span>
+              <span class="text-xs font-mono text-slate-400">/public-services</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+              <i data-lucide="briefcase" class="w-5 h-5 text-amber-400"></i>
+              Essential Municipal Public Services
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed mb-3">
+              Clear digital gateways and document checklists for essential municipal citizen services: Property Tax payments (Sanchitha), Building Permits & D&O renewals (K-SMART), Vital Records (Birth, Death, Marriage via Sevana CR), and Social Security Welfare Pensions.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+            <span>K-SMART & Sanchitha</span>
+            <span class="text-amber-400 font-medium">Citizen Charter SLAs</span>
+          </div>
+        </div>
+
+        <!-- Feature 7: Documents & Notices Repository -->
+        <div class="cyber-card p-6 rounded-2xl border-sky-500/20 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-2.5 py-0.5 rounded bg-sky-950/70 border border-sky-500/40 text-[10px] font-mono text-sky-300 font-semibold">FEATURE 07</span>
+              <span class="text-xs font-mono text-slate-400">/documents</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+              <i data-lucide="file-text" class="w-5 h-5 text-sky-400"></i>
+              Documents, Gazettes & Citizen Charter
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed mb-3">
+              Centralized repository for council minutes, municipal resolutions, annual budgetary allocations, tender notifications, and service charters. Enables direct PDF inspection and download for citizens and RTI applicants.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+            <span>Official Gazettes</span>
+            <span class="text-sky-400 font-medium">Public Records</span>
+          </div>
+        </div>
+
+        <!-- Feature 8: People's Voice -->
+        <div class="cyber-card p-6 rounded-2xl border-teal-500/20 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-2.5 py-0.5 rounded bg-teal-950/70 border border-teal-500/40 text-[10px] font-mono text-teal-300 font-semibold">FEATURE 08</span>
+              <span class="text-xs font-mono text-slate-400">/peoples-voice</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+              <i data-lucide="message-circle" class="w-5 h-5 text-teal-400"></i>
+              People's Voice (Community Proposals)
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed mb-3">
+              A participatory democracy space where residents propose neighborhood ideas, discuss developmental priorities, coordinate community volunteering, and offer constructive feedback to elected council members.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+            <span>Citizen Initiatives</span>
+            <span class="text-teal-400 font-medium">Moderated Dialogue</span>
+          </div>
+        </div>
+
+        <!-- Feature 9: Citizen Authentication -->
+        <div class="cyber-card p-6 rounded-2xl border-emerald-500/20 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="civic-badge px-2.5 py-0.5 rounded text-[10px] font-mono font-semibold">FEATURE 09</span>
+              <span class="text-xs font-mono text-slate-400">/login & /dashboard</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+              <i data-lucide="shield-check" class="w-5 h-5 text-emerald-400"></i>
+              Citizen Authentication & Personal Dashboard
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed mb-3">
+              Secure authentication with granular Role-Based Access Control (Resident, Community Moderator, and Municipal Administrator). Personalized resident dashboard tracking personal grievances, ward bookmarks, and notification alerts.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+            <span>Supabase Auth & RLS</span>
+            <span class="text-emerald-400 font-medium">Resident Privacy</span>
+          </div>
+        </div>
+
+        <!-- Feature 10: Naadu AI -->
+        <div class="cyber-card p-6 rounded-2xl border-amber-500/20 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="gold-badge px-2.5 py-0.5 rounded text-[10px] font-mono font-semibold">FEATURE 10</span>
+              <span class="text-xs font-mono text-slate-400">/ai</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+              <i data-lucide="sparkles" class="w-5 h-5 text-amber-400"></i>
+              Naadu AI (നാട് AI) Service Assistant
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed mb-3">
+              An intelligent conversational assistant powered by Google Gemini, grounded strictly on verified municipal database records. Bilingual Malayalam & English natural language understanding, answering questions on timings, certificates, and procedures with zero hallucination.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+            <span>Google Gemini Powered</span>
+            <span class="text-amber-400 font-medium">Bilingual Support</span>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- SECTION D: DESIGN & USER EXPERIENCE SHOWCASE (REAL SCREENSHOTS)        -->
+    <!-- ===================================================================== -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-slate-800/80">
+      
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <div class="text-xs font-mono text-emerald-400 uppercase tracking-widest mb-2">03 / Interface & Visual Design</div>
+        <h2 class="text-3xl sm:text-4xl font-bold font-heading text-white">Authentic Interface Showcase</h2>
+        <p class="text-slate-400 text-sm mt-2">Captured directly from the live production deployment of OUR NATION.</p>
+      </div>
+
+      <!-- Screenshot Showcase Grid -->
+      <div class="space-y-12">
+
+        <!-- Screen 1: Digital Municipality Hub -->
+        <div class="cyber-card p-5 sm:p-7 rounded-3xl border-emerald-500/25">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-5">
+            <div>
+              <div class="text-[10px] font-mono text-emerald-400 uppercase tracking-wider">Screen 01 • Institutional Overview</div>
+              <h3 class="text-xl font-bold text-white mt-0.5">Welcome to Tanur Municipality Portal</h3>
+              <p class="text-xs text-slate-400 mt-1">Hero statistics, statutory grade classification, and verified LSGD parameters.</p>
+            </div>
+            <a href="https://our-nation.vercel.app/digital-municipality" target="_blank" rel="noopener noreferrer" class="self-start md:self-auto px-3.5 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-medium hover:bg-emerald-500/20 transition-all flex items-center gap-1.5">
+              <span>View Route</span>
+              <i data-lucide="external-link" class="w-3 h-3"></i>
+            </a>
+          </div>
+          <div class="rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-xl">
+            <img src="../../assets/our-nation-municipality.png" alt="Digital Municipality Portal Interface" class="w-full h-auto object-cover" />
+          </div>
+        </div>
+
+        <!-- Screen 2: Civic Connect Grievance Redressal -->
+        <div class="cyber-card p-5 sm:p-7 rounded-3xl border-amber-500/25">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-5">
+            <div>
+              <div class="text-[10px] font-mono text-amber-400 uppercase tracking-wider">Screen 02 • Public Grievance Redressal</div>
+              <h3 class="text-xl font-bold text-white mt-0.5">Civic Connect Grievance Queue & Triage</h3>
+              <p class="text-xs text-slate-400 mt-1">Multi-category complaint submission with live tracking, SLA response windows, and status indicators.</p>
+            </div>
+            <a href="https://our-nation.vercel.app/civic-connect" target="_blank" rel="noopener noreferrer" class="self-start md:self-auto px-3.5 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-medium hover:bg-amber-500/20 transition-all flex items-center gap-1.5">
+              <span>View Route</span>
+              <i data-lucide="external-link" class="w-3 h-3"></i>
+            </a>
+          </div>
+          <div class="rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-xl">
+            <img src="../../assets/our-nation-civic.png" alt="Civic Connect Interface" class="w-full h-auto object-cover" />
+          </div>
+        </div>
+
+        <!-- Screen 3: Development Tracker -->
+        <div class="cyber-card p-5 sm:p-7 rounded-3xl border-sky-500/25">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-5">
+            <div>
+              <div class="text-[10px] font-mono text-sky-400 uppercase tracking-wider">Screen 03 • Public Tender & Budget Oversight</div>
+              <h3 class="text-xl font-bold text-white mt-0.5">Development Project Monitoring & Tenders</h3>
+              <p class="text-xs text-slate-400 mt-1">12 official registered development projects with sanctioned budgets, execution stages, and contractor tracking.</p>
+            </div>
+            <a href="https://our-nation.vercel.app/development-tracker" target="_blank" rel="noopener noreferrer" class="self-start md:self-auto px-3.5 py-1.5 rounded-lg bg-sky-500/10 border border-sky-500/30 text-sky-300 text-xs font-medium hover:bg-sky-500/20 transition-all flex items-center gap-1.5">
+              <span>View Route</span>
+              <i data-lucide="external-link" class="w-3 h-3"></i>
+            </a>
+          </div>
+          <div class="rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-xl">
+            <img src="../../assets/our-nation-tracker.png" alt="Development Tracker Interface" class="w-full h-auto object-cover" />
+          </div>
+        </div>
+
+        <!-- Screen 4 & 5: Directory & Essential Public Services -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          
+          <div class="cyber-card p-5 rounded-2xl border-emerald-500/20">
+            <div class="mb-4">
+              <div class="text-[10px] font-mono text-emerald-400 uppercase tracking-wider">Screen 04 • Constitutional LSGD</div>
+              <h4 class="text-base font-bold text-white mt-0.5">Local Government Directory</h4>
+              <p class="text-xs text-slate-400 mt-1">Urban vs Rural statutory governance breakdown.</p>
+            </div>
+            <div class="rounded-xl overflow-hidden border border-slate-800 bg-slate-950 aspect-[16/10]">
+              <img src="../../assets/our-nation-directory.png" alt="Local Government Directory" class="w-full h-full object-cover object-top" />
+            </div>
+          </div>
+
+          <div class="cyber-card p-5 rounded-2xl border-amber-500/20">
+            <div class="mb-4">
+              <div class="text-[10px] font-mono text-amber-400 uppercase tracking-wider">Screen 05 • Citizen Services</div>
+              <h4 class="text-base font-bold text-white mt-0.5">Digital Services & Helpdesk</h4>
+              <p class="text-xs text-slate-400 mt-1">K-SMART, Sanchitha, and Sevana CR integrations.</p>
+            </div>
+            <div class="rounded-xl overflow-hidden border border-slate-800 bg-slate-950 aspect-[16/10]">
+              <img src="../../assets/our-nation-services.png" alt="Digital Public Services" class="w-full h-full object-cover object-top" />
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Screen 6 & 7: Authentication & Naadu AI -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          
+          <div class="cyber-card p-5 rounded-2xl border-teal-500/20">
+            <div class="mb-4">
+              <div class="text-[10px] font-mono text-teal-400 uppercase tracking-wider">Screen 06 • Bilingual Access</div>
+              <h4 class="text-base font-bold text-white mt-0.5">Citizen Authentication</h4>
+              <p class="text-xs text-slate-400 mt-1">Malayalam-first sign-in with resident and admin demo accounts.</p>
+            </div>
+            <div class="rounded-xl overflow-hidden border border-slate-800 bg-slate-950 aspect-[16/10]">
+              <img src="../../assets/our-nation-login.png" alt="Citizen Login Interface" class="w-full h-full object-cover object-top" />
+            </div>
+          </div>
+
+          <div class="cyber-card p-5 rounded-2xl border-emerald-500/20">
+            <div class="mb-4">
+              <div class="text-[10px] font-mono text-emerald-400 uppercase tracking-wider">Screen 07 • Grounded Intelligence</div>
+              <h4 class="text-base font-bold text-white mt-0.5">Naadu AI Civic Companion</h4>
+              <p class="text-xs text-slate-400 mt-1">Strictly grounded in published municipal database records.</p>
+            </div>
+            <div class="rounded-xl overflow-hidden border border-slate-800 bg-slate-950 aspect-[16/10]">
+              <img src="../../assets/our-nation-ai.png" alt="Naadu AI Assistant" class="w-full h-full object-cover object-top" />
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- SECTION E: TECHNOLOGY STACK (VERIFIED FROM CODEBASE)                  -->
+    <!-- ===================================================================== -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-slate-800/80">
+      
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <div class="text-xs font-mono text-sky-400 uppercase tracking-widest mb-2">04 / Technology & Infrastructure</div>
+        <h2 class="text-3xl sm:text-4xl font-bold font-heading text-white">Production Technology Stack</h2>
+        <p class="text-slate-400 text-sm mt-2">Verified directly from the project's dependencies and repository architecture.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <div class="cyber-card p-5 rounded-2xl">
+          <div class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-sky-400 mb-3">
+            <i data-lucide="layers" class="w-5 h-5"></i>
+          </div>
+          <div class="text-xs font-mono text-sky-400 font-bold mb-1">FRONTEND ARCHITECTURE</div>
+          <h4 class="text-sm font-bold text-white mb-1.5">Next.js 14 & React 18</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">App Router, React Server Components for rapid initial load, and progressive client hydration.</p>
+        </div>
+
+        <div class="cyber-card p-5 rounded-2xl">
+          <div class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-teal-400 mb-3">
+            <i data-lucide="shield" class="w-5 h-5"></i>
+          </div>
+          <div class="text-xs font-mono text-teal-400 font-bold mb-1">TYPE SAFETY & LOGIC</div>
+          <h4 class="text-sm font-bold text-white mb-1.5">TypeScript & Zod</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">Strict schema enforcement for grievance inputs, tender records, and municipal boundaries.</p>
+        </div>
+
+        <div class="cyber-card p-5 rounded-2xl">
+          <div class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-emerald-400 mb-3">
+            <i data-lucide="database" class="w-5 h-5"></i>
+          </div>
+          <div class="text-xs font-mono text-emerald-400 font-bold mb-1">BACKEND & DATABASE</div>
+          <h4 class="text-sm font-bold text-white mb-1.5">Supabase PostgreSQL</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">Row Level Security (RLS) policies protecting resident privacy with audit trail logs.</p>
+        </div>
+
+        <div class="cyber-card p-5 rounded-2xl">
+          <div class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-amber-400 mb-3">
+            <i data-lucide="cpu" class="w-5 h-5"></i>
+          </div>
+          <div class="text-xs font-mono text-amber-400 font-bold mb-1">CIVIC AI ASSISTANT</div>
+          <h4 class="text-sm font-bold text-white mb-1.5">Google Gemini API</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">Gemini 1.5 Flash grounded in database records with zero external hallucinations.</p>
+        </div>
+
+        <div class="cyber-card p-5 rounded-2xl">
+          <div class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-rose-400 mb-3">
+            <i data-lucide="map" class="w-5 h-5"></i>
+          </div>
+          <div class="text-xs font-mono text-rose-400 font-bold mb-1">GIS & MAPPING</div>
+          <h4 class="text-sm font-bold text-white mb-1.5">Leaflet & OpenStreetMap</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">SSR-safe dynamic loader for interactive ward boundaries, municipal assets, and development sites.</p>
+        </div>
+
+        <div class="cyber-card p-5 rounded-2xl">
+          <div class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-purple-400 mb-3">
+            <i data-lucide="palette" class="w-5 h-5"></i>
+          </div>
+          <div class="text-xs font-mono text-purple-400 font-bold mb-1">DESIGN SYSTEM</div>
+          <h4 class="text-sm font-bold text-white mb-1.5">Tailwind CSS</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">Bespoke civic palette: Forest Green, Warm Cream, and Earth Gold with responsive utilities.</p>
+        </div>
+
+        <div class="cyber-card p-5 rounded-2xl">
+          <div class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-cyan-400 mb-3">
+            <i data-lucide="languages" class="w-5 h-5"></i>
+          </div>
+          <div class="text-xs font-mono text-cyan-400 font-bold mb-1">INTERNATIONALIZATION</div>
+          <h4 class="text-sm font-bold text-white mb-1.5">Bilingual i18n</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">Comprehensive English & Malayalam dictionaries with one-click toggles and local persistence.</p>
+        </div>
+
+        <div class="cyber-card p-5 rounded-2xl">
+          <div class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-emerald-400 mb-3">
+            <i data-lucide="cloud" class="w-5 h-5"></i>
+          </div>
+          <div class="text-xs font-mono text-emerald-400 font-bold mb-1">EDGE DEPLOYMENT</div>
+          <h4 class="text-sm font-bold text-white mb-1.5">Vercel Global Edge</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">Sub-second global CDN response times, automated CI/CD builds, and high-availability caching.</p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- SECTION F: DEVELOPMENT PROCESS & CRAFTIQ METHODOLOGY                  -->
+    <!-- ===================================================================== -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-slate-800/80">
+      
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <div class="text-xs font-mono text-emerald-400 uppercase tracking-widest mb-2">05 / Execution & Process</div>
+        <h2 class="text-3xl sm:text-4xl font-bold font-heading text-white">The CRAFTIQ Engineering Lifecycle</h2>
+        <p class="text-slate-400 text-sm mt-2">How we designed, validated, and deployed OUR NATION for real citizens.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div class="cyber-card p-6 rounded-2xl border-slate-800">
+          <div class="text-xs font-mono text-emerald-400 font-bold mb-2">PHASE 01</div>
+          <h3 class="text-base font-bold text-white mb-2">Civic Field Research</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Studied the administrative reality of Kerala's Local Self Government Department (LSGD), analyzed Tanur Municipality's 44-ward governance records, and identified the friction points citizens face when requesting services.
+          </p>
+        </div>
+
+        <div class="cyber-card p-6 rounded-2xl border-slate-800">
+          <div class="text-xs font-mono text-emerald-400 font-bold mb-2">PHASE 02</div>
+          <h3 class="text-base font-bold text-white mb-2">Architecture & Data Modeling</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Architected the relational schema in Supabase PostgreSQL: modeled ward delimitation, structured 6-stage grievance status lifecycles, and designed strict Row Level Security to protect citizen privacy.
+          </p>
+        </div>
+
+        <div class="cyber-card p-6 rounded-2xl border-slate-800">
+          <div class="text-xs font-mono text-emerald-400 font-bold mb-2">PHASE 03</div>
+          <h3 class="text-base font-bold text-white mb-2">Heritage Civic Design</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Crafted a grounded visual language rooted in coastal Kerala identity: Forest Green (<code class="text-emerald-400 font-mono">#064E3B</code>), Warm Cream (<code class="text-amber-200 font-mono">#FDFBF7</code>), and Earth Gold (<code class="text-amber-400 font-mono">#D97706</code>) with Malayalam typography.
+          </p>
+        </div>
+
+        <div class="cyber-card p-6 rounded-2xl border-slate-800">
+          <div class="text-xs font-mono text-emerald-400 font-bold mb-2">PHASE 04</div>
+          <h3 class="text-base font-bold text-white mb-2">Feature Engineering</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Implemented Civic Connect grievance reporting, the 12-project Development Tracker with expenditure budgets, essential service checklists (K-SMART, Sanchitha), and the complete 44-ward councillor directory.
+          </p>
+        </div>
+
+        <div class="cyber-card p-6 rounded-2xl border-slate-800">
+          <div class="text-xs font-mono text-emerald-400 font-bold mb-2">PHASE 05</div>
+          <h3 class="text-base font-bold text-white mb-2">Grounded AI Integration</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Built the Naadu AI conversational pipeline using Google Gemini 1.5 Flash. Implemented strict database retrieval boundaries to ensure the AI only answers using published municipal data and refuses hallucination.
+          </p>
+        </div>
+
+        <div class="cyber-card p-6 rounded-2xl border-slate-800">
+          <div class="text-xs font-mono text-emerald-400 font-bold mb-2">PHASE 06</div>
+          <h3 class="text-base font-bold text-white mb-2">Testing & Edge Deployment</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Executed an automated 11-step verification suite validating role permissions, offline fallbacks, mobile touch ergonomics, and deployed to Vercel's global edge network at <span class="text-emerald-400 font-mono">our-nation.vercel.app</span>.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- SECTION G: FINAL CTA & PROJECT LINKS                                  -->
+    <!-- ===================================================================== -->
+    <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-slate-800/80">
+      
+      <div class="cyber-card p-8 sm:p-12 rounded-3xl text-center relative overflow-hidden border-emerald-500/30">
+        
+        <div class="relative z-10 max-w-2xl mx-auto">
+          <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mx-auto mb-6">
+            <i data-lucide="sparkles" class="w-7 h-7"></i>
+          </div>
+
+          <h2 class="text-2xl sm:text-4xl font-bold font-heading text-white mb-3">
+            Experience OUR NATION Live
+          </h2>
+          <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-8">
+            Explore the active civic platform, test the bilingual navigation, query Naadu AI, or review the 44-ward councillor directory.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-3.5">
+            <a href="https://our-nation.vercel.app/" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-7 py-3.5 rounded-full text-xs font-bold text-white flex items-center justify-center gap-2 shadow-xl hover:scale-105 transition-all" style="background: linear-gradient(135deg, #059669 0%, #10b981 50%, #047857 100%);">
+              <span>Visit Live Website</span>
+              <i data-lucide="external-link" class="w-4 h-4"></i>
+            </a>
+
+            <a href="../../#projects" class="w-full sm:w-auto px-7 py-3.5 rounded-full text-xs font-semibold text-slate-200 bg-slate-900 border border-slate-700/80 hover:bg-slate-800 transition-all flex items-center justify-center gap-2">
+              <i data-lucide="folder-git-2" class="w-4 h-4 text-sky-400"></i>
+              <span>Explore More CRAFTIQ Projects</span>
+            </a>
+
+            <a href="../../#contact" class="w-full sm:w-auto px-7 py-3.5 rounded-full text-xs font-semibold text-slate-200 bg-slate-900 border border-slate-700/80 hover:bg-slate-800 transition-all flex items-center justify-center gap-2">
+              <i data-lucide="mail" class="w-4 h-4 text-emerald-400"></i>
+              <span>Contact CRAFTIQ</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-800/80 py-8 bg-[#030611] text-center text-xs text-slate-500">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <img src="../../assets/craftiq-logo.png" alt="CRAFTIQ" class="w-5 h-5 rounded" />
+        <span class="text-slate-400 font-medium">CRAFTIQ — Crafting Intelligent Digital Experiences</span>
+      </div>
+      <div>
+        <span>Case study for OUR NATION (Tanur, Kerala)</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lucide Icon Initialization -->
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
