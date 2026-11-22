@@ -80,6 +80,61 @@
       position: relative;
     }
 
+    /* EDITORIAL PRECISION CUSTOM CURSOR (DESKTOP ONLY) */
+    @media (pointer: fine) {
+      body {
+        cursor: default;
+      }
+      .cursor-dot {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 6px;
+        height: 6px;
+        background-color: #CCFF00;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition: opacity 0.2s ease;
+        will-change: transform;
+      }
+      .cursor-ring {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 36px;
+        height: 36px;
+        border: 1px solid rgba(204, 255, 0, 0.4);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9998;
+        transform: translate(-50%, -50%);
+        transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                    height 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                    background-color 0.3s ease,
+                    border-color 0.3s ease;
+        will-change: transform, width, height;
+      }
+      .cursor-ring.hovered {
+        width: 60px;
+        height: 60px;
+        background-color: rgba(204, 255, 0, 0.08);
+        border-color: #CCFF00;
+      }
+      .cursor-ring.project-hover {
+        width: 80px;
+        height: 80px;
+        background-color: rgba(204, 255, 0, 0.12);
+        border-color: #CCFF00;
+      }
+    }
+    @media (pointer: coarse) {
+      .cursor-dot, .cursor-ring {
+        display: none !important;
+      }
+    }
+
     /* KINETIC CURSOR SPOTLIGHT */
     .cursor-spotlight {
       position: fixed;
@@ -141,7 +196,8 @@
       overflow: hidden;
       background: #0E0E0E;
       border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s ease;
+      transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s ease, transform 0.4s ease;
+      transform: translateZ(0);
     }
 
     .project-curtain-card:hover {
@@ -152,14 +208,17 @@
     .project-img-viewport {
       overflow: hidden;
       position: relative;
+      perspective: 1000px;
+      transition: clip-path 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .project-img-viewport img {
-      transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+      will-change: transform;
     }
 
     .project-curtain-card:hover .project-img-viewport img {
-      transform: scale(1.05);
+      transform: scale(1.04);
     }
 
     /* DISCIPLINE ACCORDION */
@@ -193,6 +252,8 @@
       color: #070707;
       font-weight: 700;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
     }
 
     .btn-lime:hover {
@@ -251,6 +312,16 @@
       transform: translateX(0);
     }
 
+    /* HEADING OVERFLOW REVEAL WRAPPER */
+    .split-heading-mask {
+      overflow: hidden;
+      display: block;
+    }
+    .split-heading-item {
+      display: inline-block;
+      will-change: transform;
+    }
+
     /* TOAST NOTIFICATION */
     #globalToast {
       position: fixed;
@@ -273,6 +344,10 @@
 </head>
 <body class="bg-noir text-textPrimary antialiased min-h-screen selection:bg-lime selection:text-noir">
 
+  <!-- EDITORIAL PRECISION CURSOR (DESKTOP) -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
   <!-- KINETIC CURSOR SPOTLIGHT -->
   <div class="cursor-spotlight" id="cursorSpotlight"></div>
 
@@ -283,7 +358,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
       
       <!-- Brand Wordmark & Technical Coordinates -->
-      <a href="#hero" class="flex items-center gap-3.5 group">
+      <a href="#hero" class="flex items-center gap-3.5 group magnetic" data-cursor="pointer">
         <div class="w-8 h-8 rounded-lg bg-surface border border-white/10 flex items-center justify-center text-white group-hover:border-lime transition-colors">
           <span class="font-display font-extrabold text-xs text-lime">Q</span>
         </div>
@@ -293,27 +368,32 @@
         </div>
       </a>
 
-      <!-- Desktop Minimal Editorial Navigation -->
-      <nav class="hidden lg:flex items-center gap-7 text-xs font-mono tracking-wider uppercase">
-        <a href="#studio" class="text-textSecondary hover:text-white transition-colors flex items-center gap-1.5 py-1">
+      <!-- Desktop Minimal Editorial Navigation With Scrollspy -->
+      <nav id="desktopNav" class="hidden lg:flex items-center gap-7 text-xs font-mono tracking-wider uppercase">
+        <a href="#studio" data-nav="studio" class="nav-item text-textSecondary hover:text-white transition-colors flex items-center gap-1.5 py-1 relative group" data-cursor="pointer">
           <span class="text-lime text-[10px]">01</span>
           <span>Studio</span>
+          <span class="nav-indicator absolute -bottom-1 left-0 right-0 h-[1px] bg-lime opacity-0 transition-opacity"></span>
         </a>
-        <a href="#lineup" class="text-textSecondary hover:text-white transition-colors flex items-center gap-1.5 py-1">
+        <a href="#lineup" data-nav="lineup" class="nav-item text-textSecondary hover:text-white transition-colors flex items-center gap-1.5 py-1 relative group" data-cursor="pointer">
           <span class="text-lime text-[10px]">02</span>
           <span>The Lineup</span>
+          <span class="nav-indicator absolute -bottom-1 left-0 right-0 h-[1px] bg-lime opacity-0 transition-opacity"></span>
         </a>
-        <a href="#principles" class="text-textSecondary hover:text-white transition-colors flex items-center gap-1.5 py-1">
+        <a href="#principles" data-nav="principles" class="nav-item text-textSecondary hover:text-white transition-colors flex items-center gap-1.5 py-1 relative group" data-cursor="pointer">
           <span class="text-lime text-[10px]">03</span>
           <span>Principles</span>
+          <span class="nav-indicator absolute -bottom-1 left-0 right-0 h-[1px] bg-lime opacity-0 transition-opacity"></span>
         </a>
-        <a href="#estimator" class="text-textSecondary hover:text-white transition-colors flex items-center gap-1.5 py-1">
+        <a href="#estimator" data-nav="estimator" class="nav-item text-textSecondary hover:text-white transition-colors flex items-center gap-1.5 py-1 relative group" data-cursor="pointer">
           <span class="text-lime text-[10px]">04</span>
           <span>Estimator</span>
+          <span class="nav-indicator absolute -bottom-1 left-0 right-0 h-[1px] bg-lime opacity-0 transition-opacity"></span>
         </a>
-        <a href="#contact" class="text-textSecondary hover:text-white transition-colors flex items-center gap-1.5 py-1">
+        <a href="#contact" data-nav="contact" class="nav-item text-textSecondary hover:text-white transition-colors flex items-center gap-1.5 py-1 relative group" data-cursor="pointer">
           <span class="text-lime text-[10px]">05</span>
           <span>Contact</span>
+          <span class="nav-indicator absolute -bottom-1 left-0 right-0 h-[1px] bg-lime opacity-0 transition-opacity"></span>
         </a>
       </nav>
 
@@ -326,7 +406,7 @@
         </div>
 
         <!-- Primary Initiate Project Button -->
-        <button onclick="openEstimatorSlideOver()" class="btn-lime px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider flex items-center gap-2">
+        <button onclick="openEstimatorSlideOver()" class="btn-lime px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider flex items-center gap-2 magnetic" data-cursor="pointer">
           <span>Estimate Scope</span>
           <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
         </button>
@@ -396,13 +476,13 @@
       <!-- Monumental Wordmark (Letter-by-Letter Animated Reveal) -->
       <div class="hero-wordmark-container my-10 sm:my-16 text-center lg:text-left select-none">
         <h1 class="hero-wordmark font-display font-extrabold text-[17vw] sm:text-[18vw] lg:text-[19vw] tracking-tighter text-white leading-none flex justify-between items-center w-full">
-          <span class="hero-char-wrap"><span class="hero-char">C</span></span>
-          <span class="hero-char-wrap"><span class="hero-char">R</span></span>
-          <span class="hero-char-wrap"><span class="hero-char">A</span></span>
-          <span class="hero-char-wrap"><span class="hero-char">F</span></span>
-          <span class="hero-char-wrap"><span class="hero-char">T</span></span>
-          <span class="hero-char-wrap"><span class="hero-char">I</span></span>
-          <span class="hero-char-wrap"><span class="hero-char text-lime">Q</span></span>
+          <span class="hero-char-wrap"><span class="hero-char" data-char="C">C</span></span>
+          <span class="hero-char-wrap"><span class="hero-char" data-char="R">R</span></span>
+          <span class="hero-char-wrap"><span class="hero-char" data-char="A">A</span></span>
+          <span class="hero-char-wrap"><span class="hero-char" data-char="F">F</span></span>
+          <span class="hero-char-wrap"><span class="hero-char" data-char="T">T</span></span>
+          <span class="hero-char-wrap"><span class="hero-char" data-char="I">I</span></span>
+          <span class="hero-char-wrap"><span class="hero-char text-lime" data-char="Q">Q</span></span>
         </h1>
       </div>
 
@@ -412,17 +492,17 @@
           <div class="text-xs font-mono text-lime tracking-widest uppercase flex items-center gap-2">
             <span>[ DISCIPLINE & IDENTITY ]</span>
           </div>
-          <p class="text-lg sm:text-2xl font-light text-textPrimary leading-relaxed max-w-2xl font-sans">
+          <p class="text-lg sm:text-2xl font-light text-textPrimary leading-relaxed max-w-2xl font-sans text-illuminate">
             We engineer <strong class="text-white font-medium">monumental digital flagships</strong>, autonomous AI products, and high-discipline design systems for visionary brands that demand cultural and technical distinction.
           </p>
         </div>
 
         <div class="lg:col-span-5 flex flex-col sm:flex-row items-stretch sm:items-center justify-start lg:justify-end gap-3.5">
-          <a href="#lineup" class="btn-ghost-editorial px-6 py-3.5 rounded-full text-xs font-mono uppercase tracking-wider flex items-center justify-center gap-2">
+          <a href="#lineup" class="btn-ghost-editorial px-6 py-3.5 rounded-full text-xs font-mono uppercase tracking-wider flex items-center justify-center gap-2 magnetic" data-cursor="pointer">
             <span>Explore The Lineup</span>
             <i data-lucide="arrow-down" class="w-4 h-4 text-lime"></i>
           </a>
-          <button onclick="openEstimatorSlideOver()" class="btn-lime px-6 py-3.5 rounded-full text-xs font-mono uppercase tracking-wider flex items-center justify-center gap-2">
+          <button onclick="openEstimatorSlideOver()" class="btn-lime px-6 py-3.5 rounded-full text-xs font-mono uppercase tracking-wider flex items-center justify-center gap-2 magnetic" data-cursor="pointer">
             <span>Calculate Project</span>
             <i data-lucide="calculator" class="w-4 h-4"></i>
           </button>
@@ -457,9 +537,11 @@
             <span>/</span>
             <span>THE STUDIO CAPABILITIES</span>
           </div>
-          <h2 class="text-3xl sm:text-5xl lg:text-6xl font-display font-bold text-white tracking-tight">
-            Eight Core Disciplines.
-          </h2>
+          <div class="split-heading-mask">
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-display font-bold text-white tracking-tight split-heading-item">
+              Eight Core Disciplines.
+            </h2>
+          </div>
         </div>
         <p class="text-textSecondary text-xs sm:text-sm max-w-md font-sans leading-relaxed">
           From architectural web systems to intelligent LLM integrations. Click or hover any discipline to inspect scope, deliverables, and engineering stack.
@@ -470,7 +552,7 @@
       <div class="divide-y divide-white/10 hairline-b" id="disciplineContainer">
 
         <!-- Discipline 1: Web Engineering -->
-        <div class="discipline-row py-6 sm:py-8 cursor-pointer group" onclick="toggleDiscipline(1)" id="disc-row-1">
+        <div class="discipline-row py-6 sm:py-8 cursor-pointer group" onclick="toggleDiscipline(1)" id="disc-row-1" data-cursor="pointer">
           <div class="flex items-center justify-between gap-4">
             <div class="flex items-center gap-5 sm:gap-8">
               <span class="font-mono text-xs sm:text-sm text-textMuted group-hover:text-lime transition-colors">01</span>
@@ -512,7 +594,7 @@
                 </div>
               </div>
               <div class="pt-3">
-                <button onclick="event.stopPropagation(); quickSelectDiscipline('Web Engineering', 2500);" class="btn-ghost-editorial px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider inline-flex items-center gap-1.5">
+                <button onclick="event.stopPropagation(); quickSelectDiscipline('Web Engineering', 2500);" class="btn-ghost-editorial px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider inline-flex items-center gap-1.5 magnetic" data-cursor="pointer">
                   <span>Scope Web Engineering Project</span>
                   <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-lime"></i>
                 </button>
@@ -522,7 +604,7 @@
         </div>
 
         <!-- Discipline 2: UI/UX Systems -->
-        <div class="discipline-row py-6 sm:py-8 cursor-pointer group" onclick="toggleDiscipline(2)" id="disc-row-2">
+        <div class="discipline-row py-6 sm:py-8 cursor-pointer group" onclick="toggleDiscipline(2)" id="disc-row-2" data-cursor="pointer">
           <div class="flex items-center justify-between gap-4">
             <div class="flex items-center gap-5 sm:gap-8">
               <span class="font-mono text-xs sm:text-sm text-textMuted group-hover:text-lime transition-colors">02</span>
@@ -563,7 +645,7 @@
                 </div>
               </div>
               <div class="pt-3">
-                <button onclick="event.stopPropagation(); quickSelectDiscipline('UI/UX Systems', 2000);" class="btn-ghost-editorial px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider inline-flex items-center gap-1.5">
+                <button onclick="event.stopPropagation(); quickSelectDiscipline('UI/UX Systems', 2000);" class="btn-ghost-editorial px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider inline-flex items-center gap-1.5 magnetic" data-cursor="pointer">
                   <span>Scope UI/UX Project</span>
                   <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-lime"></i>
                 </button>
@@ -573,7 +655,7 @@
         </div>
 
         <!-- Discipline 3: Mobile Applications -->
-        <div class="discipline-row py-6 sm:py-8 cursor-pointer group" onclick="toggleDiscipline(3)" id="disc-row-3">
+        <div class="discipline-row py-6 sm:py-8 cursor-pointer group" onclick="toggleDiscipline(3)" id="disc-row-3" data-cursor="pointer">
           <div class="flex items-center justify-between gap-4">
             <div class="flex items-center gap-5 sm:gap-8">
               <span class="font-mono text-xs sm:text-sm text-textMuted group-hover:text-lime transition-colors">03</span>
@@ -614,7 +696,7 @@
                 </div>
               </div>
               <div class="pt-3">
-                <button onclick="event.stopPropagation(); quickSelectDiscipline('Mobile Applications', 3800);" class="btn-ghost-editorial px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider inline-flex items-center gap-1.5">
+                <button onclick="event.stopPropagation(); quickSelectDiscipline('Mobile Applications', 3800);" class="btn-ghost-editorial px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider inline-flex items-center gap-1.5 magnetic" data-cursor="pointer">
                   <span>Scope Mobile Project</span>
                   <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-lime"></i>
                 </button>
@@ -624,7 +706,7 @@
         </div>
 
         <!-- Discipline 4: AI Products -->
-        <div class="discipline-row py-6 sm:py-8 cursor-pointer group" onclick="toggleDiscipline(4)" id="disc-row-4">
+        <div class="discipline-row py-6 sm:py-8 cursor-pointer group" onclick="toggleDiscipline(4)" id="disc-row-4" data-cursor="pointer">
           <div class="flex items-center justify-between gap-4">
             <div class="flex items-center gap-5 sm:gap-8">
               <span class="font-mono text-xs sm:text-sm text-textMuted group-hover:text-lime transition-colors">04</span>
@@ -665,7 +747,7 @@
                 </div>
               </div>
               <div class="pt-3">
-                <button onclick="event.stopPropagation(); quickSelectDiscipline('AI Products', 2200);" class="btn-ghost-editorial px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider inline-flex items-center gap-1.5">
+                <button onclick="event.stopPropagation(); quickSelectDiscipline('AI Products', 2200);" class="btn-ghost-editorial px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider inline-flex items-center gap-1.5 magnetic" data-cursor="pointer">
                   <span>Scope AI Product</span>
                   <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-lime"></i>
                 </button>
@@ -675,7 +757,7 @@
         </div>
 
         <!-- Discipline 5: Brand Identity -->
-        <div class="discipline-row py-6 sm:py-8 cursor-pointer group" onclick="toggleDiscipline(5)" id="disc-row-5">
+        <div class="discipline-row py-6 sm:py-8 cursor-pointer group" onclick="toggleDiscipline(5)" id="disc-row-5" data-cursor="pointer">
           <div class="flex items-center justify-between gap-4">
             <div class="flex items-center gap-5 sm:gap-8">
               <span class="font-mono text-xs sm:text-sm text-textMuted group-hover:text-lime transition-colors">05</span>
@@ -715,7 +797,7 @@
                 </div>
               </div>
               <div class="pt-3">
-                <button onclick="event.stopPropagation(); quickSelectDiscipline('Brand Identity', 1800);" class="btn-ghost-editorial px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider inline-flex items-center gap-1.5">
+                <button onclick="event.stopPropagation(); quickSelectDiscipline('Brand Identity', 1800);" class="btn-ghost-editorial px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider inline-flex items-center gap-1.5 magnetic" data-cursor="pointer">
                   <span>Scope Brand Identity</span>
                   <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-lime"></i>
                 </button>
@@ -725,7 +807,7 @@
         </div>
 
         <!-- Discipline 6: Motion & 3D -->
-        <div class="discipline-row py-6 sm:py-8 cursor-pointer group" onclick="toggleDiscipline(6)" id="disc-row-6">
+        <div class="discipline-row py-6 sm:py-8 cursor-pointer group" onclick="toggleDiscipline(6)" id="disc-row-6" data-cursor="pointer">
           <div class="flex items-center justify-between gap-4">
             <div class="flex items-center gap-5 sm:gap-8">
               <span class="font-mono text-xs sm:text-sm text-textMuted group-hover:text-lime transition-colors">06</span>
@@ -766,7 +848,7 @@
                 </div>
               </div>
               <div class="pt-3">
-                <button onclick="event.stopPropagation(); quickSelectDiscipline('Motion & 3D', 2400);" class="btn-ghost-editorial px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider inline-flex items-center gap-1.5">
+                <button onclick="event.stopPropagation(); quickSelectDiscipline('Motion & 3D', 2400);" class="btn-ghost-editorial px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider inline-flex items-center gap-1.5 magnetic" data-cursor="pointer">
                   <span>Scope Motion & 3D</span>
                   <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-lime"></i>
                 </button>
@@ -776,7 +858,7 @@
         </div>
 
         <!-- Discipline 7: Design Systems -->
-        <div class="discipline-row py-6 sm:py-8 cursor-pointer group" onclick="toggleDiscipline(7)" id="disc-row-7">
+        <div class="discipline-row py-6 sm:py-8 cursor-pointer group" onclick="toggleDiscipline(7)" id="disc-row-7" data-cursor="pointer">
           <div class="flex items-center justify-between gap-4">
             <div class="flex items-center gap-5 sm:gap-8">
               <span class="font-mono text-xs sm:text-sm text-textMuted group-hover:text-lime transition-colors">07</span>
@@ -817,7 +899,7 @@
                 </div>
               </div>
               <div class="pt-3">
-                <button onclick="event.stopPropagation(); quickSelectDiscipline('Design Systems', 2600);" class="btn-ghost-editorial px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider inline-flex items-center gap-1.5">
+                <button onclick="event.stopPropagation(); quickSelectDiscipline('Design Systems', 2600);" class="btn-ghost-editorial px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider inline-flex items-center gap-1.5 magnetic" data-cursor="pointer">
                   <span>Scope Design System</span>
                   <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-lime"></i>
                 </button>
@@ -827,7 +909,7 @@
         </div>
 
         <!-- Discipline 8: Full-Stack SaaS -->
-        <div class="discipline-row py-6 sm:py-8 cursor-pointer group" onclick="toggleDiscipline(8)" id="disc-row-8">
+        <div class="discipline-row py-6 sm:py-8 cursor-pointer group" onclick="toggleDiscipline(8)" id="disc-row-8" data-cursor="pointer">
           <div class="flex items-center justify-between gap-4">
             <div class="flex items-center gap-5 sm:gap-8">
               <span class="font-mono text-xs sm:text-sm text-textMuted group-hover:text-lime transition-colors">08</span>
@@ -869,7 +951,7 @@
                 </div>
               </div>
               <div class="pt-3">
-                <button onclick="event.stopPropagation(); quickSelectDiscipline('Full-Stack SaaS', 5500);" class="btn-ghost-editorial px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider inline-flex items-center gap-1.5">
+                <button onclick="event.stopPropagation(); quickSelectDiscipline('Full-Stack SaaS', 5500);" class="btn-ghost-editorial px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider inline-flex items-center gap-1.5 magnetic" data-cursor="pointer">
                   <span>Scope Full-Stack SaaS</span>
                   <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-lime"></i>
                 </button>
@@ -895,23 +977,25 @@
             <span>/</span>
             <span>FEATURED COMMISSIONS</span>
           </div>
-          <h2 class="text-3xl sm:text-5xl lg:text-6xl font-display font-bold text-white tracking-tight">
-            The Lineup.
-          </h2>
+          <div class="split-heading-mask">
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-display font-bold text-white tracking-tight split-heading-item">
+              The Lineup.
+            </h2>
+          </div>
         </div>
         <div class="flex items-center gap-4">
-          <button onclick="toggleEditorialArchive()" class="btn-ghost-editorial px-5 py-2.5 rounded-full text-xs font-mono uppercase tracking-wider flex items-center gap-2" id="archiveToggleBtn">
+          <button onclick="toggleEditorialArchive()" class="btn-ghost-editorial px-5 py-2.5 rounded-full text-xs font-mono uppercase tracking-wider flex items-center gap-2 magnetic" id="archiveToggleBtn" data-cursor="pointer">
             <i data-lucide="list" class="w-4 h-4 text-lime"></i>
             <span>Full Editorial Index (9 Works)</span>
           </button>
         </div>
       </div>
 
-      <!-- 4 Monumental Editorial Project Showcases -->
+      <!-- 4 Monumental Editorial Project Showcases With Clipping Masks & 3D Tilt -->
       <div class="space-y-16 sm:space-y-24">
 
         <!-- PROJECT 01: NutriCoach AI -->
-        <article class="project-curtain-card rounded-3xl p-6 sm:p-10 lg:p-12">
+        <article class="project-curtain-card rounded-3xl p-6 sm:p-10 lg:p-12 group" data-cursor="project">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <!-- Left Info -->
             <div class="lg:col-span-5 space-y-6 order-2 lg:order-1">
@@ -921,7 +1005,7 @@
                 <span>•</span>
                 <span>2026</span>
               </div>
-              <h3 class="text-2xl sm:text-4xl font-display font-bold text-white tracking-tight">
+              <h3 class="text-2xl sm:text-4xl font-display font-bold text-white tracking-tight group-hover:text-lime transition-colors">
                 NutriCoach AI
               </h3>
               <p class="text-textSecondary text-xs sm:text-sm leading-relaxed font-sans">
@@ -934,7 +1018,7 @@
                 <span class="px-2.5 py-1 rounded bg-surface border border-white/10 text-textPrimary">Vercel Edge</span>
               </div>
               <div class="flex items-center gap-4 pt-2">
-                <a href="https://nutricoachai-ruby.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-lime px-5 py-2.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider inline-flex items-center gap-2">
+                <a href="https://nutricoachai-ruby.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-lime px-5 py-2.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider inline-flex items-center gap-2 magnetic" data-cursor="pointer">
                   <span>Visit Live Platform</span>
                   <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
                 </a>
@@ -955,7 +1039,7 @@
         </article>
 
         <!-- PROJECT 02: OpenRoad Kerala / OUR NATION -->
-        <article class="project-curtain-card rounded-3xl p-6 sm:p-10 lg:p-12">
+        <article class="project-curtain-card rounded-3xl p-6 sm:p-10 lg:p-12 group" data-cursor="project">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <!-- Left Preview Image Viewport -->
             <div class="lg:col-span-7">
@@ -972,7 +1056,7 @@
                 <span>•</span>
                 <span>2026</span>
               </div>
-              <h3 class="text-2xl sm:text-4xl font-display font-bold text-white tracking-tight">
+              <h3 class="text-2xl sm:text-4xl font-display font-bold text-white tracking-tight group-hover:text-lime transition-colors">
                 OpenRoad Kerala
                 <span class="block text-sm sm:text-base font-mono font-normal text-amber-300/90 mt-1">
                   OUR NATION — Tanur Municipality
@@ -988,11 +1072,11 @@
                 <span class="px-2.5 py-1 rounded bg-surface border border-white/10 text-textPrimary">Supabase RLS</span>
               </div>
               <div class="flex flex-wrap items-center gap-3 pt-2">
-                <a href="/work/our-nation" class="btn-lime px-5 py-2.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider inline-flex items-center gap-2">
+                <a href="/work/our-nation" class="btn-lime px-5 py-2.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider inline-flex items-center gap-2 magnetic" data-cursor="pointer">
                   <span>Read Case Study</span>
                   <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                 </a>
-                <a href="https://our-nation.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-ghost-editorial px-5 py-2.5 rounded-full text-xs font-mono uppercase tracking-wider inline-flex items-center gap-2">
+                <a href="https://our-nation.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-ghost-editorial px-5 py-2.5 rounded-full text-xs font-mono uppercase tracking-wider inline-flex items-center gap-2 magnetic" data-cursor="pointer">
                   <span>Launch Live</span>
                   <i data-lucide="external-link" class="w-3.5 h-3.5 text-lime"></i>
                 </a>
@@ -1002,7 +1086,7 @@
         </article>
 
         <!-- PROJECT 03: Sharafiyya Digital -->
-        <article class="project-curtain-card rounded-3xl p-6 sm:p-10 lg:p-12">
+        <article class="project-curtain-card rounded-3xl p-6 sm:p-10 lg:p-12 group" data-cursor="project">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <!-- Left Info -->
             <div class="lg:col-span-5 space-y-6 order-2 lg:order-1">
@@ -1012,7 +1096,7 @@
                 <span>•</span>
                 <span>2026</span>
               </div>
-              <h3 class="text-2xl sm:text-4xl font-display font-bold text-white tracking-tight">
+              <h3 class="text-2xl sm:text-4xl font-display font-bold text-white tracking-tight group-hover:text-lime transition-colors">
                 Sharafiyya Digital
                 <span class="block text-sm sm:text-base font-mono font-normal text-textSecondary mt-1">
                   Darul Huda Islamic University
@@ -1027,7 +1111,7 @@
                 <span class="px-2.5 py-1 rounded bg-surface border border-white/10 text-textPrimary">Bilingual Typography</span>
               </div>
               <div class="flex items-center gap-4 pt-2">
-                <a href="https://dhiu.in/" target="_blank" rel="noopener noreferrer" class="btn-lime px-5 py-2.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider inline-flex items-center gap-2">
+                <a href="https://dhiu.in/" target="_blank" rel="noopener noreferrer" class="btn-lime px-5 py-2.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider inline-flex items-center gap-2 magnetic" data-cursor="pointer">
                   <span>Inspect Portal</span>
                   <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
                 </a>
@@ -1047,7 +1131,7 @@
         </article>
 
         <!-- PROJECT 04: CRAFTIQ OS -->
-        <article class="project-curtain-card rounded-3xl p-6 sm:p-10 lg:p-12">
+        <article class="project-curtain-card rounded-3xl p-6 sm:p-10 lg:p-12 group" data-cursor="project">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <!-- Left Preview Image Viewport -->
             <div class="lg:col-span-7">
@@ -1064,7 +1148,7 @@
                 <span>•</span>
                 <span>2026</span>
               </div>
-              <h3 class="text-2xl sm:text-4xl font-display font-bold text-white tracking-tight">
+              <h3 class="text-2xl sm:text-4xl font-display font-bold text-white tracking-tight group-hover:text-lime transition-colors">
                 CRAFTIQ OS
               </h3>
               <p class="text-textSecondary text-xs sm:text-sm leading-relaxed font-sans">
@@ -1077,7 +1161,7 @@
                 <span class="px-2.5 py-1 rounded bg-surface border border-white/10 text-textPrimary">Spatial Audio</span>
               </div>
               <div class="flex items-center gap-4 pt-2">
-                <button onclick="openEstimatorSlideOver()" class="btn-lime px-5 py-2.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider inline-flex items-center gap-2">
+                <button onclick="openEstimatorSlideOver()" class="btn-lime px-5 py-2.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider inline-flex items-center gap-2 magnetic" data-cursor="pointer">
                   <span>Commission Custom System</span>
                   <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                 </button>
@@ -1097,7 +1181,7 @@
             <span class="font-mono text-xs text-lime uppercase tracking-widest">[ COMPLETE EDITORIAL REPOSITORY ]</span>
             <h3 class="text-2xl font-display font-bold text-white mt-1">All Nine Verified Studio Releases</h3>
           </div>
-          <button onclick="toggleEditorialArchive()" class="font-mono text-xs text-textSecondary hover:text-white flex items-center gap-1.5">
+          <button onclick="toggleEditorialArchive()" class="font-mono text-xs text-textSecondary hover:text-white flex items-center gap-1.5 magnetic" data-cursor="pointer">
             <span>[ CLOSE INDEX ]</span>
             <i data-lucide="x" class="w-3.5 h-3.5 text-lime"></i>
           </button>
@@ -1125,7 +1209,7 @@
                 <td class="py-4 px-4 text-textSecondary">2026</td>
                 <td class="py-4 px-4 text-textSecondary">Next.js 14 • Supabase • Gemini</td>
                 <td class="py-4 px-4 text-right">
-                  <a href="/work/our-nation" class="text-lime hover:underline font-bold inline-flex items-center gap-1">
+                  <a href="/work/our-nation" class="text-lime hover:underline font-bold inline-flex items-center gap-1" data-cursor="pointer">
                     <span>Case Study</span><i data-lucide="arrow-right" class="w-3 h-3"></i>
                   </a>
                 </td>
@@ -1138,7 +1222,7 @@
                 <td class="py-4 px-4 text-textSecondary">2026</td>
                 <td class="py-4 px-4 text-textSecondary">Next.js 14 • Python • Tailwind</td>
                 <td class="py-4 px-4 text-right">
-                  <a href="https://nutricoachai-ruby.vercel.app/" target="_blank" rel="noopener noreferrer" class="text-lime hover:underline font-bold inline-flex items-center gap-1">
+                  <a href="https://nutricoachai-ruby.vercel.app/" target="_blank" rel="noopener noreferrer" class="text-lime hover:underline font-bold inline-flex items-center gap-1" data-cursor="pointer">
                     <span>Live App</span><i data-lucide="external-link" class="w-3 h-3"></i>
                   </a>
                 </td>
@@ -1151,7 +1235,7 @@
                 <td class="py-4 px-4 text-textSecondary">2026</td>
                 <td class="py-4 px-4 text-textSecondary">React • Tailwind • Smart Contracts</td>
                 <td class="py-4 px-4 text-right">
-                  <a href="https://di-coin-platform-web-tunj.bolt.host" target="_blank" rel="noopener noreferrer" class="text-lime hover:underline font-bold inline-flex items-center gap-1">
+                  <a href="https://di-coin-platform-web-tunj.bolt.host" target="_blank" rel="noopener noreferrer" class="text-lime hover:underline font-bold inline-flex items-center gap-1" data-cursor="pointer">
                     <span>Live Portal</span><i data-lucide="external-link" class="w-3 h-3"></i>
                   </a>
                 </td>
@@ -1164,7 +1248,7 @@
                 <td class="py-4 px-4 text-textSecondary">2026</td>
                 <td class="py-4 px-4 text-textSecondary">React • High-Concurrency SQL</td>
                 <td class="py-4 px-4 text-right">
-                  <a href="https://dhiu.in/" target="_blank" rel="noopener noreferrer" class="text-lime hover:underline font-bold inline-flex items-center gap-1">
+                  <a href="https://dhiu.in/" target="_blank" rel="noopener noreferrer" class="text-lime hover:underline font-bold inline-flex items-center gap-1" data-cursor="pointer">
                     <span>Live Site</span><i data-lucide="external-link" class="w-3 h-3"></i>
                   </a>
                 </td>
@@ -1177,7 +1261,7 @@
                 <td class="py-4 px-4 text-textSecondary">2026</td>
                 <td class="py-4 px-4 text-textSecondary">WebGL • Motion • Minimal HTML</td>
                 <td class="py-4 px-4 text-right">
-                  <a href="https://noorulazetirur.vercel.app" target="_blank" rel="noopener noreferrer" class="text-lime hover:underline font-bold inline-flex items-center gap-1">
+                  <a href="https://noorulazetirur.vercel.app" target="_blank" rel="noopener noreferrer" class="text-lime hover:underline font-bold inline-flex items-center gap-1" data-cursor="pointer">
                     <span>Live Site</span><i data-lucide="external-link" class="w-3 h-3"></i>
                   </a>
                 </td>
@@ -1190,7 +1274,7 @@
                 <td class="py-4 px-4 text-textSecondary">2025</td>
                 <td class="py-4 px-4 text-textSecondary">HTML5 • Search API • CSS3</td>
                 <td class="py-4 px-4 text-right">
-                  <a href="https://miclrc.netlify.app/" target="_blank" rel="noopener noreferrer" class="text-lime hover:underline font-bold inline-flex items-center gap-1">
+                  <a href="https://miclrc.netlify.app/" target="_blank" rel="noopener noreferrer" class="text-lime hover:underline font-bold inline-flex items-center gap-1" data-cursor="pointer">
                     <span>Live Portal</span><i data-lucide="external-link" class="w-3 h-3"></i>
                   </a>
                 </td>
@@ -1203,7 +1287,7 @@
                 <td class="py-4 px-4 text-textSecondary">2025</td>
                 <td class="py-4 px-4 text-textSecondary">WebSockets • Node.js • Live Bidding</td>
                 <td class="py-4 px-4 text-right">
-                  <a href="https://ivlauction.onhercules.app/" target="_blank" rel="noopener noreferrer" class="text-lime hover:underline font-bold inline-flex items-center gap-1">
+                  <a href="https://ivlauction.onhercules.app/" target="_blank" rel="noopener noreferrer" class="text-lime hover:underline font-bold inline-flex items-center gap-1" data-cursor="pointer">
                     <span>Live App</span><i data-lucide="external-link" class="w-3 h-3"></i>
                   </a>
                 </td>
@@ -1216,7 +1300,7 @@
                 <td class="py-4 px-4 text-textSecondary">2025</td>
                 <td class="py-4 px-4 text-textSecondary">Interactive Schedule • Live Scores</td>
                 <td class="py-4 px-4 text-right">
-                  <a href="https://thenishal.netlify.app/" target="_blank" rel="noopener noreferrer" class="text-lime hover:underline font-bold inline-flex items-center gap-1">
+                  <a href="https://thenishal.netlify.app/" target="_blank" rel="noopener noreferrer" class="text-lime hover:underline font-bold inline-flex items-center gap-1" data-cursor="pointer">
                     <span>Live Site</span><i data-lucide="external-link" class="w-3 h-3"></i>
                   </a>
                 </td>
@@ -1229,7 +1313,7 @@
                 <td class="py-4 px-4 text-textSecondary">2025</td>
                 <td class="py-4 px-4 text-textSecondary">WebSockets • Firebase Auth</td>
                 <td class="py-4 px-4 text-right">
-                  <a href="https://campusvibe.onhercules.app/" target="_blank" rel="noopener noreferrer" class="text-lime hover:underline font-bold inline-flex items-center gap-1">
+                  <a href="https://campusvibe.onhercules.app/" target="_blank" rel="noopener noreferrer" class="text-lime hover:underline font-bold inline-flex items-center gap-1" data-cursor="pointer">
                     <span>Live App</span><i data-lucide="external-link" class="w-3 h-3"></i>
                   </a>
                 </td>
@@ -1254,20 +1338,22 @@
             <span>/</span>
             <span>STUDIO ETHOS</span>
           </div>
-          <h2 class="text-3xl sm:text-5xl lg:text-6xl font-display font-bold text-white tracking-tight">
-            Six Visual Principles.
-          </h2>
+          <div class="split-heading-mask">
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-display font-bold text-white tracking-tight split-heading-item">
+              Six Visual Principles.
+            </h2>
+          </div>
         </div>
         <p class="text-textSecondary text-xs sm:text-sm max-w-md font-sans leading-relaxed">
           The non-negotiable operational standards governing every line of code, typography decision, and animation curve crafted at CRAFTIQ.
         </p>
       </div>
 
-      <!-- 6 Principles Editorial Grid (3x2 Desktop) -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+      <!-- 6 Principles Editorial Grid (3x2 Desktop) With Interactive Lighting -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7" id="principlesGrid">
         
         <!-- Principle 1 -->
-        <div class="hairline-all rounded-2xl p-6 sm:p-8 bg-charcoal hover:border-lime/50 transition-all duration-300 group flex flex-col justify-between space-y-6">
+        <div class="hairline-all rounded-2xl p-6 sm:p-8 bg-charcoal hover:border-lime/50 transition-all duration-300 group flex flex-col justify-between space-y-6" data-cursor="pointer">
           <div class="space-y-3">
             <span class="font-mono text-xs text-lime font-bold">01 / REDUCTION</span>
             <h3 class="text-xl sm:text-2xl font-display font-bold text-white group-hover:text-lime transition-colors">
@@ -1284,7 +1370,7 @@
         </div>
 
         <!-- Principle 2 -->
-        <div class="hairline-all rounded-2xl p-6 sm:p-8 bg-charcoal hover:border-lime/50 transition-all duration-300 group flex flex-col justify-between space-y-6">
+        <div class="hairline-all rounded-2xl p-6 sm:p-8 bg-charcoal hover:border-lime/50 transition-all duration-300 group flex flex-col justify-between space-y-6" data-cursor="pointer">
           <div class="space-y-3">
             <span class="font-mono text-xs text-lime font-bold">02 / SCALE</span>
             <h3 class="text-xl sm:text-2xl font-display font-bold text-white group-hover:text-lime transition-colors">
@@ -1301,7 +1387,7 @@
         </div>
 
         <!-- Principle 3 -->
-        <div class="hairline-all rounded-2xl p-6 sm:p-8 bg-charcoal hover:border-lime/50 transition-all duration-300 group flex flex-col justify-between space-y-6">
+        <div class="hairline-all rounded-2xl p-6 sm:p-8 bg-charcoal hover:border-lime/50 transition-all duration-300 group flex flex-col justify-between space-y-6" data-cursor="pointer">
           <div class="space-y-3">
             <span class="font-mono text-xs text-lime font-bold">03 / MOTION</span>
             <h3 class="text-xl sm:text-2xl font-display font-bold text-white group-hover:text-lime transition-colors">
@@ -1318,7 +1404,7 @@
         </div>
 
         <!-- Principle 4 -->
-        <div class="hairline-all rounded-2xl p-6 sm:p-8 bg-charcoal hover:border-lime/50 transition-all duration-300 group flex flex-col justify-between space-y-6">
+        <div class="hairline-all rounded-2xl p-6 sm:p-8 bg-charcoal hover:border-lime/50 transition-all duration-300 group flex flex-col justify-between space-y-6" data-cursor="pointer">
           <div class="space-y-3">
             <span class="font-mono text-xs text-lime font-bold">04 / RIGOR</span>
             <h3 class="text-xl sm:text-2xl font-display font-bold text-white group-hover:text-lime transition-colors">
@@ -1335,7 +1421,7 @@
         </div>
 
         <!-- Principle 5 -->
-        <div class="hairline-all rounded-2xl p-6 sm:p-8 bg-charcoal hover:border-lime/50 transition-all duration-300 group flex flex-col justify-between space-y-6">
+        <div class="hairline-all rounded-2xl p-6 sm:p-8 bg-charcoal hover:border-lime/50 transition-all duration-300 group flex flex-col justify-between space-y-6" data-cursor="pointer">
           <div class="space-y-3">
             <span class="font-mono text-xs text-lime font-bold">05 / INTELLIGENCE</span>
             <h3 class="text-xl sm:text-2xl font-display font-bold text-white group-hover:text-lime transition-colors">
@@ -1352,7 +1438,7 @@
         </div>
 
         <!-- Principle 6 -->
-        <div class="hairline-all rounded-2xl p-6 sm:p-8 bg-charcoal hover:border-lime/50 transition-all duration-300 group flex flex-col justify-between space-y-6">
+        <div class="hairline-all rounded-2xl p-6 sm:p-8 bg-charcoal hover:border-lime/50 transition-all duration-300 group flex flex-col justify-between space-y-6" data-cursor="pointer">
           <div class="space-y-3">
             <span class="font-mono text-xs text-lime font-bold">06 / PRECISION</span>
             <h3 class="text-xl sm:text-2xl font-display font-bold text-white group-hover:text-lime transition-colors">
@@ -1385,12 +1471,14 @@
             <span>/</span>
             <span>TRANSPARENT ECONOMICS</span>
           </div>
-          <h2 class="text-3xl sm:text-5xl lg:text-6xl font-display font-bold text-white tracking-tight">
-            Scope Estimator.
-          </h2>
+          <div class="split-heading-mask">
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-display font-bold text-white tracking-tight split-heading-item">
+              Scope Estimator.
+            </h2>
+          </div>
         </div>
         <p class="text-textSecondary text-xs sm:text-sm max-w-md font-sans leading-relaxed">
-          Select project category and scope specifications. Our mathematical pricing engine calculates an indicative investment timeline in real time.
+          Select project category and scope specifications. Our mathematical pricing engine calculates an indicative investment timeline with real-time animated transitions.
         </p>
       </div>
 
@@ -1407,7 +1495,7 @@
             </label>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="estimatorCategories">
               
-              <div onclick="setEstimatorCategory('Web Flagship Platform', 2500, '3 — 5 Weeks')" class="est-cat-card p-4 rounded-xl hairline-all bg-charcoal cursor-pointer border-lime transition-all active-cat" data-cat="Web Flagship Platform" data-price="2500" data-timeline="3 — 5 Weeks">
+              <div onclick="setEstimatorCategory('Web Flagship Platform', 2500, '3 — 5 Weeks')" class="est-cat-card p-4 rounded-xl hairline-all bg-charcoal cursor-pointer border-lime transition-all active-cat" data-cat="Web Flagship Platform" data-price="2500" data-timeline="3 — 5 Weeks" data-cursor="pointer">
                 <div class="flex items-center justify-between mb-1">
                   <span class="font-display font-bold text-sm text-white">Web Flagship</span>
                   <span class="font-mono text-xs text-lime">$2,500</span>
@@ -1415,7 +1503,7 @@
                 <p class="text-[11px] text-textSecondary font-sans">Full-stack SSR Next.js 14, headless CMS, micro-animations, and 95+ Core Web Vitals score.</p>
               </div>
 
-              <div onclick="setEstimatorCategory('Mobile Application', 3800, '5 — 8 Weeks')" class="est-cat-card p-4 rounded-xl hairline-all bg-charcoal cursor-pointer hover:border-lime/40 transition-all" data-cat="Mobile Application" data-price="3800" data-timeline="5 — 8 Weeks">
+              <div onclick="setEstimatorCategory('Mobile Application', 3800, '5 — 8 Weeks')" class="est-cat-card p-4 rounded-xl hairline-all bg-charcoal cursor-pointer hover:border-lime/40 transition-all" data-cat="Mobile Application" data-price="3800" data-timeline="5 — 8 Weeks" data-cursor="pointer">
                 <div class="flex items-center justify-between mb-1">
                   <span class="font-display font-bold text-sm text-white">Mobile Application</span>
                   <span class="font-mono text-xs text-lime">$3,800</span>
@@ -1423,7 +1511,7 @@
                 <p class="text-[11px] text-textSecondary font-sans">iOS & Android Flutter build, offline SQLite storage, biometric security, and store release.</p>
               </div>
 
-              <div onclick="setEstimatorCategory('AI Product / Agent', 2200, '3 — 4 Weeks')" class="est-cat-card p-4 rounded-xl hairline-all bg-charcoal cursor-pointer hover:border-lime/40 transition-all" data-cat="AI Product / Agent" data-price="2200" data-timeline="3 — 4 Weeks">
+              <div onclick="setEstimatorCategory('AI Product / Agent', 2200, '3 — 4 Weeks')" class="est-cat-card p-4 rounded-xl hairline-all bg-charcoal cursor-pointer hover:border-lime/40 transition-all" data-cat="AI Product / Agent" data-price="2200" data-timeline="3 — 4 Weeks" data-cursor="pointer">
                 <div class="flex items-center justify-between mb-1">
                   <span class="font-display font-bold text-sm text-white">AI Product / Agent</span>
                   <span class="font-mono text-xs text-lime">$2,200</span>
@@ -1431,7 +1519,7 @@
                 <p class="text-[11px] text-textSecondary font-sans">Grounded RAG architecture, Google Gemini integration, vector search, and structured JSON outputs.</p>
               </div>
 
-              <div onclick="setEstimatorCategory('Brand & Design System', 1800, '2 — 4 Weeks')" class="est-cat-card p-4 rounded-xl hairline-all bg-charcoal cursor-pointer hover:border-lime/40 transition-all" data-cat="Brand & Design System" data-price="1800" data-timeline="2 — 4 Weeks">
+              <div onclick="setEstimatorCategory('Brand & Design System', 1800, '2 — 4 Weeks')" class="est-cat-card p-4 rounded-xl hairline-all bg-charcoal cursor-pointer hover:border-lime/40 transition-all" data-cat="Brand & Design System" data-price="1800" data-timeline="2 — 4 Weeks" data-cursor="pointer">
                 <div class="flex items-center justify-between mb-1">
                   <span class="font-display font-bold text-sm text-white">Brand & Design System</span>
                   <span class="font-mono text-xs text-lime">$1,800</span>
@@ -1439,7 +1527,7 @@
                 <p class="text-[11px] text-textSecondary font-sans">Monumental visual identity, custom typography pairing, comprehensive Figma design tokens.</p>
               </div>
 
-              <div onclick="setEstimatorCategory('Full-Stack Enterprise SaaS', 5500, '8 — 12 Weeks')" class="est-cat-card p-4 rounded-xl hairline-all bg-charcoal cursor-pointer hover:border-lime/40 transition-all sm:col-span-2" data-cat="Full-Stack Enterprise SaaS" data-price="5500" data-timeline="8 — 12 Weeks">
+              <div onclick="setEstimatorCategory('Full-Stack Enterprise SaaS', 5500, '8 — 12 Weeks')" class="est-cat-card p-4 rounded-xl hairline-all bg-charcoal cursor-pointer hover:border-lime/40 transition-all sm:col-span-2" data-cat="Full-Stack Enterprise SaaS" data-price="5500" data-timeline="8 — 12 Weeks" data-cursor="pointer">
                 <div class="flex items-center justify-between mb-1">
                   <span class="font-display font-bold text-sm text-white">Full-Stack Enterprise SaaS Suite</span>
                   <span class="font-mono text-xs text-lime">$5,500</span>
@@ -1457,7 +1545,7 @@
             </label>
             <div class="space-y-2.5" id="estimatorAddons">
               
-              <label class="flex items-center justify-between p-3.5 rounded-xl hairline-all bg-charcoal cursor-pointer hover:bg-surface transition-colors">
+              <label class="flex items-center justify-between p-3.5 rounded-xl hairline-all bg-charcoal cursor-pointer hover:bg-surface transition-colors" data-cursor="pointer">
                 <div class="flex items-center gap-3">
                   <input type="checkbox" onchange="recalculateEstimatorTotal()" data-addon="3D WebGL / Spatial Motion" data-cost="1200" class="est-checkbox w-4 h-4 rounded accent-lime" />
                   <div>
@@ -1468,7 +1556,7 @@
                 <span class="font-mono text-xs text-lime shrink-0 ml-3">+$1,200</span>
               </label>
 
-              <label class="flex items-center justify-between p-3.5 rounded-xl hairline-all bg-charcoal cursor-pointer hover:bg-surface transition-colors">
+              <label class="flex items-center justify-between p-3.5 rounded-xl hairline-all bg-charcoal cursor-pointer hover:bg-surface transition-colors" data-cursor="pointer">
                 <div class="flex items-center gap-3">
                   <input type="checkbox" onchange="recalculateEstimatorTotal()" data-addon="Grounded AI RAG Pipeline" data-cost="1400" class="est-checkbox w-4 h-4 rounded accent-lime" />
                   <div>
@@ -1479,7 +1567,7 @@
                 <span class="font-mono text-xs text-lime shrink-0 ml-3">+$1,400</span>
               </label>
 
-              <label class="flex items-center justify-between p-3.5 rounded-xl hairline-all bg-charcoal cursor-pointer hover:bg-surface transition-colors">
+              <label class="flex items-center justify-between p-3.5 rounded-xl hairline-all bg-charcoal cursor-pointer hover:bg-surface transition-colors" data-cursor="pointer">
                 <div class="flex items-center gap-3">
                   <input type="checkbox" onchange="recalculateEstimatorTotal()" data-addon="Multi-Language Localization" data-cost="500" class="est-checkbox w-4 h-4 rounded accent-lime" />
                   <div>
@@ -1490,7 +1578,7 @@
                 <span class="font-mono text-xs text-lime shrink-0 ml-3">+$500</span>
               </label>
 
-              <label class="flex items-center justify-between p-3.5 rounded-xl hairline-all bg-charcoal cursor-pointer hover:bg-surface transition-colors">
+              <label class="flex items-center justify-between p-3.5 rounded-xl hairline-all bg-charcoal cursor-pointer hover:bg-surface transition-colors" data-cursor="pointer">
                 <div class="flex items-center gap-3">
                   <input type="checkbox" onchange="recalculateEstimatorTotal()" data-addon="2-Week Accelerated Sprint" data-cost="1000" class="est-checkbox w-4 h-4 rounded accent-lime" />
                   <div>
@@ -1501,7 +1589,7 @@
                 <span class="font-mono text-xs text-lime shrink-0 ml-3">+$1,000</span>
               </label>
 
-              <label class="flex items-center justify-between p-3.5 rounded-xl hairline-all bg-charcoal cursor-pointer hover:bg-surface transition-colors">
+              <label class="flex items-center justify-between p-3.5 rounded-xl hairline-all bg-charcoal cursor-pointer hover:bg-surface transition-colors" data-cursor="pointer">
                 <div class="flex items-center gap-3">
                   <input type="checkbox" onchange="recalculateEstimatorTotal()" data-addon="Priority Maintenance Retainer" data-cost="800" class="est-checkbox w-4 h-4 rounded accent-lime" />
                   <div>
@@ -1526,7 +1614,7 @@
               <span class="font-mono text-[10px] text-textMuted uppercase">CURRENCY: USD</span>
             </div>
 
-            <!-- Total Indicative Display -->
+            <!-- Total Indicative Display With Smooth Animated Number -->
             <div class="space-y-1">
               <div class="font-mono text-xs text-textSecondary uppercase">Indicative Investment:</div>
               <div class="flex items-baseline gap-2">
@@ -1560,12 +1648,12 @@
 
             <!-- Action Directives -->
             <div class="space-y-3 pt-2">
-              <button onclick="transmitEstimateToInquiry()" class="btn-lime w-full py-3.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider flex items-center justify-center gap-2">
+              <button onclick="transmitEstimateToInquiry()" class="btn-lime w-full py-3.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider flex items-center justify-center gap-2 magnetic" data-cursor="pointer">
                 <span>Transmit Estimate Brief</span>
                 <i data-lucide="arrow-right" class="w-4 h-4"></i>
               </button>
 
-              <button onclick="openEstimatorSlideOver()" class="btn-ghost-editorial w-full py-2.5 rounded-full text-xs font-mono uppercase tracking-wider flex items-center justify-center gap-2">
+              <button onclick="openEstimatorSlideOver()" class="btn-ghost-editorial w-full py-2.5 rounded-full text-xs font-mono uppercase tracking-wider flex items-center justify-center gap-2 magnetic" data-cursor="pointer">
                 <span>Open Advanced Slide-Over Panel</span>
                 <i data-lucide="sliders" class="w-3.5 h-3.5 text-lime"></i>
               </button>
@@ -1587,21 +1675,23 @@
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16 sm:mb-24">
         <div class="lg:col-span-8 space-y-4">
           <div class="font-mono text-xs text-lime uppercase tracking-widest">[ 05 / INITIATION DIRECTIVE ]</div>
-          <h2 class="text-3xl sm:text-5xl lg:text-7xl font-display font-extrabold text-white tracking-tight leading-[1.05]">
-            Ready to Build Something Monumental?
-          </h2>
+          <div class="split-heading-mask">
+            <h2 class="text-3xl sm:text-5xl lg:text-7xl font-display font-extrabold text-white tracking-tight leading-[1.05] split-heading-item">
+              Ready to Build Something Monumental?
+            </h2>
+          </div>
           <p class="text-textSecondary text-sm sm:text-base max-w-2xl font-sans leading-relaxed pt-2">
             We partner with ambitious enterprises, innovative startups, and civic institutions. Tell us what you are building.
           </p>
         </div>
 
         <div class="lg:col-span-4 flex flex-col gap-3.5 pt-4 lg:pt-8">
-          <button onclick="openHireModal()" class="btn-lime w-full py-4 rounded-full text-xs font-mono font-bold uppercase tracking-wider flex items-center justify-center gap-2">
+          <button onclick="openHireModal()" class="btn-lime w-full py-4 rounded-full text-xs font-mono font-bold uppercase tracking-wider flex items-center justify-center gap-2 magnetic" data-cursor="pointer">
             <span>Start a Project Conversation</span>
             <i data-lucide="arrow-right" class="w-4 h-4"></i>
           </button>
           
-          <a href="https://wa.me/919074300569" target="_blank" rel="noopener noreferrer" class="btn-ghost-editorial w-full py-3.5 rounded-full text-xs font-mono uppercase tracking-wider flex items-center justify-center gap-2">
+          <a href="https://wa.me/919074300569" target="_blank" rel="noopener noreferrer" class="btn-ghost-editorial w-full py-3.5 rounded-full text-xs font-mono uppercase tracking-wider flex items-center justify-center gap-2 magnetic" data-cursor="pointer">
             <i data-lucide="message-square" class="w-4 h-4 text-emerald-400"></i>
             <span>Instant WhatsApp Hotline</span>
           </a>
@@ -1615,8 +1705,8 @@
         <div class="space-y-3">
           <div class="text-[10px] text-lime uppercase tracking-wider">[ INQUIRIES & DIRECT ]</div>
           <div class="space-y-1.5">
-            <a href="mailto:noorulazetirur@gmail.com" class="block text-white hover:text-lime transition-colors">noorulazetirur@gmail.com</a>
-            <a href="tel:+919074300569" class="block text-textSecondary hover:text-white transition-colors">+91 90743 00569</a>
+            <a href="mailto:noorulazetirur@gmail.com" class="block text-white hover:text-lime transition-colors" data-cursor="pointer">noorulazetirur@gmail.com</a>
+            <a href="tel:+919074300569" class="block text-textSecondary hover:text-white transition-colors" data-cursor="pointer">+91 90743 00569</a>
             <div class="text-textMuted text-[11px] pt-1">Response window: &lt; 24 business hours</div>
           </div>
         </div>
@@ -1645,15 +1735,15 @@
         <div class="space-y-3">
           <div class="text-[10px] text-lime uppercase tracking-wider">[ CONNECT ]</div>
           <div class="space-y-1.5">
-            <a href="https://github.com/noorulaze" target="_blank" rel="noopener noreferrer" class="block text-textSecondary hover:text-lime transition-colors flex items-center gap-1.5">
+            <a href="https://github.com/noorulaze" target="_blank" rel="noopener noreferrer" class="block text-textSecondary hover:text-lime transition-colors flex items-center gap-1.5" data-cursor="pointer">
               <span>GitHub / noorulaze</span>
               <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
             </a>
-            <a href="https://instagram.com/azu_00_1" target="_blank" rel="noopener noreferrer" class="block text-textSecondary hover:text-lime transition-colors flex items-center gap-1.5">
+            <a href="https://instagram.com/azu_00_1" target="_blank" rel="noopener noreferrer" class="block text-textSecondary hover:text-lime transition-colors flex items-center gap-1.5" data-cursor="pointer">
               <span>Instagram / @azu_00_1</span>
               <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
             </a>
-            <a href="/work/our-nation" class="block text-lime hover:underline flex items-center gap-1.5">
+            <a href="/work/our-nation" class="block text-lime hover:underline flex items-center gap-1.5" data-cursor="pointer">
               <span>OUR NATION Case Study</span>
               <i data-lucide="arrow-right" class="w-3 h-3"></i>
             </a>
@@ -1663,8 +1753,8 @@
       </div>
 
       <!-- Monumental Bottom Kinetic Typography -->
-      <div class="my-12 sm:my-20 text-center select-none overflow-hidden">
-        <div class="font-display font-black text-[20vw] leading-none text-white/5 tracking-tighter hover:text-white/10 transition-colors duration-700">
+      <div class="my-12 sm:my-20 text-center select-none overflow-hidden footer-marquee-container">
+        <div class="font-display font-black text-[20vw] leading-none text-white/5 tracking-tighter hover:text-white/10 transition-colors duration-700 footer-kinetic-wordmark" data-cursor="pointer">
           CRAFTIQ
         </div>
       </div>
@@ -1677,7 +1767,7 @@
         <div class="flex items-center gap-4">
           <span>HIGH-DISCIPLINE DIGITAL CRAFT</span>
           <span>•</span>
-          <a href="#hero" class="text-textSecondary hover:text-lime transition-colors flex items-center gap-1">
+          <a href="#hero" class="text-textSecondary hover:text-lime transition-colors flex items-center gap-1 magnetic" data-cursor="pointer">
             <span>BACK TO TOP</span>
             <i data-lucide="arrow-up" class="w-3 h-3"></i>
           </a>
@@ -1701,7 +1791,7 @@
           <span class="font-mono text-[10px] text-lime uppercase tracking-widest">[ SLIDE-OVER SCOPE LAB ]</span>
           <h3 class="font-display font-bold text-xl text-white mt-0.5">Interactive Estimator</h3>
         </div>
-        <button onclick="closeEstimatorSlideOver()" class="p-2 rounded-lg bg-surface hover:bg-surfaceHover text-textSecondary hover:text-white transition-colors">
+        <button onclick="closeEstimatorSlideOver()" class="p-2 rounded-lg bg-surface hover:bg-surfaceHover text-textSecondary hover:text-white transition-colors" data-cursor="pointer">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
@@ -1751,11 +1841,11 @@
 
     <!-- Drawer Footer Actions -->
     <div class="pt-6 border-t border-white/10 space-y-2.5">
-      <button onclick="closeEstimatorSlideOver(); transmitEstimateToInquiry();" class="btn-lime w-full py-3.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider flex items-center justify-center gap-2">
+      <button onclick="closeEstimatorSlideOver(); transmitEstimateToInquiry();" class="btn-lime w-full py-3.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider flex items-center justify-center gap-2 magnetic" data-cursor="pointer">
         <span>Proceed With This Estimate Brief</span>
         <i data-lucide="arrow-right" class="w-4 h-4"></i>
       </button>
-      <button onclick="closeEstimatorSlideOver()" class="btn-ghost-editorial w-full py-2.5 rounded-full text-xs font-mono uppercase tracking-wider">
+      <button onclick="closeEstimatorSlideOver()" class="btn-ghost-editorial w-full py-2.5 rounded-full text-xs font-mono uppercase tracking-wider magnetic" data-cursor="pointer">
         <span>Dismiss Panel</span>
       </button>
     </div>
@@ -1773,7 +1863,7 @@
           <span class="font-mono text-[10px] text-lime uppercase tracking-widest">[ PROJECT COMMISSION BRIEF ]</span>
           <h3 class="font-display font-bold text-xl text-white mt-0.5">Initiate Project With CRAFTIQ</h3>
         </div>
-        <button onclick="closeHireModal()" class="p-2 rounded-lg bg-surface hover:bg-surfaceHover text-textSecondary hover:text-white transition-colors">
+        <button onclick="closeHireModal()" class="p-2 rounded-lg bg-surface hover:bg-surfaceHover text-textSecondary hover:text-white transition-colors" data-cursor="pointer">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
@@ -1813,7 +1903,7 @@
         </div>
 
         <div class="pt-2">
-          <button type="submit" id="inqSubmitBtn" class="btn-lime w-full py-3.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider flex items-center justify-center gap-2">
+          <button type="submit" id="inqSubmitBtn" class="btn-lime w-full py-3.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider flex items-center justify-center gap-2 magnetic" data-cursor="pointer">
             <span>Submit Official Commission Brief</span>
             <i data-lucide="send" class="w-4 h-4"></i>
           </button>
@@ -1841,7 +1931,7 @@
   </div>
 
   <!-- ===================================================================== -->
-  <!-- MOTION & INTERACTION CONTROLLERS                                      -->
+  <!-- PHASE 2 ADVANCED MOTION & INTERACTION CONTROLLERS                     -->
   <!-- ===================================================================== -->
   <script>
     // 1. INITIALIZE LUCIDE ICONS
@@ -1854,34 +1944,59 @@
       const clockEl = document.getElementById('liveTimeClock');
       if (!clockEl) return;
       const now = new Date();
-      // Indian Standard Time (UTC+5:30)
       const options = { timeZone: 'Asia/Kolkata', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
       clockEl.innerText = now.toLocaleTimeString('en-GB', options) + ' IST';
     }
     setInterval(updateLiveClock, 1000);
     updateLiveClock();
 
-    // 3. CURSOR SPOTLIGHT TRACKING
+    // 3. EDITORIAL PRECISION CUSTOM CURSOR (DESKTOP)
+    const cursorDot = document.getElementById('cursorDot');
+    const cursorRing = document.getElementById('cursorRing');
     const cursorSpotlight = document.getElementById('cursorSpotlight');
-    if (cursorSpotlight && window.matchMedia('(pointer: fine)').matches) {
-      document.addEventListener('mousemove', (e) => {
+
+    if (window.matchMedia('(pointer: fine)').matches && cursorDot && cursorRing) {
+      let xToDot = gsap.quickTo(cursorDot, "x", { duration: 0.08, ease: "power3" });
+      let yToDot = gsap.quickTo(cursorDot, "y", { duration: 0.08, ease: "power3" });
+      let xToRing = gsap.quickTo(cursorRing, "x", { duration: 0.2, ease: "power3" });
+      let yToRing = gsap.quickTo(cursorRing, "y", { duration: 0.2, ease: "power3" });
+
+      window.addEventListener("mousemove", (e) => {
+        xToDot(e.clientX);
+        yToDot(e.clientY);
+        xToRing(e.clientX);
+        yToRing(e.clientY);
+
         document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
         document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+      }, { passive: true });
+
+      // Cursor hover states
+      document.querySelectorAll('a, button, [data-cursor="pointer"]').forEach(el => {
+        el.addEventListener('mouseenter', () => cursorRing.classList.add('hovered'));
+        el.addEventListener('mouseleave', () => cursorRing.classList.remove('hovered'));
+      });
+
+      document.querySelectorAll('[data-cursor="project"]').forEach(el => {
+        el.addEventListener('mouseenter', () => cursorRing.classList.add('project-hover'));
+        el.addEventListener('mouseleave', () => cursorRing.classList.remove('project-hover'));
       });
     }
 
-    // 4. LENIS SMOOTH SCROLL INITIALIZATION
+    // 4. LENIS SMOOTH SCROLL INITIALIZATION (RESPECTS PREFERS-REDUCED-MOTION)
     let lenis = null;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     try {
-      if (typeof Lenis !== 'undefined' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if (typeof Lenis !== 'undefined' && !prefersReducedMotion) {
         lenis = new Lenis({
-          duration: 1.2,
+          duration: 1.15,
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           direction: 'vertical',
           gestureDirection: 'vertical',
           smooth: true,
           smoothTouch: false,
-          touchMultiplier: 2,
+          touchMultiplier: 1.8,
         });
 
         function raf(time) {
@@ -1902,22 +2017,39 @@
       console.warn("Smooth scroll initialization bypassed:", e);
     }
 
-    // 5. GSAP STAGGERED HERO & SCROLLTRIGGER REVEALS
-    window.addEventListener('DOMContentLoaded', () => {
-      if (typeof gsap !== 'undefined') {
-        try {
-          if (typeof ScrollTrigger !== 'undefined') {
-            gsap.registerPlugin(ScrollTrigger);
-          }
+    // 5. MAGNETIC BUTTON PHYSICS
+    if (window.matchMedia('(pointer: fine)').matches && !prefersReducedMotion) {
+      document.querySelectorAll('.magnetic, .btn-lime, .btn-ghost-editorial').forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          gsap.to(btn, { x: x * 0.28, y: y * 0.28, duration: 0.3, ease: 'power2.out' });
+        });
+        btn.addEventListener('mouseleave', () => {
+          gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
+        });
+      });
+    }
 
-          // A. Hero Letter Stagger Entrance
+    // 6. GSAP STAGGERED HERO, CLIPPING MASKS, PARALLAX & SECTION REVEALS
+    window.addEventListener('DOMContentLoaded', () => {
+      if (typeof gsap === 'undefined') return;
+
+      try {
+        if (typeof ScrollTrigger !== 'undefined') {
+          gsap.registerPlugin(ScrollTrigger);
+        }
+
+        // A. Hero Letter Stagger Entrance
+        if (!prefersReducedMotion) {
           gsap.from(".hero-char", {
             yPercent: 120,
             opacity: 0,
-            duration: 1.1,
+            duration: 1.2,
             stagger: 0.05,
             ease: "power4.out",
-            delay: 0.2
+            delay: 0.15
           });
 
           // B. Hero Wordmark Parallax Scaling on Scroll
@@ -1927,20 +2059,152 @@
                 trigger: "#hero",
                 start: "top top",
                 end: "bottom top",
-                scrub: true
+                scrub: 1
               },
-              scale: 0.88,
+              scale: 0.9,
               opacity: 0.25,
               ease: "none"
             });
           }
-        } catch(err) {
-          console.warn("GSAP animation setup error:", err);
+
+          // C. Section Headings Mask Reveals
+          gsap.utils.toArray('.split-heading-item').forEach(heading => {
+            gsap.from(heading, {
+              yPercent: 100,
+              opacity: 0,
+              duration: 1,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: heading,
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+              }
+            });
+          });
+
+          // D. Project Image Clipping Mask Reveals & 3D Tilt
+          gsap.utils.toArray('.project-curtain-card').forEach((card) => {
+            const imgViewport = card.querySelector('.project-img-viewport');
+            if (imgViewport && typeof ScrollTrigger !== 'undefined') {
+              gsap.fromTo(imgViewport, 
+                { clipPath: 'inset(14% 3% 14% 3% round 1.5rem)', opacity: 0.7 },
+                {
+                  clipPath: 'inset(0% 0% 0% 0% round 1rem)',
+                  opacity: 1,
+                  duration: 1.2,
+                  ease: 'power3.out',
+                  scrollTrigger: {
+                    trigger: card,
+                    start: 'top 85%',
+                    end: 'top 35%',
+                    scrub: 1
+                  }
+                }
+              );
+            }
+
+            // 3D Perspective Tilt for Desktop
+            if (window.matchMedia('(pointer: fine)').matches) {
+              const img = card.querySelector('.project-img-viewport img');
+              card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                if (img) {
+                  gsap.to(img, {
+                    rotateY: x * 6,
+                    rotateX: -y * 6,
+                    scale: 1.05,
+                    duration: 0.5,
+                    ease: 'power2.out'
+                  });
+                }
+              });
+              card.addEventListener('mouseleave', () => {
+                if (img) {
+                  gsap.to(img, {
+                    rotateY: 0,
+                    rotateX: 0,
+                    scale: 1,
+                    duration: 0.8,
+                    ease: 'power2.out'
+                  });
+                }
+              });
+            }
+          });
+
+          // E. Footer Kinetic Marquee Scroll Parallax
+          if (typeof ScrollTrigger !== 'undefined') {
+            gsap.to(".footer-kinetic-wordmark", {
+              scrollTrigger: {
+                trigger: "footer",
+                start: "top bottom",
+                end: "bottom bottom",
+                scrub: 1
+              },
+              letterSpacing: "0.08em",
+              color: "rgba(204, 255, 0, 0.08)",
+              ease: "none"
+            });
+          }
         }
+      } catch(err) {
+        console.warn("GSAP animation setup error:", err);
       }
     });
 
-    // 6. DISCIPLINE ACCORDION INTERACTION
+    // 7. SCROLLSPY & SMOOTH ANCHOR SCROLLING
+    const sections = ['studio', 'lineup', 'principles', 'estimator', 'contact'];
+    const navItems = document.querySelectorAll('#desktopNav .nav-item');
+
+    function updateScrollspy() {
+      const scrollPos = window.scrollY + 220;
+      sections.forEach(secId => {
+        const el = document.getElementById(secId);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (scrollPos >= top && scrollPos < top + height) {
+            navItems.forEach(item => {
+              const indicator = item.querySelector('.nav-indicator');
+              if (item.getAttribute('data-nav') === secId) {
+                item.classList.add('text-white');
+                item.classList.remove('text-textSecondary');
+                if (indicator) indicator.classList.remove('opacity-0');
+              } else {
+                item.classList.remove('text-white');
+                item.classList.add('text-textSecondary');
+                if (indicator) indicator.classList.add('opacity-0');
+              }
+            });
+          }
+        }
+      });
+    }
+    window.addEventListener('scroll', updateScrollspy, { passive: true });
+
+    // Smooth anchor click handler using Lenis
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        if (!targetId || targetId === '#') return;
+        if (targetId === '#hero') {
+          e.preventDefault();
+          if (lenis) lenis.scrollTo(0);
+          else window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        }
+        const targetEl = document.querySelector(targetId);
+        if (targetEl) {
+          e.preventDefault();
+          if (lenis) lenis.scrollTo(targetEl, { offset: -70 });
+          else targetEl.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // 8. DISCIPLINE ACCORDION INTERACTION
     let currentOpenDiscipline = 1;
     function toggleDiscipline(id) {
       const drawer = document.getElementById(`disc-drawer-${id}`);
@@ -1968,7 +2232,7 @@
     // Open Discipline 1 by default
     toggleDiscipline(1);
 
-    // 7. EDITORIAL ARCHIVE REPOSITORY TOGGLE
+    // 9. EDITORIAL ARCHIVE REPOSITORY TOGGLE
     function toggleEditorialArchive() {
       const wrap = document.getElementById('editorialArchiveWrapper');
       const btn = document.getElementById('archiveToggleBtn');
@@ -1977,7 +2241,8 @@
       if (isHidden) {
         wrap.classList.remove('hidden');
         if (btn) btn.innerHTML = `<i data-lucide="x" class="w-4 h-4 text-lime"></i><span>Hide Archive</span>`;
-        wrap.scrollIntoView({ behavior: 'smooth' });
+        if (lenis) lenis.scrollTo(wrap, { offset: -60 });
+        else wrap.scrollIntoView({ behavior: 'smooth' });
       } else {
         wrap.classList.add('hidden');
         if (btn) btn.innerHTML = `<i data-lucide="list" class="w-4 h-4 text-lime"></i><span>Full Editorial Index (9 Works)</span>`;
@@ -1985,10 +2250,11 @@
       lucide.createIcons();
     }
 
-    // 8. PROJECT ESTIMATOR LOGIC
+    // 10. PROJECT ESTIMATOR WITH ANIMATED NUMBER TICKER
     let estCurrentBase = 2500;
     let estCurrentCategoryName = 'Web Flagship Platform';
     let estCurrentTimeline = '3 — 5 Weeks';
+    let animatedPriceTracker = { val: 2500 };
 
     function setEstimatorCategory(name, price, timeline) {
       estCurrentBase = price;
@@ -2012,7 +2278,7 @@
       if (summaryCat) summaryCat.innerText = name;
       if (summaryTime) summaryTime.innerText = timeline;
 
-      // Update slide-over select if present
+      // Update slide-over select
       const soSelect = document.getElementById('slideOverSelect');
       if (soSelect) {
         for (let i = 0; i < soSelect.options.length; i++) {
@@ -2039,34 +2305,55 @@
 
       const grandTotal = estCurrentBase + addonTotal;
 
-      // Animate price display
+      // Animate price display using GSAP ticker
       const priceDisplay = document.getElementById('estimatorDisplayPrice');
       const inrDisplay = document.getElementById('estimatorInrEquivalent');
       const soPriceDisplay = document.getElementById('slideOverDisplayPrice');
       const addonsCountDisplay = document.getElementById('estSummaryAddonsCount');
 
-      const formatted = '$' + grandTotal.toLocaleString('en-US');
-      const inrCalc = 'Approx. ₹' + (grandTotal * 84).toLocaleString('en-IN') + ' INR (excl. local tax)';
+      if (typeof gsap !== 'undefined') {
+        gsap.to(animatedPriceTracker, {
+          val: grandTotal,
+          duration: 0.6,
+          ease: 'power3.out',
+          onUpdate: function() {
+            const currentVal = Math.round(animatedPriceTracker.val);
+            const formatted = '$' + currentVal.toLocaleString('en-US');
+            if (priceDisplay) priceDisplay.innerText = formatted;
+            if (soPriceDisplay) soPriceDisplay.innerText = formatted + ' USD';
+            if (inrDisplay) {
+              inrDisplay.innerText = 'Approx. ₹' + (currentVal * 84).toLocaleString('en-IN') + ' INR (excl. local tax)';
+            }
+          }
+        });
+      } else {
+        const formatted = '$' + grandTotal.toLocaleString('en-US');
+        if (priceDisplay) priceDisplay.innerText = formatted;
+        if (soPriceDisplay) soPriceDisplay.innerText = formatted + ' USD';
+        if (inrDisplay) {
+          inrDisplay.innerText = 'Approx. ₹' + (grandTotal * 84).toLocaleString('en-IN') + ' INR (excl. local tax)';
+        }
+      }
 
-      if (priceDisplay) priceDisplay.innerText = formatted;
-      if (inrDisplay) inrDisplay.innerText = inrCalc;
-      if (soPriceDisplay) soPriceDisplay.innerText = formatted + ' USD';
       if (addonsCountDisplay) addonsCountDisplay.innerText = `${addonCount} Module${addonCount === 1 ? '' : 's'} Added`;
 
       // Update inq form defaults
       const inqDiscipline = document.getElementById('inqDiscipline');
       const inqBudget = document.getElementById('inqBudget');
       if (inqDiscipline) inqDiscipline.value = estCurrentCategoryName;
-      if (inqBudget) inqBudget.value = formatted + ' USD (Indicative Total)';
+      if (inqBudget) inqBudget.value = '$' + grandTotal.toLocaleString('en-US') + ' USD (Indicative Total)';
     }
 
     function quickSelectDiscipline(name, price) {
       setEstimatorCategory(name, price, '3 — 6 Weeks');
       const estSec = document.getElementById('estimator');
-      if (estSec) estSec.scrollIntoView({ behavior: 'smooth' });
+      if (estSec) {
+        if (lenis) lenis.scrollTo(estSec, { offset: -70 });
+        else estSec.scrollIntoView({ behavior: 'smooth' });
+      }
     }
 
-    // 9. SLIDE-OVER ESTIMATOR PANEL CONTROLLER
+    // 11. SLIDE-OVER ESTIMATOR PANEL CONTROLLER
     function openEstimatorSlideOver() {
       const backdrop = document.getElementById('slideOverBackdrop');
       const panel = document.getElementById('slideOverPanel');
@@ -2106,7 +2393,7 @@
       openHireModal();
     }
 
-    // 10. HIRE / INQUIRY MODAL CONTROLLER & GOOGLE FORM INTEGRATION
+    // 12. HIRE / INQUIRY MODAL CONTROLLER & GOOGLE FORM INTEGRATION
     function openHireModal() {
       const modal = document.getElementById('hireModal');
       if (modal) {
@@ -2221,11 +2508,24 @@
       }, 5000);
     }
 
-    // 11. MOBILE MENU TOGGLE
+    // 13. MOBILE MENU TOGGLE WITH STAGGER ANIMATION
     function toggleMobileMenu() {
       const drawer = document.getElementById('mobileMenuDrawer');
-      if (drawer) {
-        drawer.classList.toggle('hidden');
+      if (!drawer) return;
+      const isHidden = drawer.classList.contains('hidden');
+      if (isHidden) {
+        drawer.classList.remove('hidden');
+        if (typeof gsap !== 'undefined') {
+          gsap.from("#mobileMenuDrawer a, #mobileMenuDrawer button", {
+            y: 16,
+            opacity: 0,
+            stagger: 0.05,
+            duration: 0.35,
+            ease: "power3.out"
+          });
+        }
+      } else {
+        drawer.classList.add('hidden');
       }
     }
 
